@@ -38,6 +38,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 
+
+
+
     @Override
     public int getCount() {
         // Show 2 total pages.
