@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.EatWhat.AppBarOverlay">
+        android:theme="@style/Theme.EatWhat.AppBarOverlay"
+        android:background="#ba68c8">
 
         <TextView
             android:id="@+id/title"
