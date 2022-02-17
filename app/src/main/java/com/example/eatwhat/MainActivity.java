@@ -1,5 +1,6 @@
 package com.example.eatwhat;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.eatwhat.ui.main.SectionsPagerAdapter;
 import com.example.eatwhat.databinding.ActivityMainBinding;
@@ -19,6 +22,7 @@ import com.example.eatwhat.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private Button test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,5 +45,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        test = (Button)findViewById(R.id.test);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                test();
+            }
+        });
+    }
+    private void test(){
+    Intent intent = new Intent(this, Welcomepage.class);
+    startActivity(intent);
     }
 }
