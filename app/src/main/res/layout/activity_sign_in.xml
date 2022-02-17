@@ -7,7 +7,7 @@
     tools:context=".SignInActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -20,19 +20,19 @@
         >
     </com.google.android.material.imageview.ShapeableImageView>
 
-
-
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toTopOf="@id/linear_layout2"
+        android:id="@+id/linear_layout2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_launcher_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:orientation="vertical"
-        android:id="@+id/linear_layout1"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        >
 
         <EditText
             android:background="@drawable/rounded_corner"
@@ -54,19 +54,8 @@
             android:layout_width="match_parent">
         </EditText>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_layout1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="vertical">
-
         <RelativeLayout
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -130,8 +119,6 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="Sign In"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
             </Button>
