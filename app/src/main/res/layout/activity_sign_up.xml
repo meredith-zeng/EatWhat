@@ -134,10 +134,8 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-
             android:layout_height="50dp"
             android:layout_width="50dp">
-
         </ImageButton>
 
         <TextView
