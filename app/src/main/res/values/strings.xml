@@ -5,4 +5,6 @@
     <string name="tab_text_3">Today</string>
     <string name="no_account"><u> Dont have an account? <b>sign up</b> here</u></string>
     <string name="terms_conditions">To register with us please tick to agree to our <font color='#0039FF'> Terms and Conditions </font> </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
