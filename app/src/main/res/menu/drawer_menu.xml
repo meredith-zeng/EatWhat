@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/drawer_home"
+        android:checkable="true"
+        android:title="Home"
+        />
+    <item android:id="@+id/drawer_profile"
+        android:checkable="true"
+        android:title="My Profile"
+        />
+
+    <item android:id="@+id/drawer_postes"
+        android:checkable="true"
+        android:title="My Posts"
+        />
+
+    <item android:id="@+id/drawer_history"
+        android:checkable="true"
+        android:title="Review History"
+        />
+
+    <item android:id="@+id/drawer_logout"
+        android:checkable="true"
+        android:title="Log out"
+        />
+</menu>
