@@ -3,5 +3,7 @@
     <string name="tab_text_1">Restaurant</string>
     <string name="tab_text_2">Note</string>
     <string name="tab_text_3">Today</string>
+    <string name="Chinese">Pick your favourite genres</string>
+    <string name="set_preference">Pick your favourite genres</string>
     <string name="logout">logout</string>
 </resources>
