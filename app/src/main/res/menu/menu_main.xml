@@ -9,8 +9,7 @@
         android:orderInCategory="91"
         android:title="profile"
         android:icon="@drawable/ic_baseline_person_outline_24"
-        app:showAsAction = "always"/>
-
+        app:showAsAction = "always" />
 
     <item
         android:id="@+id/action_search"

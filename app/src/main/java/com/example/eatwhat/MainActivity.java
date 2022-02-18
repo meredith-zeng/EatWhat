@@ -1,5 +1,6 @@
 package com.example.eatwhat;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         if(id == R.id.action_profile){
+            Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
+            startActivity(mainToAccountIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);

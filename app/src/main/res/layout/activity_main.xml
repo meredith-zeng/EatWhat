@@ -12,7 +12,6 @@
         android:theme="@style/Theme.EatWhat.AppBarOverlay"
         >
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
