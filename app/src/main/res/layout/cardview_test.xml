@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="320dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:paddingLeft="15dp"
@@ -15,72 +15,52 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardElevation="3dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="11dp">
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:background="#a997c4">
-
-            <ImageView
-                android:id="@+id/full_image"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:src="@drawable/post_photo"
-                android:scaleType="centerCrop"
-                android:gravity="bottom" />
+                android:layout_height="match_parent"
+                android:background="#a997c4">
 
-            <TextView
-                android:id="@+id/name_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/full_image"
-                android:textSize="17sp"
-                android:layout_marginTop="12dp"
-                android:textColor="@color/black"
-                android:text="A Guide To Rocky Mountain Vacations"/>
+                <ImageView
+                    android:id="@+id/full_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/post_photo"
+                    android:scaleType="centerCrop"
+                    android:gravity="bottom" />
 
+                <TextView
+                    android:id="@+id/name_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/full_image"
+                    android:textSize="17sp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="@color/white"
+                    android:text="A Guide To Rocky Mountain Vacations "/>
 
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="22dp"
-                android:layout_height="23dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="12dp"
-                android:layout_below="@+id/name_text_view"
-                android:src="@drawable/ic_launcher_background"/>
-
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_below="@id/name_text_view"
-                android:layout_toRightOf="@id/profile_image"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="7dp"
-                android:textColor="@color/black"
-                android:text="Ryan Estrada"/>
-
-
-
-            <TextView
-                android:id="@+id/time_stamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name_text_view"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="12dp"
-                android:layout_toRightOf="@id/profile_name"
-                android:gravity="right"
-                android:text="2 hours ago"
-                android:textSize="14sp" />
-
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_text_view"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/logout"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_favorite_48"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="bottom" />
+            </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
