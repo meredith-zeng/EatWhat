@@ -29,7 +29,7 @@
         android:layout_marginBottom="150dp"
         android:clickable="true"
         android:gravity="center_horizontal"
-        android:text="Drag here to enter"
+        android:text="Tap here to enter"
         android:textSize="25sp" />
 
 </RelativeLayout>
