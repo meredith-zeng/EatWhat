@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="91"
+        android:title="profile"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        app:showAsAction = "always" />
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="92"
+        android:title="search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction = "always"/>
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction = "never"/>
+
+</menu>
