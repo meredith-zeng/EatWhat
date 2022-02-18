@@ -8,17 +8,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cute_pink"
         android:gravity="center_horizontal"
         android:text="Welcome to EatWhat"
-        android:textSize="40dp" />
+        android:textSize="35dp" />
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_baseline_food_bank_24"
-        />
+        android:layout_marginTop="80dp"
+        app:srcCompat="@drawable/ic_baseline_food_bank_24" />
 
     <TextView
         android:id="@+id/welcome"

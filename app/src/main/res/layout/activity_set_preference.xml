@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -39,7 +40,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="3"
-        android:rowCount="3">
+        android:rowCount="3"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        >
 
         <CheckedTextView
             android:id="@+id/Chinese"
@@ -49,17 +55,17 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="150dp"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_marginBottom="10dp"
-            android:background="@null"
+            android:background="@drawable/round_rectangular"
+            android:checked="false"
+            android:clickable="true"
+            android:minHeight="48dp"
             android:text="Chinese"
             android:textColor="#978C8C"
-            android:textSize="20sp"
-            android:textIsSelectable="true"
-            android:checked="false"
-            android:clickable="true"/>
+            android:textSize="20sp" />
 
         <CheckedTextView
             android:id="@+id/Japanese"
@@ -69,14 +75,15 @@
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
-            android:layout_gravity="fill"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="150dp"
-            android:background="@null"
+            android:clickable="true"
+            android:background="@drawable/round_rectangular"
             android:text="Japanese"
             android:textColor="#978C8C"
-            android:textSize="20sp"
-            android:textIsSelectable="true"/>
+            android:textSize="20sp" />
         <CheckedTextView
             android:id="@+id/Tai"
             android:layout_width="wrap_content"
@@ -85,15 +92,16 @@
             android:layout_rowWeight="1"
             android:layout_column="2"
             android:layout_columnWeight="1"
-            android:layout_gravity="fill"
-            android:layout_marginEnd="50dp"
-            android:layout_marginTop="150dp"
-            android:background="@null"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
+            android:background="@drawable/round_rectangular"
             android:text="Tai"
+            android:clickable="true"
             android:textColor="#978C8C"
             android:textSize="20sp"
-            android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            android:layout_marginBottom="10dp" />
+
         <CheckedTextView
             android:id="@+id/American"
             android:layout_width="wrap_content"
@@ -102,14 +110,17 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="0"
-            android:layout_gravity="fill"
-            android:layout_marginStart="30dp"
-            android:background="@null"
-            android:text="American"
-            android:textColor="#978C8C"
-            android:textSize="20sp"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            android:background="@drawable/round_rectangular"
+            android:minHeight="48dp"
+            android:text="American"
+            android:clickable="true"
+            android:textColor="#978C8C"
+            android:textSize="20sp" />
+
         <CheckedTextView
             android:id="@+id/Mexican"
             android:layout_width="wrap_content"
@@ -118,14 +129,15 @@
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="0"
-            android:layout_gravity="fill"
-
-            android:background="@null"
-            android:text="Mexican"
-            android:textColor="#978C8C"
-            android:textSize="20sp"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            android:background="@drawable/round_rectangular"
+            android:text="Mexican"
+            android:clickable="true"
+            android:textColor="#978C8C"
+            android:textSize="20sp" />
         <CheckedTextView
             android:id="@+id/Italy"
             android:layout_width="wrap_content"
@@ -134,14 +146,16 @@
             android:layout_rowWeight="1"
             android:layout_column="2"
             android:layout_columnWeight="0"
-            android:layout_gravity="fill"
-            android:layout_marginEnd="50dp"
-            android:background="@null"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
+            android:clickable="true"
+            android:background="@drawable/round_rectangular"
             android:text="Italy"
             android:textColor="#978C8C"
             android:textSize="20sp"
-            android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            android:layout_marginBottom="10dp" />
+
         <CheckedTextView
             android:id="@+id/French"
             android:layout_width="wrap_content"
@@ -150,16 +164,19 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="0"
-            android:layout_gravity="fill"
-            android:layout_marginStart="30dp"
-            android:background="@null"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_rectangular"
+            android:minHeight="48dp"
             android:text="French"
             android:textColor="#978C8C"
-            android:textSize="20sp"
-            android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            android:clickable="true"
+            android:textSize="20sp" />
 
         <CheckedTextView
+
             android:id="@+id/Indian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -167,14 +184,16 @@
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="0"
-            android:layout_gravity="fill"
-
-            android:background="@null"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
+            android:background="@drawable/round_rectangular"
             android:text="Indian"
             android:textColor="#978C8C"
             android:textSize="20sp"
+            android:clickable="true"
             android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            />
         <CheckedTextView
 
             android:id="@+id/Korean"
@@ -184,14 +203,15 @@
             android:layout_rowWeight="1"
             android:layout_column="2"
             android:layout_columnWeight="0"
-            android:layout_gravity="fill"
-            android:layout_marginEnd="50dp"
-            android:background="@null"
+            android:layout_gravity="fill_vertical|fill_horizontal"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical|center_horizontal"
+            android:background="@drawable/round_rectangular"
             android:text="Korean"
+            android:clickable="true"
             android:textColor="#978C8C"
             android:textSize="20sp"
-            android:layout_marginBottom="10dp"
-            android:textIsSelectable="true"/>
+            android:layout_marginBottom="10dp" />
 
 
 
