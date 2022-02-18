@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.eatwhat.ui.main.SectionsPagerAdapter;
 import com.example.eatwhat.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,11 +30,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = binding.viewPager;
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = binding.tabs;
-        tabs.setupWithViewPager(viewPager);
+
         FloatingActionButton fab = binding.fab;
 
         fab.setOnClickListener(new View.OnClickListener() {

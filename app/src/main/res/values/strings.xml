@@ -5,4 +5,5 @@
     <string name="tab_text_3">Today</string>
     <string name="Chinese">Pick your favourite genres</string>
     <string name="set_preference">Pick your favourite genres</string>
+    <string name="logout">logout</string>
 </resources>
