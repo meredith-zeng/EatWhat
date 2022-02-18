@@ -1,5 +1,6 @@
 package com.example.eatwhat;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,7 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         FloatingActionButton fab = binding.fab;
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                create_post();
+            }
+        });
 
         // Menu
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -66,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void create_post() {
+        Intent intent = new Intent(this, post_creation.class);
+        startActivity(intent);
     }
 
     @Override
