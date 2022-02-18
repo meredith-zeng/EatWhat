@@ -13,7 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
+
 
 import com.example.eatwhat.databinding.ActivityMainBinding;
 
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ActivityMainBinding binding;
+    private Button test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        test = (Button)findViewById(R.id.test);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                test();
+            }
+        });
+    }
+    private void test(){
+    Intent intent = new Intent(this, Welcomepage.class);
+    startActivity(intent);
     }
 
     private void create_post() {

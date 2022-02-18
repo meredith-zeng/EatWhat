@@ -14,17 +14,39 @@
             android:name=".post_creation"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar"/>
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.EatWhat.NoActionBar">
+            android:name=".MyAccountActivity"
+            android:exported="false"
+            android:label="My Account"
+            android:theme="@style/Theme.EatWhat.NoActionBar"/>
+
+        <activity
+            android:name=".SetPreference"
+            android:exported="false" />
+        <activity
+            android:name=".Welcomepage"
+            android:exported="false" />
+        <activity
+            android:name=".RestaurantPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.EatWhat.NoActionBar"></activity>
     </application>
 
 </manifest>
