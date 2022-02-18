@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.mainActivityFragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.eatwhat.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RestaurantFragment#newInstance} factory method to
+ * Use the {@link NotesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RestaurantFragment extends Fragment {
+public class NotesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +25,7 @@ public class RestaurantFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public RestaurantFragment() {
+    public NotesFragment() {
         // Required empty public constructor
     }
 
@@ -33,11 +35,11 @@ public class RestaurantFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RestaurantFragment.
+     * @return A new instance of fragment NotesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RestaurantFragment newInstance(String param1, String param2) {
-        RestaurantFragment fragment = new RestaurantFragment();
+    public static NotesFragment newInstance(String param1, String param2) {
+        NotesFragment fragment = new NotesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,6 +60,6 @@ public class RestaurantFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restaurant, container, false);
+        return inflater.inflate(R.layout.fragment_notes, container, false);
     }
 }

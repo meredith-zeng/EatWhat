@@ -3,8 +3,8 @@ package com.example.eatwhat;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.eatwhat.adapter.MainTabAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.eatwhat.databinding.ActivityMainBinding;
@@ -28,13 +28,35 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         FloatingActionButton fab = binding.fab;
 
+        createTabsFragment();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    // logic of selected options
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if(id == R.id.action_profile){
+            Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
+            startActivity(mainToAccountIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void createTabsFragment() {
         // Menu
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tabLayout = (TabLayout) findViewById(R.id.mainTabBar);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -69,22 +91,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    // logic of selected options
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if(id == R.id.action_profile){
-            Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
-            startActivity(mainToAccountIntent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

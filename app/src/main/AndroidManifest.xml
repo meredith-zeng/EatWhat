@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat">
+
         <activity
             android:name=".MyAccountActivity"
             android:exported="false"
-            android:label="My Account"/>
+            android:label="My Account"
+            android:theme="@style/Theme.EatWhat.NoActionBar"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

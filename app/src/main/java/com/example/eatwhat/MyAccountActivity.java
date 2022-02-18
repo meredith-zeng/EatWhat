@@ -1,5 +1,6 @@
 package com.example.eatwhat;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,11 +19,28 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MyAccountActivity extends AppCompatActivity {
+    private Intent homeIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_account_list_view);
+        setToolBar();
+        setItemList();
+    }
 
+
+    private void setToolBar() {
+        Toolbar toolbar = (Toolbar)findViewById(R.id.account_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle("My Account");
+        }
+    }
+
+    private void setItemList() {
         String[] items = new String[]{"    My Profile", "    My Posts", "    Review History"};
         final ArrayList<String> list = new ArrayList<>();
 
@@ -41,5 +60,17 @@ public class MyAccountActivity extends AppCompatActivity {
                 return view;
             }
         });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            homeIntent = new Intent(this, MainActivity.class);
+            startActivity(homeIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(menuItem);
     }
 }
