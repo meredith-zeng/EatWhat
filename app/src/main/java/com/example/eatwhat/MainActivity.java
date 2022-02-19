@@ -3,6 +3,8 @@ package com.example.eatwhat;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.eatwhat.adapter.MainTabAdapter;
+import com.example.eatwhat.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -17,8 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
-
-import com.example.eatwhat.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;

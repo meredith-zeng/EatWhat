@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="13dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#c6c6c6">
+
+        <ImageView
+            android:id="@+id/post_food_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="bottom"
+            android:scaleType="centerCrop"
+            android:src="@drawable/post_photo" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/post_food_photo">
+
+
+                <TableLayout
+                    android:id="@+id/content_container"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TableRow>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/post_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:layout_marginTop="12dp"
+                                android:text="A Guide To Rocky Mountain Vacations "
+                                android:textColor="@color/white"
+                                android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/post_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/post_title"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/logout"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/liked_bottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="25dp"
+                            android:src="@drawable/ic_baseline_favorite_24" />
+                    </TableRow>
+
+                </TableLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
