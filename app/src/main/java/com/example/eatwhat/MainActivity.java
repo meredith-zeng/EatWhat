@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.drawer_history:
                 return true;
+            case R.id.drawer_preference:
+                return true;
             case R.id.drawer_logout:
                 return true;
         }
