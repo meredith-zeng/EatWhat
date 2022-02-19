@@ -57,7 +57,4 @@ dependencies {
         def dynamicanimation_version = '1.0.0'
         implementation "androidx.dynamicanimation:dynamicanimation:$dynamicanimation_version"
     }
-
-    //external SDK
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

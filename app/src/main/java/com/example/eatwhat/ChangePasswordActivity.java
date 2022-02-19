@@ -1,16 +1,14 @@
-package com.example.eatwhat.mainActivityFragments;
+package com.example.eatwhat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.eatwhat.R;
-
-public class Profile extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_change_password);
     }
 }
