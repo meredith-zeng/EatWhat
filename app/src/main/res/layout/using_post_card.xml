@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp"
+    app:cardMaxElevation="6dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/idPostImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:src="@drawable/post_photo" />
+
+        <!--Text View to display post_title-->
+        <TextView
+            android:id="@+id/idPostTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@id/idPostImage"
+            android:text="@string/post_title"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/idPostContent"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/idPostTitle"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@id/idPostImage"
+            android:drawablePadding="2dp"
+            android:text="@string/post_content"/>
+
+        <TextView
+            android:id="@+id/numberOfLike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idPostContent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/idPostImage"
+            android:drawablePadding="2dp"
+            android:text="@string/number_of_liked"
+            app:drawableStartCompat="@drawable/ic_baseline_favorite_border_24" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

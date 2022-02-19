@@ -6,9 +6,4 @@
     <string name="Chinese">Pick your favourite genres</string>
     <string name="set_preference">Pick your favourite genres</string>
     <string name="logout">logout</string>
-    <string name="no_account"><u> Dont have an account? <b>sign up</b> here</u></string>
-    <string name="click_here_to_change_password">Click here to change password</string>
-    <string name="change">change</string>
-    <string name="password">********</string>
-    <string name="edit">Edit</string>
 </resources>

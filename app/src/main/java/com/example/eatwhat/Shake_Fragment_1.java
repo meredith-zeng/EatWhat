@@ -1,18 +1,19 @@
 package com.example.eatwhat;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TodaysFragment#newInstance} factory method to
+ * Use the {@link Shake_Fragment_1#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TodaysFragment extends Fragment {
+public class Shake_Fragment_1 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +24,7 @@ public class TodaysFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TodaysFragment() {
+    public Shake_Fragment_1() {
         // Required empty public constructor
     }
 
@@ -33,11 +34,11 @@ public class TodaysFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TodaysFragment.
+     * @return A new instance of fragment Shake_Fragment_1.
      */
     // TODO: Rename and change types and number of parameters
-    public static TodaysFragment newInstance(String param1, String param2) {
-        TodaysFragment fragment = new TodaysFragment();
+    public static Shake_Fragment_1 newInstance(String param1, String param2) {
+        Shake_Fragment_1 fragment = new Shake_Fragment_1();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,6 +59,6 @@ public class TodaysFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_todays, container, false);
+        return inflater.inflate(R.layout.fragment_shake__1, container, false);
     }
 }
