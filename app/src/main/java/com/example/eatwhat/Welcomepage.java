@@ -54,7 +54,7 @@ public class Welcomepage extends AppCompatActivity {
     }
 
     private void setStartToExplore(){
-        Intent intent = new Intent(this,SetPreference.class);
+        Intent intent = new Intent(this,SignInActivity.class);
         startActivity(intent);
     }
 

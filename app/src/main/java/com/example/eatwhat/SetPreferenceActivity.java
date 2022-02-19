@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SetPreference extends AppCompatActivity {
+public class SetPreferenceActivity extends AppCompatActivity {
     private CheckedTextView Chinese;
     private CheckedTextView Japanese;
     private CheckedTextView Italian;
@@ -182,7 +182,7 @@ public class SetPreference extends AppCompatActivity {
 
     private void setStartToExplore(){
         System.out.println(Arrays.toString(personalPreference.toArray()));
-        Intent intent = new Intent(this, Profile.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

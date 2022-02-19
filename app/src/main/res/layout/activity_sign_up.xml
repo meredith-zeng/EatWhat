@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-         android:gravity="center"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
             android:textSize="32dp"
             android:text="Create Your Account"
@@ -39,13 +39,17 @@
 
 
         <EditText
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:id="@+id/email_addr_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/rounded_corner"
-            android:hint="    Email Address"
+            android:hint="Email Address"
+            android:paddingLeft="20dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-                >
+            android:layout_height="50dp">
         </EditText>
 
 
@@ -67,10 +71,15 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:id="@+id/user_name_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/rounded_corner"
-            android:hint="    Username"
+            android:hint="Username"
+            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             >
@@ -91,10 +100,15 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:id="@+id/password_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/rounded_corner"
-            android:hint="    Password"
+            android:hint="Password"
+            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             >
@@ -115,10 +129,15 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:id="@+id/repassword_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/rounded_corner"
-            android:hint="    Re-Password"
+            android:hint="Re-Password"
+            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             >
@@ -133,10 +152,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_height="50dp"
-            android:layout_width="50dp">
-        </ImageButton>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:layout_height="40dp"
+            android:layout_width="40dp">
+            <ImageButton
+                android:id="@+id/image_btn_in_signUp"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </ImageButton>
+        </LinearLayout>
 
         <TextView
             android:layout_gravity="center"
@@ -157,14 +183,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/next_step_in_signUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="Next Step"
             android:textColor="@color/white"
             >
         </Button>
     </LinearLayout>
-
-
 
 </LinearLayout>
