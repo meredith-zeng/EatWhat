@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat">
         <activity
+            android:name=".mainActivityFragments.AdvancedSetPreference"
+            android:exported="false" />
+        <activity
             android:name=".mainActivityFragments.Profile"
             android:exported="false" />
         <activity
