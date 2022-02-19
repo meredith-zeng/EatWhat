@@ -1,4 +1,3 @@
-
 <resources>
     <string name="app_name">EatWhat</string>
     <string name="tab_text_1">Restaurant</string>
@@ -24,4 +23,6 @@
     <string name="post_title">Greatest one</string>
     <string name="post_content">Greatest one Greatest one </string>
     <string name="number_of_liked">100</string>
+    <string name="submit">submit</string>
+    <string name="new_password">new password</string>
 </resources>

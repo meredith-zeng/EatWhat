@@ -7,13 +7,9 @@ import androidx.dynamicanimation.animation.SpringForce;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.function.IntConsumer;
 
 public class Welcomepage extends AppCompatActivity {
     private TextView welcome;
@@ -54,7 +50,7 @@ public class Welcomepage extends AppCompatActivity {
     }
 
     private void setStartToExplore(){
-        Intent intent = new Intent(this,SetPreference.class);
+        Intent intent = new Intent(this, SetPreferenceActivity.class);
         startActivity(intent);
     }
 
