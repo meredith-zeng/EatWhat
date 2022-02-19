@@ -3,6 +3,8 @@ package com.example.eatwhat;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.eatwhat.adapter.MainTabAdapter;
+import com.example.eatwhat.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -18,8 +20,6 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 
-import com.example.eatwhat.databinding.ActivityMainBinding;
-
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -34,7 +34,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         FloatingActionButton fab = binding.fab;
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                create_post();
+            }
+        });
 
         // Menu
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -83,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
     private void test(){
     Intent intent = new Intent(this, Welcomepage.class);
     startActivity(intent);
+    }
+
+    private void create_post() {
+        Intent intent = new Intent(this, post_creation.class);
+        startActivity(intent);
     }
 
     @Override
