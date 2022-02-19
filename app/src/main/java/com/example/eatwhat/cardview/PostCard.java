@@ -1,17 +1,16 @@
 package com.example.eatwhat.cardview;
-
 public class PostCard {
 
     private String post_title;
     private String post_content;
     private int number_of_likes;
-    private int course_image;
+    private int post_image;
 
     public PostCard(String post_title, String post_content, int number_of_likes, int course_image) {
         this.post_title = post_title;
         this.post_content = post_content;
         this.number_of_likes = number_of_likes;
-        this.course_image = course_image;
+        this.post_image = post_image;
     }
 
     public String getPost_title() {
@@ -38,11 +37,11 @@ public class PostCard {
         this.number_of_likes = number_of_likes;
     }
 
-    public int getCourse_image() {
-        return course_image;
+    public int getPost_image() {
+        return post_image;
     }
 
-    public void setCourse_image(int course_image) {
-        this.course_image = course_image;
+    public void setPost_image(int course_image) {
+        this.post_image = post_image;
     }
 }

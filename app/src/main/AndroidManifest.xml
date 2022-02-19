@@ -15,9 +15,12 @@
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".MyAccountActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="My Account"
-            android:theme="@style/Theme.EatWhat.NoActionBar" />
+            android:theme="@style/Theme.EatWhat.NoActionBar"
+            >
+
+        </activity>
         <activity
             android:name=".SetPreference"
             android:exported="false" />

@@ -1,6 +1,7 @@
 package com.example.eatwhat.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +14,7 @@ import com.example.eatwhat.cardview.PostCard;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.myViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
     private Context context;
     private ArrayList<PostCard> postCardArrayList;
@@ -26,19 +27,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.myViewHolder> 
 
     @NonNull
     @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.using_post_card,null);
-        return new myViewHolder(view);
+    public PostAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        View view = View.inflate(context, R.layout.using_post_card,null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.using_post_card, parent, false);
+        return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostAdapter.Viewholder holder, int position) {
         // to set data to textview and imageview of each card layout
         PostCard model = postCardArrayList.get(position);
-        holder.postImage.setImageResource(model.getCourse_image());
-        holder.postTitle.setText(model.getPost_title());
-        holder.postContent.setText(model.getPost_content());
-        holder.numberOfLike.setText(model.getNumber_of_likes());
+        holder.postImageV.setImageResource(model.getPost_image());
+        holder.postTitleV.setText(model.getPost_title());
+        holder.postContentV.setText(model.getPost_content());
+        holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
     }
 
     @Override
@@ -46,16 +48,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.myViewHolder> 
         return postCardArrayList.size();
     }
 
-    public class myViewHolder extends RecyclerView.ViewHolder {
-        private ImageView postImage;
-        private TextView postTitle, postContent,numberOfLike;
+    public class Viewholder extends RecyclerView.ViewHolder {
+        private ImageView postImageV;
+        private TextView postTitleV, postContentV,numberOfLikeV;
 
-        public myViewHolder(@NonNull View itemView) {
+        public Viewholder(@NonNull View itemView) {
             super(itemView);
-            postImage = itemView.findViewById(R.id.idPostImage);
-            postTitle = itemView.findViewById(R.id.idPostTitle);
-            postContent = itemView.findViewById(R.id.idPostContent);
-            numberOfLike = itemView.findViewById(R.id.numberOfLike);
+            postImageV = itemView.findViewById(R.id.idPostImage);
+            postTitleV = itemView.findViewById(R.id.idPostTitle);
+            postContentV = itemView.findViewById(R.id.idPostContent);
+            numberOfLikeV = itemView.findViewById(R.id.numberOfLike);
         }
 
 

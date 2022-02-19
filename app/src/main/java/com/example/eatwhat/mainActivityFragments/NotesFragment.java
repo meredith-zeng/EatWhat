@@ -17,10 +17,8 @@ import com.example.eatwhat.cardview.PostCard;
 import java.util.ArrayList;
 
 public class NotesFragment extends Fragment {
-    private View view;
-    private RecyclerView postRV;
+    private RecyclerView recyclerView;
     private ArrayList<PostCard> postCardArrayList;
-    private PostAdapter postAdapter;
 
 
     public NotesFragment() {
@@ -30,14 +28,26 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.using_post_card, container, false);
-        initRecyclerView();
+        View rootView = inflater.inflate(R.layout.fragment_notes, container, false);
+        // 1. get a reference to recyclerView
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.note_recyclerview);
+        // 2. set layoutManger
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        // this is data from recycler view
         initData();
+
+        // 3. create an adapter
+        PostAdapter postAdapter = new PostAdapter(getContext(), postCardArrayList);
+        recyclerView.setAdapter(postAdapter);
+
         // Inflate the layout for this fragment
-        return view;
+        return rootView;
     }
 
-    private void initData() {
+
+    private void initData(){
         postCardArrayList = new ArrayList<>();
         postCardArrayList.add(new PostCard("Santa clara", "great great great great", 100, R.drawable.post_photo));
         postCardArrayList.add(new PostCard("Java", "the best one", 10000, R.drawable.post_photo));
@@ -45,16 +55,6 @@ public class NotesFragment extends Fragment {
         postCardArrayList.add(new PostCard("C++", "great great great great", 103, R.drawable.post_photo));
         postCardArrayList.add(new PostCard("C", "great great great great", 223, R.drawable.post_photo));
         postCardArrayList.add(new PostCard("JavaScript", "great great great great", 123, R.drawable.post_photo));
+
     }
-
-
-    private void initRecyclerView() {
-        postRV = (RecyclerView)view.findViewById(R.id.note_recyclerview);
-        postAdapter = new PostAdapter(getActivity(), postCardArrayList);
-        postRV.setAdapter(postAdapter);
-        postRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        //设置item的分割线
-        postRV.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-    }
-
 }
