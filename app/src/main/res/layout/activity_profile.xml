@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainActivityFragments.Profile">
+    tools:context=".mainActivityFragments.ProfileActivity">
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_marginTop="120dp"
         android:background="@drawable/empty_avatar"
@@ -91,6 +91,7 @@
                 android:textSize="18sp"/>
 
             <Button
+                android:id="@+id/changepassword"
                 android:layout_width="90dp"
                 android:layout_height="match_parent"
                 android:clickable="true"
