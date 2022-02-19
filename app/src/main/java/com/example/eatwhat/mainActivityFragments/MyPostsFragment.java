@@ -63,4 +63,5 @@ public class MyPostsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_posts, container, false);
     }
+
 }

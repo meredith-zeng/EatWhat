@@ -1,8 +1,10 @@
 package com.example.eatwhat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -16,10 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 
-public class MyAccountActivity extends AppCompatActivity {
+public class MyAccountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Intent homeIntent;
+    private DrawerLayout myDrawerLayout;
+    private NavigationView myNavigationView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +69,20 @@ public class MyAccountActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
             homeIntent = new Intent(this, MainActivity.class);
             startActivity(homeIntent);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }

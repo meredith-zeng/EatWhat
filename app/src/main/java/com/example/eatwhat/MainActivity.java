@@ -109,9 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case android.R.id.home:
                 myDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.action_profile:
-                Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
-                startActivity(mainToAccountIntent);
+            case R.id.action_search:
                 return true;
         }
 
@@ -127,15 +125,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_profile:
                 Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
                 startActivity(mainToAccountIntent);
+                finish();
                 return true;
             case R.id.drawer_postes:
-//                clearFragmentStack();
-//                FragmentManager fragmentManager=getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-//                fragmentTransaction.setReorderingAllowed(true);
-//                fragmentTransaction.replace(R.id.main_frame, new MyPostsFragment());
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
+                myDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.drawer_history:
                 return true;
@@ -144,11 +137,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
-
-    private void clearFragmentStack() {
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
-    }
-
 }
