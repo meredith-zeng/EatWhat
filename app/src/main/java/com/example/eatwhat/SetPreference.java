@@ -2,11 +2,15 @@ package com.example.eatwhat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.camera2.params.ColorSpaceTransform;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckedTextView;
+
+import com.example.eatwhat.mainActivityFragments.Profile;
 
 public class SetPreference extends AppCompatActivity {
     private CheckedTextView Chinese;
@@ -18,7 +22,7 @@ public class SetPreference extends AppCompatActivity {
     private CheckedTextView Korean;
     private CheckedTextView Mexican;
     private CheckedTextView Indian;
-
+    private Button startToExplore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class SetPreference extends AppCompatActivity {
         Korean = (CheckedTextView) findViewById(R.id.Korean);
         Mexican = (CheckedTextView) findViewById(R.id.Mexican);
         Indian = (CheckedTextView) findViewById(R.id.Indian);
+        startToExplore = (Button)findViewById(R.id.startToExplore);
 
         Chinese.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +149,17 @@ public class SetPreference extends AppCompatActivity {
                 }
             }
         });
+        startToExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setStartToExplore();
+            }
+        });
+    }
+
+    private void setStartToExplore(){
+        Intent intent = new Intent(this, Profile.class);
+        startActivity(intent);
     }
 
 }
