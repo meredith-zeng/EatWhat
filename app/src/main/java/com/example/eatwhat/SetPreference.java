@@ -4,18 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.camera2.params.ColorSpaceTransform;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 
-import com.example.eatwhat.mainActivityFragments.ProfileActivity;
+import com.example.eatwhat.mainActivityFragments.Profile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SetPreferenceActivity extends AppCompatActivity {
+public class SetPreference extends AppCompatActivity {
     private CheckedTextView Chinese;
     private CheckedTextView Japanese;
     private CheckedTextView Italian;
@@ -181,7 +182,7 @@ public class SetPreferenceActivity extends AppCompatActivity {
 
     private void setStartToExplore(){
         System.out.println(Arrays.toString(personalPreference.toArray()));
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
     }
 

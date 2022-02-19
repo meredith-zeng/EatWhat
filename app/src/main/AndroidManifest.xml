@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat">
         <activity
-            android:name=".ChangePasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".post_creation"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
@@ -20,9 +17,12 @@
             android:name=".MyAccountActivity"
             android:exported="true"
             android:label="My Account"
-            android:theme="@style/Theme.EatWhat.NoActionBar"></activity>
+            android:theme="@style/Theme.EatWhat.NoActionBar"
+            >
+
+        </activity>
         <activity
-            android:name=".SetPreferenceActivity"
+            android:name=".SetPreference"
             android:exported="false" />
         <activity
             android:name=".Welcomepage"
@@ -32,18 +32,20 @@
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".SignInActivity"
             android:exported="true" />
-        <activity
-            android:name=".mainActivityFragments.ProfileActivity"
-            android:exported="true" />
+        <activity android:name=".mainActivityFragments.Profile"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EatWhat.NoActionBar">
+            android:theme="@style/Theme.EatWhat.NoActionBar" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
