@@ -6,4 +6,21 @@
     <string name="Chinese">Pick your favourite genres</string>
     <string name="set_preference">Pick your favourite genres</string>
     <string name="logout">logout</string>
+    <string name="edit">edit</string>
+    <string name="password">password</string>
+    <string name="title_activity_card_view">CardViewActivity</string>
+    <string name="no_account"><u> Dont have an account? <b>sign up</b> here</u></string>
+    <string name="terms_conditions">To register with us please tick to agree to our <font color='#0039FF'> Terms and Conditions </font> </string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="post_title">Greatest one</string>
+    <string name="post_content">Greatest one Greatest one </string>
+    <string name="number_of_liked">100</string>
 </resources>
