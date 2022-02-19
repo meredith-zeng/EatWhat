@@ -4,46 +4,62 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.eatwhat.adapter.MainTabAdapter;
-import com.example.eatwhat.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private TabLayout tabLayout;
+    private Toolbar toolbar;
     private ViewPager viewPager;
-    private ActivityMainBinding binding;
-    private Button test;
+
+    private DrawerLayout myDrawerLayout;
+    private NavigationView myNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createDrawer();
+        createFloatingButton();
+        createTabsFragment();
+    }
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        FloatingActionButton fab = binding.fab;
+    private void createFloatingButton() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                create_post();
+                jumpToPost();
             }
         });
+    }
 
-        // Menu
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    private void createDrawer() {
+        setContentView(R.layout.drawer_layout);
+        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        myNavigationView = (NavigationView) findViewById(R.id.drawer_view);
+        myNavigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void createTabsFragment() {
+        //navigation button
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24);
 
         tabLayout = (TabLayout) findViewById(R.id.mainTabBar);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -55,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final MainTabAdapter adapter = new MainTabAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
-
         viewPager.setAdapter(adapter);
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -76,21 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        test = (Button)findViewById(R.id.test);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                test();
-            }
-        });
-    }
-    private void test(){
-    Intent intent = new Intent(this, Welcomepage.class);
-    startActivity(intent);
     }
 
-    private void create_post() {
+    public void jumpToPost() {
         Intent intent = new Intent(this, post_creation.class);
         startActivity(intent);
     }
@@ -101,14 +103,38 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // logic of selected options
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
-        if(id == R.id.action_profile){
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                myDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.action_search:
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.drawer_home:
+                return true;
+            case R.id.drawer_profile:
+                Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
+                startActivity(mainToAccountIntent);
+                finish();
+                return true;
+            case R.id.drawer_postes:
+                myDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.drawer_history:
+                return true;
+            case R.id.drawer_logout:
+                return true;
+        }
+        return false;
     }
 }
