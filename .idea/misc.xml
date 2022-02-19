@@ -22,7 +22,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.181" />
         <entry key="app/src/main/res/layout/activity_card_view.xml" value="0.32407407407407407" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21673003802281368" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_post_card_view.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/activity_restaurant_page.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/cardview_item_post.xml" value="0.34427083333333336" />
@@ -34,6 +34,7 @@
         <entry key="app/src/main/res/layout/fragment_shake__1.xml" value="0.20925925925925926" />
         <entry key="app/src/main/res/layout/fragment_tab.xml" value="0.25277777777777777" />
         <entry key="app/src/main/res/layout/my_account_list_view.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/my_posts.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/unused_cardview_item_post.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/using_post_card.xml" value="0.12094395280235988" />
         <entry key="app/src/main/res/layout/using_post_card_layout.xml" value="0.375" />
