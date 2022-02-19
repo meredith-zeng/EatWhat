@@ -96,7 +96,7 @@
             android:textAlignment="gravity"
             android:gravity="center_vertical|center_horizontal"
             android:background="@drawable/round_rectangular"
-            android:text="Tai"
+            android:text="Thai"
             android:clickable="true"
             android:textColor="#978C8C"
             android:textSize="20sp"
@@ -151,7 +151,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:clickable="true"
             android:background="@drawable/round_rectangular"
-            android:text="Italy"
+            android:text="Italian"
             android:textColor="#978C8C"
             android:textSize="20sp"
             android:layout_marginBottom="10dp" />

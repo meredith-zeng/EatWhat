@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckedTextView;
 
-public class SetPreference extends AppCompatActivity {
+public class SetPreferenceActivity extends AppCompatActivity {
     private CheckedTextView Chinese;
     private CheckedTextView Japanese;
-    private CheckedTextView Italy;
+    private CheckedTextView Italian;
     private CheckedTextView French;
-    private CheckedTextView Tai;
+    private CheckedTextView Thai;
     private CheckedTextView American;
     private CheckedTextView Korean;
     private CheckedTextView Mexican;
@@ -25,9 +25,9 @@ public class SetPreference extends AppCompatActivity {
         setContentView(R.layout.activity_set_preference);
         Chinese = (CheckedTextView) findViewById(R.id.Chinese);
         Japanese = (CheckedTextView) findViewById(R.id.Japanese);
-        Tai = (CheckedTextView) findViewById(R.id.Tai);
+        Thai = (CheckedTextView) findViewById(R.id.Tai);
         French = (CheckedTextView) findViewById(R.id.French);
-        Italy = (CheckedTextView) findViewById(R.id.Italy);
+        Italian = (CheckedTextView) findViewById(R.id.Italy);
         American = (CheckedTextView) findViewById(R.id.American);
         Korean = (CheckedTextView) findViewById(R.id.Korean);
         Mexican = (CheckedTextView) findViewById(R.id.Mexican);
@@ -60,15 +60,15 @@ public class SetPreference extends AppCompatActivity {
                 }
             }
         });
-        Tai.setOnClickListener(new View.OnClickListener() {
+        Thai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Tai.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Tai.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Tai.setTextColor(Color.parseColor("#FFFFFF"));
+                if (Thai.getCurrentTextColor() == Color.parseColor("#978C8C")){
+                    Thai.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
+                    Thai.setTextColor(Color.parseColor("#FFFFFF"));
                 } else{
-                    Tai.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Tai.setTextColor(Color.parseColor("#978C8C"));
+                    Thai.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                    Thai.setTextColor(Color.parseColor("#978C8C"));
                 }
             }
         });
@@ -84,15 +84,15 @@ public class SetPreference extends AppCompatActivity {
                 }
             }
         });
-        Italy.setOnClickListener(new View.OnClickListener() {
+        Italian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Italy.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Italy.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Italy.setTextColor(Color.parseColor("#FFFFFF"));
+                if (Italian.getCurrentTextColor() == Color.parseColor("#978C8C")){
+                    Italian.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
+                    Italian.setTextColor(Color.parseColor("#FFFFFF"));
                 } else{
-                    Italy.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Italy.setTextColor(Color.parseColor("#978C8C"));
+                    Italian.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                    Italian.setTextColor(Color.parseColor("#978C8C"));
                 }
             }
         });
@@ -144,6 +144,9 @@ public class SetPreference extends AppCompatActivity {
                 }
             }
         });
+
+
+
     }
 
 }

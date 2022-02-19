@@ -17,7 +17,7 @@
             android:theme="@style/Theme.EatWhat.NoActionBar"/>
 
         <activity
-            android:name=".SetPreference"
+            android:name=".SetPreferenceActivity"
             android:exported="false" />
         <activity
             android:name=".Welcomepage"
@@ -28,15 +28,17 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SignInActivity"
-            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
