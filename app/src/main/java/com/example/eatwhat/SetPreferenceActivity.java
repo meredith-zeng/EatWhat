@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 
-import com.example.eatwhat.mainActivityFragments.Profile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
