@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.eatwhat.adapter.MainTabAdapter;
+import com.example.eatwhat.mainActivityFragments.ProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -15,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void jumpToPost() {
-        Intent intent = new Intent(this, post_creation.class);
+        Intent intent = new Intent(this, PostCreationActivity.class);
         startActivity(intent);
     }
 
@@ -123,9 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_home:
                 return true;
             case R.id.drawer_profile:
-                Intent  mainToAccountIntent = new Intent(this, MyAccountActivity.class);
-                startActivity(mainToAccountIntent);
-                finish();
+                Intent toProfile = new Intent(this, ProfileActivity.class);
+                startActivity(toProfile);
                 return true;
             case R.id.drawer_postes:
                 myDrawerLayout.closeDrawer(GravityCompat.START);
@@ -133,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_history:
                 return true;
             case R.id.drawer_preference:
+                Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
+                startActivity(toSetPreference);
                 return true;
             case R.id.drawer_logout:
                 return true;

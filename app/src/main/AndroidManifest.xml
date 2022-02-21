@@ -13,7 +13,7 @@
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".post_creation"
+            android:name=".PostCreationActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
@@ -43,7 +43,8 @@
             android:name=".SignInActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".mainActivityFragments.Profile"
+            android:name=".mainActivityFragments.ProfileActivity"
+            android:theme="@style/Theme.EatWhat.NoActionBar"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

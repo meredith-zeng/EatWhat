@@ -16,15 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SetPreferenceActivity extends AppCompatActivity {
-    private CheckedTextView Chinese;
-    private CheckedTextView Japanese;
-    private CheckedTextView Italian;
-    private CheckedTextView French;
-    private CheckedTextView Tai;
-    private CheckedTextView American;
-    private CheckedTextView Korean;
-    private CheckedTextView Mexican;
-    private CheckedTextView Indian;
     private Button startToExplore;
     private List<String> personalPreference;
 
@@ -32,145 +23,39 @@ public class SetPreferenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_preference);
+        List<CheckedTextView> itemList = new ArrayList<>();
+
         personalPreference = new ArrayList<>();
-        Chinese = (CheckedTextView) findViewById(R.id.Chinese);
-        Japanese = (CheckedTextView) findViewById(R.id.Japanese);
-        Tai = (CheckedTextView) findViewById(R.id.Tai);
-        French = (CheckedTextView) findViewById(R.id.French);
-        Italian = (CheckedTextView) findViewById(R.id.Italian);
-        American = (CheckedTextView) findViewById(R.id.American);
-        Korean = (CheckedTextView) findViewById(R.id.Korean);
-        Mexican = (CheckedTextView) findViewById(R.id.Mexican);
-        Indian = (CheckedTextView) findViewById(R.id.Indian);
-        startToExplore = (Button)findViewById(R.id.startToExplore);
+        itemList.add((CheckedTextView)findViewById(R.id.Chinese));
+        itemList.add((CheckedTextView)findViewById(R.id.Japanese));
+        itemList.add((CheckedTextView)findViewById(R.id.Tai));
+        itemList.add((CheckedTextView)findViewById(R.id.French));
+        itemList.add((CheckedTextView)findViewById(R.id.Italian));
+        itemList.add((CheckedTextView)findViewById(R.id.American));
+        itemList.add((CheckedTextView)findViewById(R.id.Korean));
+        itemList.add((CheckedTextView)findViewById(R.id.Mexican));
+        itemList.add((CheckedTextView)findViewById(R.id.Indian));
+        startToExplore = findViewById(R.id.startToExplore);
 
-        Chinese.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Chinese.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Chinese.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Chinese.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Chinese"));
-                } else{
-                    Chinese.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Chinese.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Chinese");
+        for (int i = 0; i < itemList.size(); i++) {
+            CheckedTextView item = itemList.get(i);
+            String name = item.getText().toString();
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (item.getCurrentTextColor() == Color.parseColor("#978C8C")){
+                        item.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
+                        item.setTextColor(Color.parseColor("#FFFFFF"));
+                        personalPreference.add(name);
+                    } else{
+                        item.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                        item.setTextColor(Color.parseColor("#978C8C"));
+                        personalPreference.remove(name);
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        Japanese.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Japanese.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Japanese.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Japanese.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Japanese"));
-                } else{
-                    Japanese.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Japanese.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Japanese");
-                }
-            }
-        });
-        Tai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Tai.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Tai.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Tai.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Tai"));
-                } else{
-                    Tai.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Tai.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Tai");
-                }
-            }
-        });
-        French.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (French.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    French.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    French.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("French"));
-                } else{
-                    French.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    French.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("French");
-                }
-            }
-        });
-        Italian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Italian.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Italian.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Italian.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Italian"));
-                } else{
-                    Italian.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Italian.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Italian");
-                }
-            }
-        });
-        American.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (American.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    American.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    American.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("American"));
-                } else{
-                    American.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    American.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("American");
-                }
-            }
-        });
-        Korean.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Korean.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Korean.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Korean.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Korean"));
-                } else{
-                    Korean.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Korean.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Korean");
-                }
-            }
-        });
-        Mexican.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Mexican.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Mexican.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Mexican.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Mexican"));
-                } else{
-                    Mexican.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Mexican.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Mexican");
-                }
-            }
-        });
-        Indian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Indian.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                    Indian.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                    Indian.setTextColor(Color.parseColor("#FFFFFF"));
-                    personalPreference.add(new String("Indian"));
-                } else{
-                    Indian.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
-                    Indian.setTextColor(Color.parseColor("#978C8C"));
-                    personalPreference.remove("Indian");
-                }
-            }
-        });
         startToExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

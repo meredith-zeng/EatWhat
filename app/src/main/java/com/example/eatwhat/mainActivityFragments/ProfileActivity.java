@@ -1,22 +1,33 @@
 package com.example.eatwhat.mainActivityFragments;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.eatwhat.ChangePasswordActivity;
+import com.example.eatwhat.MainActivity;
 import com.example.eatwhat.R;
+import com.google.android.material.navigation.NavigationView;
 
-public class Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     Button change;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //set back button
+        setToolBar();
+
         change = (Button) findViewById(R.id.changepassword);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,8 +36,19 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
+
     public void changepassword(){
         Intent intent = new Intent(this, ChangePasswordActivity.class);
         startActivity(intent);
+    }
+
+    private void setToolBar() {
+        Toolbar toolbar = (Toolbar)findViewById(R.id.profileToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle("My Profile");
+        }
     }
 }

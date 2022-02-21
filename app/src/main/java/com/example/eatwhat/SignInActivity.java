@@ -94,6 +94,7 @@ public class SignInActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
                             Log.d(TAG, "" + task.getException());

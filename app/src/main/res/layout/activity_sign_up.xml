@@ -25,6 +25,24 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            android:layout_height="120dp"
+            android:layout_width="120dp"
+            android:id="@+id/image_in_signUp"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            >
+        </com.google.android.material.imageview.ShapeableImageView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 

@@ -56,6 +56,7 @@ public class Welcomepage extends AppCompatActivity {
     private void setStartToExplore(){
         Intent intent = new Intent(this,SignInActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void SpringAnimationY(View view, float position){
