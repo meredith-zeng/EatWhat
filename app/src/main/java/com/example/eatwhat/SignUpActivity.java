@@ -77,10 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if(camera_granted && send_storage_granted && write_storage_granted){
                     chooseImage(SignUpActivity.this);
-                    Log.d("XXXX", "Herhe");
                 }
-
-
             }
         });
 
@@ -126,7 +123,6 @@ public class SignUpActivity extends AppCompatActivity {
                     username_str = username.getText().toString();
                     createAccount(email_str, password_str);
                 }
-
             }
         });
 
@@ -232,10 +228,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-
     private void chooseImage(Context context){
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
-
 
         //create a dialog for showing the optionsMenu
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -291,7 +285,5 @@ public class SignUpActivity extends AppCompatActivity {
                     break;
             }
         }
-
     }
-
 }
