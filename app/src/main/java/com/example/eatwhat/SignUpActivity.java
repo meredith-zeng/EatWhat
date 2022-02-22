@@ -1,11 +1,11 @@
 package com.example.eatwhat;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,14 +25,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+
 
 public class SignUpActivity extends AppCompatActivity {
     private final static String TAG = "SignUp Activity";
@@ -43,6 +52,9 @@ public class SignUpActivity extends AppCompatActivity {
     boolean accepted = false;
     ImageButton imageBtn;
     ShapeableImageView imageView;
+    Bitmap bitmap;
+
+
 
     private final static int CAMERA_PERMISSION_CODE = 1;
     private final static int STORAGE_PERMISSION_CODE = 2;
@@ -144,6 +156,24 @@ public class SignUpActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Log.d(TAG, "create Account Successfully!");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                    String uid = user.getUid();
+                    //Storage Image into firebase storage under profileImage
+                    StorageReference reference = FirebaseStorage.getInstance().getReference().child("profileImages").child(uid + ".jpeg");
+                    reference.putBytes(baos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            getDownloadUrl(reference);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: " + e.getCause());
+                        }
+                    });
+
                     currentUser = new User(username_str, email_str, "");
                     Intent intent = new Intent(SignUpActivity.this, SetPreferenceActivity.class);
                     intent.putExtra("currentUser", currentUser);
@@ -185,7 +215,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             // Checking whether user granted the permission or not.
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
 
                 if(!camera_granted){
                     // Showing the toast message
@@ -263,8 +292,15 @@ public class SignUpActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        imageView.setImageBitmap(selectedImage);
+                        bitmap = (Bitmap) data.getExtras().get("data");
+
+                        Matrix mMatrix = new Matrix();
+                        Matrix mat=imageView.getImageMatrix();
+                        mMatrix.set(mat);
+                        mMatrix.setRotate(90);
+                        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                                bitmap.getHeight(), mMatrix, false);
+                        imageView.setImageBitmap(bitmap);
                     }
                     break;
                 case 1:
@@ -277,7 +313,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-                                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                bitmap = (Bitmap)BitmapFactory.decodeFile(picturePath);
+                                imageView.setImageBitmap(bitmap);
+
                                 cursor.close();
                             }
                         }
@@ -285,5 +323,32 @@ public class SignUpActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+
+    private void getDownloadUrl(StorageReference reference){
+        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d(TAG, "onSuccess: " + uri);
+                setUserProfileUrl(uri);
+            }
+        });
+    }
+
+    private void setUserProfileUrl(Uri uri){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setPhotoUri(uri).build();
+        user.updateProfile(request).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(SignUpActivity.this, "Profile Image successfully", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignUpActivity.this, "Profile Image failed...", Toast.LENGTH_SHORT);
+            }
+        });
     }
 }
