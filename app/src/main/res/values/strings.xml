@@ -7,7 +7,7 @@
     <string name="set_preference">Pick your favourite genres</string>
     <string name="logout">logout</string>
     <string name="edit">edit</string>
-    <string name="password">password</string>
+    <string name="password">********</string>
     <string name="title_activity_card_view">CardViewActivity</string>
     <string name="no_account"><u> Dont have an account? <b>sign up</b> here</u></string>
     <string name="terms_conditions">To register with us please tick to agree to our <font color='#0039FF'> Terms and Conditions </font> </string>
@@ -23,6 +23,6 @@
     <string name="post_title">Greatest one</string>
     <string name="post_content">Greatest one Greatest one </string>
     <string name="number_of_liked">100</string>
-    <string name="submit">strings</string>
-    <string name="new_password">new</string>
+    <string name="submit">submit</string>
+    <string name="new_password">new password</string>
 </resources>
