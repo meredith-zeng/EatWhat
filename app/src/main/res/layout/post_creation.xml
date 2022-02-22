@@ -131,14 +131,5 @@
                     android:textAppearance="?attr/textAppearanceBody2" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <Button
-            android:id="@+id/getData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
-
-
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
