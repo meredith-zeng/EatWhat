@@ -60,9 +60,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/cardview_test.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.17037037037037037" />
+        <entry key="app/src/main/res/layout/fragment_notes.xml" value="0.11481481481481481" />
         <entry key="app/src/main/res/layout/post_creation.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/unused_cardview_item_post.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/using_post_card.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/using_post_card.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.287" />
       </map>
