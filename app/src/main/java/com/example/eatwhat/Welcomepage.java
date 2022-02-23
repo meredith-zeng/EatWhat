@@ -25,9 +25,7 @@ public class Welcomepage extends AppCompatActivity {
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
-            Manifest.permission.INTERNET,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
     @Override
