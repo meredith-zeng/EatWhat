@@ -48,8 +48,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 //            public void onClick(View v) {
 //                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
 //                profilePageIntent.putExtra("card", model);
-////                profilePageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.mCircleImageView, ViewCompat.getTransitionName(holder.mCircleImageView));
 //                context.startActivity(profilePageIntent);
 //            }
 //        });
