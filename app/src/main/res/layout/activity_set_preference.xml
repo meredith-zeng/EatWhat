@@ -9,16 +9,10 @@
         android:theme="@style/Theme.EatWhat.AppBarOverlay"
         >
 
-<!--        <TextView-->
-<!--            android:id="@+id/title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:minHeight="?actionBarSize"-->
-<!--            android:padding="@dimen/appbar_padding"-->
-<!--            android:text="@string/app_name"-->
-<!--            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"-->
-<!--            />-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/setPreferenceToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -96,7 +90,7 @@
             android:textAlignment="gravity"
             android:gravity="center_vertical|center_horizontal"
             android:background="@drawable/round_rectangular"
-            android:text="Tai"
+            android:text="Thai"
             android:clickable="true"
             android:textColor="#978C8C"
             android:textSize="20sp"
@@ -223,12 +217,11 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/startToExplore"
+            android:id="@+id/setPreferenceButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
             android:clickable="true"
-            android:text="Start to explore"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
