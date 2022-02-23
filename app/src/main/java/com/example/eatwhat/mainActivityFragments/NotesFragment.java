@@ -30,8 +30,6 @@ public class NotesFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<PostCard> postCardArrayList;
 
-    ActivityMainBinding binding;
-
     public NotesFragment() {
         // Required empty public constructor
     }
