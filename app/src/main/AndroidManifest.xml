@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eatwhat">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat">
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
@@ -20,7 +25,7 @@
             android:name=".MyAccountActivity"
             android:exported="true"
             android:label="My Account"
-            android:theme="@style/Theme.EatWhat.NoActionBar"></activity>
+            android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".SetPreferenceActivity"
             android:theme="@style/Theme.EatWhat.NoActionBar"
@@ -28,21 +33,17 @@
         <activity
             android:name=".Welcomepage"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RestaurantPageActivity"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".SignInActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".mainActivityFragments.ProfileActivity"
             android:label="My Profile"

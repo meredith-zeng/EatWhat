@@ -16,7 +16,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,12 +30,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createDrawer();
         createFloatingButton();
         createTabsFragment();
+
     }
 
     private void createFloatingButton() {
@@ -113,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 myDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_search:
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
                 return true;
         }
 

@@ -90,7 +90,7 @@
             android:textAlignment="gravity"
             android:gravity="center_vertical|center_horizontal"
             android:background="@drawable/round_rectangular"
-            android:text="Tai"
+            android:text="Thai"
             android:clickable="true"
             android:textColor="#978C8C"
             android:textSize="20sp"

@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
 
@@ -18,6 +21,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
     private Context context;
     private ArrayList<PostCard> postCardArrayList;
+    private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
+
 
     // Constructor
     public PostAdapter(Context context, ArrayList<PostCard> postCardArrayList) {
@@ -37,10 +42,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     public void onBindViewHolder(@NonNull PostAdapter.Viewholder holder, int position) {
         // to set data to textview and imageview of each card layout
         PostCard model = postCardArrayList.get(position);
-        holder.postImageV.setImageResource(model.getPost_image());
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
-        holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
+        holder.numberOfLikeV.setText(String.valueOf(model.getNumber_of_likes()));
+
+        GlideUrl glideUrl = new GlideUrl(model.getPost_image_url(), new LazyHeaders.Builder()
+                .addHeader("Authorization", " Bearer " + TOKEN)
+                .build());
+
+        Glide.with(this.context).load(glideUrl).into(holder.postImageV);
     }
 
     @Override
