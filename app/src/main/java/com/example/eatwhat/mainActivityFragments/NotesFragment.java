@@ -49,12 +49,12 @@ public class NotesFragment extends Fragment {
 
     private void initData(){
         postCardArrayList = new ArrayList<>();
-        postCardArrayList.add(new PostCard("Santa clara", "great great great great", 100, R.drawable.post_photo));
-        postCardArrayList.add(new PostCard("Java", "the best one", 10000, R.drawable.post_photo));
-        postCardArrayList.add(new PostCard("Python", "great great great great", 102, R.drawable.post_photo));
-        postCardArrayList.add(new PostCard("C++", "great great great great", 103, R.drawable.post_photo));
-        postCardArrayList.add(new PostCard("C", "great great great great", 223, R.drawable.post_photo));
-        postCardArrayList.add(new PostCard("JavaScript", "great great great great", 123, R.drawable.post_photo));
+        postCardArrayList.add(new PostCard("Santa clara", "great great great great", 100, R.drawable.post_photo, "Panda", 3.5));
+        postCardArrayList.add(new PostCard("Java", "the best one", 10000, R.drawable.post_photo, "Panda", 3.5));
+        postCardArrayList.add(new PostCard("Python", "great great great great", 102, R.drawable.post_photo, "Panda", 3.5));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 103, R.drawable.post_photo, "Panda", 3.5));
+        postCardArrayList.add(new PostCard("C", "great great great great", 223, R.drawable.post_photo, "Panda", 3.5));
+        postCardArrayList.add(new PostCard("JavaScript", "great great great great", 123, R.drawable.post_photo, "Panda", 3.5));
 
     }
 }
