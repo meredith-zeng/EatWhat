@@ -43,16 +43,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
-        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
-                profilePageIntent.putExtra("card", model);
-//                profilePageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.mCircleImageView, ViewCompat.getTransitionName(holder.mCircleImageView));
-                context.startActivity(profilePageIntent);
-            }
-        });
+//        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
+//                profilePageIntent.putExtra("card", model);
+////                profilePageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.mCircleImageView, ViewCompat.getTransitionName(holder.mCircleImageView));
+//                context.startActivity(profilePageIntent);
+//            }
+//        });
     }
 
     @Override
