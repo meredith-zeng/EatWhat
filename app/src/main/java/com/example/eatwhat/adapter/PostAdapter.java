@@ -11,9 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatwhat.PostDetailActivity;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
 
@@ -47,22 +44,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
-//        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
-//                profilePageIntent.putExtra("card", model);
-//                context.startActivity(profilePageIntent);
-//            }
-//        });
+        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
+                profilePageIntent.putExtra("card", model);
+                context.startActivity(profilePageIntent);
+            }
+        });
 
         holder.numberOfLikeV.setText(String.valueOf(model.getNumber_of_likes()));
 
-        GlideUrl glideUrl = new GlideUrl(model.getPost_image_url(), new LazyHeaders.Builder()
-                .addHeader("Authorization", " Bearer " + TOKEN)
-                .build());
-
-        Glide.with(this.context).load(glideUrl).into(holder.postImageV);
+//        GlideUrl glideUrl = new GlideUrl(model.getPost_image_url(), new LazyHeaders.Builder()
+//                .addHeader("Authorization", " Bearer " + TOKEN)
+//                .build());
+//
+//        Glide.with(this.context).load(glideUrl).into(holder.postImageV);
 
     }
 
