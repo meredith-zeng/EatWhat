@@ -6,16 +6,19 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface RestaurantService {
     @GET("businesses/search")
-    Call<Restaurant> getRestaurant(@Query("location") String location,
+    Call<Restaurant> queryRestaurantByLocation(@Query("location") String location,
                                              @Query("latitude") String latitude,
                                              @Query("longitude") String longitude,
                                              @Query("categories") String categories,
@@ -24,4 +27,8 @@ public interface RestaurantService {
 
     @GET("businesses")
     Call<Business> getRestaurantById(@Query("id") String id);
+
+    @GET
+    Call<ResponseBody> getImage(@Url String imageUrl);
+
 }
