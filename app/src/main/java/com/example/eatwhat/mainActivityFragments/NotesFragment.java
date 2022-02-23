@@ -58,7 +58,6 @@ public class NotesFragment extends Fragment {
 
     private void initData(){
         postCardArrayList = new ArrayList<>();
-
         RestaurantService methods = RetrofitClient.getRetrofit().create(RestaurantService.class);
 
         String imageUrl = "https://s3-media3.fl.yelpcdn.com/bphoto/XUS57sY4C2BUUjiP2-vLqw/o.jpg";
@@ -66,7 +65,6 @@ public class NotesFragment extends Fragment {
         postCardArrayList.add(new PostCard("Santa clara", "great great great great", 100, imageUrl));
         postCardArrayList.add(new PostCard("Java", "the best one", 10000, imageUrl));
         postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
-
 
 
     }

@@ -1,8 +1,7 @@
 package com.example.eatwhat.cardview;
 
-import android.net.Uri;
+public class PostCard{
 
-public class PostCard {
 
     private String post_title;
     private String post_content;
@@ -57,4 +56,5 @@ public class PostCard {
                 ", post_image_url='" + post_image_url + '\'' +
                 '}';
     }
+
 }

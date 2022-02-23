@@ -1,6 +1,7 @@
 package com.example.eatwhat.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eatwhat.PostDetailActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
@@ -44,6 +46,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         PostCard model = postCardArrayList.get(position);
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
+        holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
+//        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
+//                profilePageIntent.putExtra("card", model);
+//                context.startActivity(profilePageIntent);
+//            }
+//        });
+
         holder.numberOfLikeV.setText(String.valueOf(model.getNumber_of_likes()));
 
         GlideUrl glideUrl = new GlideUrl(model.getPost_image_url(), new LazyHeaders.Builder()
@@ -51,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
                 .build());
 
         Glide.with(this.context).load(glideUrl).into(holder.postImageV);
+
     }
 
     @Override
