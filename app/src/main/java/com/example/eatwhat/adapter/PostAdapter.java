@@ -43,14 +43,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
-//        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
-//                profilePageIntent.putExtra("card", model);
-//                context.startActivity(profilePageIntent);
-//            }
-//        });
+        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
+                profilePageIntent.putExtra("card", model);
+                context.startActivity(profilePageIntent);
+            }
+        });
     }
 
     @Override
