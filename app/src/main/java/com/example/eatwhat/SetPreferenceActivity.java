@@ -1,23 +1,36 @@
 package com.example.eatwhat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.hardware.camera2.params.ColorSpaceTransform;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 
 
+import com.example.eatwhat.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SetPreferenceActivity extends AppCompatActivity {
+    private static final String TAG = "SetPreferenceActivity";
     private Button startToExplore;
     private List<String> personalPreference;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Map<String, User> users = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +60,7 @@ public class SetPreferenceActivity extends AppCompatActivity {
                         item.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
                         item.setTextColor(Color.parseColor("#FFFFFF"));
                         personalPreference.add(name);
+                        //Log.d(TAG, "onClick: +++++++++++++++++++++++++++");
                     } else{
                         item.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
                         item.setTextColor(Color.parseColor("#978C8C"));
@@ -59,6 +73,11 @@ public class SetPreferenceActivity extends AppCompatActivity {
         startToExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = getIntent();
+                User curUser = (User) intent.getSerializableExtra("currentUser");
+                curUser.setPreference(personalPreference);
+                //Log.d(TAG, "set preference: " + personalPreference.size() + "  " + personalPreference.toString());
+                saveUserInfoToFireStore(curUser);
                 setStartToExplore();
             }
         });
@@ -68,6 +87,22 @@ public class SetPreferenceActivity extends AppCompatActivity {
         System.out.println(Arrays.toString(personalPreference.toArray()));
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void saveUserInfoToFireStore(User curUser){
+        String uid = curUser.getUid();
+        users.put(uid, curUser);
+        db.collection("user").add(users).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error adding document", e);
+            }
+        });
     }
 
 }

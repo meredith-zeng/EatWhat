@@ -69,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
-
+        bitmap = BitmapFactory.decodeResource(SignUpActivity.this.getResources(), R.drawable.ic_android_black_24dp);
         email_addr = findViewById(R.id.email_addr_in_signUp);
         username = findViewById(R.id.user_name_in_signUp);
         password = findViewById(R.id.password_in_signUp);
@@ -129,10 +129,13 @@ public class SignUpActivity extends AppCompatActivity {
                 else if(!accepted){
                     Toast.makeText(SignUpActivity.this, "Please accept our Terms and Conditions", Toast.LENGTH_LONG).show();
                 }
+                else if(bitmap == null){
+                    Toast.makeText(SignUpActivity.this, "Please Set a Profile Image", Toast.LENGTH_LONG).show();
+                }
                 else{
-                    email_str = email_addr.getText().toString();
-                    password_str = password.getText().toString();
-                    username_str = username.getText().toString();
+                    email_str = email_addr.getText().toString().trim();
+                    password_str = password.getText().toString().trim();
+                    username_str = username.getText().toString().trim();
                     createAccount(email_str, password_str);
                 }
             }
@@ -174,14 +177,20 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     });
 
-                    currentUser = new User(username_str, email_str, "");
+                    currentUser = new User(uid, username_str, email_str, "");
                     Intent intent = new Intent(SignUpActivity.this, SetPreferenceActivity.class);
                     intent.putExtra("currentUser", currentUser);
                     startActivity(intent);
                 }
                 else{
+
                     Log.d(TAG, "something wrong! " + task.getException());
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
