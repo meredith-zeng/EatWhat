@@ -130,16 +130,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
+                finish();
                 return true;
             case R.id.drawer_postes:
                 myDrawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.drawer_history:
+                Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);
+                startActivity(toReviewHistory);
+                finish();
                 return true;
             case R.id.drawer_preference:
                 Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
                 toSetPreference.putExtra("source", "home");
                 startActivity(toSetPreference);
+                finish();
                 return true;
             case R.id.drawer_logout:
                 return true;

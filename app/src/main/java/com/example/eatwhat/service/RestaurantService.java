@@ -2,19 +2,13 @@ package com.example.eatwhat.service;
 
 import com.example.eatwhat.service.pojo.Business;
 import com.example.eatwhat.service.pojo.Restaurant;
-import com.google.gson.JsonObject;
+import com.squareup.okhttp.ResponseBody;
 
-import java.util.List;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
+
 
 public interface RestaurantService {
     @GET("businesses/search")
@@ -30,5 +24,4 @@ public interface RestaurantService {
 
     @GET
     Call<ResponseBody> getImage(@Url String imageUrl);
-
 }

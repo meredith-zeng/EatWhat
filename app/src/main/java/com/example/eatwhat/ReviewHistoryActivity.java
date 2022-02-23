@@ -7,13 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,13 +19,14 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class MyAccountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ReviewHistoryActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     private Intent homeIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_review_history);
         setToolBar();
         setItemList();
     }
@@ -40,12 +38,12 @@ public class MyAccountActivity extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
-            actionBar.setTitle("My Account");
+            actionBar.setTitle("Review History");
         }
     }
 
     private void setItemList() {
-        String[] items = new String[]{"    My Profile", "    My Posts", "    Review History"};
+        String[] items = new String[]{"history1", "history2", "history3"};
         final ArrayList<String> list = new ArrayList<>();
 
         for (int i = 0; i < items.length; i++) {
