@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.adapter.RestaurantAdapter;
+import com.example.eatwhat.cardview.PostCard;
+import com.example.eatwhat.cardview.RestaurantCard;
+import com.example.eatwhat.service.RestaurantService;
+import com.example.eatwhat.service.RetrofitClient;
+import com.example.eatwhat.service.pojo.Business;
+import com.example.eatwhat.service.pojo.Restaurant;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment {
 
@@ -30,9 +44,13 @@ public class RestaurantFragment extends Fragment {
     private String selectedState;
     private String selectedCity;
 
+    private RecyclerView recyclerView;
+    private ArrayList<RestaurantCard> restaurantCardArrayList;
+
     public RestaurantFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +81,15 @@ public class RestaurantFragment extends Fragment {
 
         createSpinnerDialog(categoryView, categoryList, "category");
         createSpinnerDialog(statesView, statesList, "state");
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        initData();
+
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getContext(), restaurantCardArrayList);
+        recyclerView.setAdapter(restaurantAdapter);
+
         return view;
     }
 
@@ -125,4 +152,44 @@ public class RestaurantFragment extends Fragment {
             }
         });
     }
+
+    private void initData(){
+        restaurantCardArrayList = new ArrayList<>();
+//        RestaurantService methods = RetrofitClient.getRetrofit().create(RestaurantService.class);
+//        String location = "Santa Clara University";
+//        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 1);
+//        call.enqueue(new Callback<Restaurant>() {
+//            @Override
+//            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+//                Log.e("Restaurant card Test", response.body() + " ");
+//                if (response.code() == 200){
+//
+//                    for (Business business: response.body().getBusinesses()){
+//                        RestaurantCard restaurantCard = new RestaurantCard();
+//                        restaurantCard.setRestaurantImageUrl(business.getImageUrl());
+//                        restaurantCard.setTitle(business.getName());
+//                        restaurantCard.setCollect(false);
+//                        restaurantCard.setContent(business.getCategories().toString());
+//                        restaurantCardArrayList.add(restaurantCard);
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Restaurant> call, Throwable t) {
+//
+//            }
+//        });
+        String imageUrl = "https://s3-media3.fl.yelpcdn.com/bphoto/XUS57sY4C2BUUjiP2-vLqw/o.jpg";
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+
+    }
+
 }

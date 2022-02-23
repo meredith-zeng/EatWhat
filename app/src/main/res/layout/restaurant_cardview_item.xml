@@ -4,9 +4,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="13dp">
+        android:layout_margin="10dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="15dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,9 +14,9 @@
         android:background="#c6c6c6">
 
         <ImageView
-            android:id="@+id/post_food_photo"
+            android:id="@+id/restaurant_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:gravity="bottom"
             android:scaleType="centerCrop"
             android:src="@drawable/post_photo" />
@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_below="@id/post_food_photo">
+                android:layout_below="@id/restaurant_image">
 
 
                 <TableLayout
@@ -33,11 +33,17 @@
                     android:layout_height="fill_parent">
 
                     <TableRow>
+                        <ImageView
+                            android:id="@+id/is_collect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="25dp"
+                            android:src="@drawable/ic_baseline_favorite_24" />
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <TextView
-                                android:id="@+id/post_title"
+                                android:id="@+id/restaurant_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
@@ -47,10 +53,10 @@
                                 android:textSize="17sp" />
 
                         <TextView
-                            android:id="@+id/post_content"
+                            android:id="@+id/restaurant_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/post_title"
+                            android:layout_below="@id/restaurant_title"
                             android:layout_marginLeft="7dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
@@ -59,12 +65,7 @@
                             android:textSize="14sp" />
                         </RelativeLayout>
 
-                        <ImageView
-                            android:id="@+id/liked_bottom"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="25dp"
-                            android:src="@drawable/ic_baseline_favorite_24" />
+
                     </TableRow>
 
                 </TableLayout>
