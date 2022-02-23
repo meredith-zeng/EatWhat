@@ -4,17 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
+import com.example.eatwhat.adapter.ReviewHistoryAdapter;
+import com.example.eatwhat.cardview.ReviewHistoryCard;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -22,18 +19,19 @@ import java.util.ArrayList;
 public class ReviewHistoryActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Intent homeIntent;
+    private ArrayList<ReviewHistoryCard> ReviewHistoryCardArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_history);
         setToolBar();
-        setItemList();
+        setRecyclerView();
     }
 
 
     private void setToolBar() {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.account_toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.review_history_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
@@ -42,27 +40,15 @@ public class ReviewHistoryActivity extends AppCompatActivity implements Navigati
         }
     }
 
-    private void setItemList() {
-        String[] items = new String[]{"history1", "history2", "history3"};
-        final ArrayList<String> list = new ArrayList<>();
-
-        for (int i = 0; i < items.length; i++) {
-            list.add(items[i]);
-        }
-
-        ListView listview = findViewById(R.id.myList);
-        listview.setAdapter(new ArrayAdapter<String>(this, R.layout.my_account_item, list) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView textView = (view.findViewById(R.id.listItem));
-                textView.setMinHeight(0);
-                textView.setMinimumHeight(0);
-                textView.setHeight(150);
-                return view;
-            }
-        });
+    private void setRecyclerView() {
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.review_history_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ReviewHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        initData();
+        ReviewHistoryAdapter myAdapter = new ReviewHistoryAdapter(ReviewHistoryActivity.this, ReviewHistoryCardArrayList);
+        recyclerView.setAdapter(myAdapter);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
@@ -79,5 +65,17 @@ public class ReviewHistoryActivity extends AppCompatActivity implements Navigati
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+
+    private void initData(){
+        ReviewHistoryCardArrayList = new ArrayList<>();
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
+        ReviewHistoryCardArrayList.add(new ReviewHistoryCard("title", "content"));
     }
 }

@@ -39,23 +39,28 @@ public class RestaurantFragment extends Fragment {
 
     private ArrayList<String> categoryList;
     private ArrayList<String> statesList;
+    private ArrayList<RestaurantCard> restaurantCardArrayList;
 
     private String selectedCategory;
     private String selectedState;
     private String selectedCity;
 
     private RecyclerView recyclerView;
-    private ArrayList<RestaurantCard> restaurantCardArrayList;
 
     public RestaurantFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
+        createSpinners(view, container);
+        createRecyclerView(view, container);
+        return view;
+    }
 
+    private void createSpinners(View view, ViewGroup container) {
         String [] categoryArray = {"Chinese", "American", "Italian", "French", "Korean", "Japanese"};
         categoryList = new ArrayList<>();
         for (int i = 0; i < categoryArray.length; i++) {
@@ -74,14 +79,15 @@ public class RestaurantFragment extends Fragment {
             statesList.add(statesArray[i]);
         }
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
         TextView categoryView = view.findViewById(R.id.selectCategoryView);
         TextView statesView = view.findViewById(R.id.selectStateView);
 
         createSpinnerDialog(categoryView, categoryList, "category");
         createSpinnerDialog(statesView, statesList, "state");
 
+    }
+
+    private void createRecyclerView(View view, ViewGroup container) {
         recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -89,8 +95,6 @@ public class RestaurantFragment extends Fragment {
 
         RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getContext(), restaurantCardArrayList);
         recyclerView.setAdapter(restaurantAdapter);
-
-        return view;
     }
 
     private void createSpinnerDialog(TextView textview, ArrayList<String> list, String type) {
