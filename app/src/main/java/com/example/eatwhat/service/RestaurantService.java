@@ -19,10 +19,10 @@ import retrofit2.http.Url;
 public interface RestaurantService {
     @GET("businesses/search")
     Call<Restaurant> queryRestaurantByLocation(@Query("location") String location,
-                                             @Query("latitude") String latitude,
-                                             @Query("longitude") String longitude,
-                                             @Query("categories") String categories,
-                                             @Query("limit") int limit,
+//                                             @Query("latitude") String latitude,
+//                                             @Query("longitude") String longitude,
+//                                             @Query("categories") String categories,
+//                                             @Query("limit") int limit,
                                              @Query("offset") int offset);
 
     @GET("businesses")
