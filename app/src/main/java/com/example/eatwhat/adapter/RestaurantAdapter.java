@@ -21,7 +21,7 @@ import com.example.eatwhat.cardview.RestaurantCard;
 
 import java.util.ArrayList;
 
-public class RestaurantAdapter  extends RecyclerView.Adapter<RestaurantAdapter.Viewholder> {
+public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Viewholder> {
 
     private Context context;
     private ArrayList<RestaurantCard> restaurantCardArrayList;
