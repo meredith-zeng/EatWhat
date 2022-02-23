@@ -6,66 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".mainActivityFragments.RestaurantFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
+                android:padding="5dp"
                 android:text="Category"
-                android:paddingLeft="20dp"
-                android:textSize="20dp" />
 
-                <Spinner
-                    android:id="@+id/category_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:textSize="30dp"/>
+                />
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectCategoryView"
+                android:hint="Select Category"
+                android:padding="5dp"
+                android:drawableEnd="@drawable/drop_down_arrow"
+                android:layout_marginLeft="10dp"
+                android:background="@android:drawable/editbox_background"
+                />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
+                android:padding="5dp"
                 android:text="Location"
-                android:paddingLeft="20dp"
-                android:textSize="20dp" />
+                />
 
-            <Spinner
-                android:id="@+id/states_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectStateView"
+                android:hint="Select State"
+                android:padding="5dp"
+                android:drawableEnd="@drawable/drop_down_arrow"
+                android:layout_marginLeft="10dp"
+                android:background="@android:drawable/editbox_background"
+                />
 
-            <Spinner
-                android:id="@+id/cities_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectCityView"
+                android:hint="Select City"
+                android:padding="5dp"
+                android:layout_marginStart="30dp"
+                android:drawableEnd="@drawable/drop_down_arrow"
+                android:layout_marginLeft="10dp"
+                android:background="@android:drawable/editbox_background"
+                />
+
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 </FrameLayout>
