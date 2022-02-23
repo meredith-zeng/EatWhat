@@ -65,7 +65,13 @@ public class NotesFragment extends Fragment {
         postCardArrayList.add(new PostCard("Santa clara", "great great great great", 100, imageUrl));
         postCardArrayList.add(new PostCard("Java", "the best one", 10000, imageUrl));
         postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
-
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
+        postCardArrayList.add(new PostCard("C++", "great great great great", 99, imageUrl));
 
     }
 }

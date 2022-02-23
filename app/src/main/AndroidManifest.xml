@@ -62,10 +62,6 @@
             android:name=".SignInActivity"
             android:exported="true">
         </activity>
-
-        <activity
-            android:name=".SignInActivity"
-            android:exported="true" />
         <activity
             android:name=".mainActivityFragments.ProfileActivity"
             android:label="My Profile"

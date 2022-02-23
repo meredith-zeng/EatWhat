@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/image_view_in_res"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_width="match_parent">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true">
 
     </ImageView>
 
