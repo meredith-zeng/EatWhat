@@ -22,6 +22,4 @@ public class TodaysFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shake__1, container, false);
     }
-
-
 }

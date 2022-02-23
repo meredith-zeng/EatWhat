@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.drawer_preference:
                 Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
+                toSetPreference.putExtra("source", "home");
                 startActivity(toSetPreference);
                 return true;
             case R.id.drawer_logout:

@@ -17,14 +17,14 @@ import com.example.eatwhat.MainActivity;
 import com.example.eatwhat.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class ProfileActivity extends AppCompatActivity {
-    Button change;
+public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private Button change;
+    private Intent homeIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         //set back button
         setToolBar();
 
@@ -46,9 +46,22 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.profileToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setTitle("My Profile");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            homeIntent = new Intent(this, MainActivity.class);
+            startActivity(homeIntent);
+            finish();
+            return true;
         }
+
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
