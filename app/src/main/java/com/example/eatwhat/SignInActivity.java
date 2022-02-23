@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,9 +78,18 @@ public class SignInActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                email_str = email_addr.getText().toString();
-                password_str = password.getText().toString();
-                signIn(email_str, password_str);
+                email_str = email_addr.getText().toString().trim();
+                password_str = password.getText().toString().trim();
+                if(TextUtils.isEmpty(email_addr.getText())){
+                    Toast.makeText(SignInActivity.this, "Email Address Cannot be Empty!", Toast.LENGTH_LONG).show();
+                }
+                else if(TextUtils.isEmpty(password.getText())){
+                    Toast.makeText(SignInActivity.this, "Password Cannot be Empty!", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    signIn(email_str, password_str);
+                }
+
             }
         });
     }
@@ -97,10 +109,16 @@ public class SignInActivity extends AppCompatActivity {
                             finish();
 
                         } else {
+
                             Log.d(TAG, "" + task.getException());
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignInActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

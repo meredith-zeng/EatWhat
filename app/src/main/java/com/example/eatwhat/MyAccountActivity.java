@@ -31,9 +31,9 @@ public class MyAccountActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_account_list_view);
+        setContentView(R.layout.activity_profile);
         setToolBar();
-        setItemList();
+       // setItemList();
     }
 
 
