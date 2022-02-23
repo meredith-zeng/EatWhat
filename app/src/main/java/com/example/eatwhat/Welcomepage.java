@@ -40,7 +40,7 @@ public class Welcomepage extends AppCompatActivity {
         welcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Welcomepage.this,SignUpActivity.class);
+                Intent intent = new Intent(Welcomepage.this,SignInActivity.class);
                 startActivity(intent);
                 finish();
             }
