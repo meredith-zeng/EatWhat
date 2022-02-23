@@ -28,6 +28,7 @@
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".SetPreferenceActivity"
+            android:theme="@style/Theme.EatWhat.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".Welcomepage"
@@ -45,19 +46,14 @@
             android:exported="true" />
         <activity
             android:name=".mainActivityFragments.ProfileActivity"
-            android:exported="true"
-            android:theme="@style/Theme.EatWhat.NoActionBar" />
+            android:label="My Profile"
+            android:theme="@style/Theme.EatWhat.NoActionBar"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EatWhat.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:theme="@style/Theme.EatWhat.NoActionBar">
         </activity>
     </application>
-
 </manifest>

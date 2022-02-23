@@ -44,17 +44,13 @@
         <entry key="..\:/Github/EatWhat/app/src/main/res/menu/menu_main.xml" value="0.1296875" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/border.xml" value="0.221875" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.221875" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_main.xml" value="0.10462962962962963" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_set_preference.xml" value="0.3671875" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_sign_in.xml" value="0.20153985507246377" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_sign_up.xml" value="0.3671875" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/cardview_test.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/drawer_layout.xml" value="0.20153985507246377" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/fragment_my_posts.xml" value="0.10462962962962963" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/fragment_notes.xml" value="0.1" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/fragment_todays.xml" value="0.223731884057971" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/post_creation.xml" value="0.13541666666666666" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/restaurant_category_search.xml" value="0.25815217391304346" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/unused_cardview_item_post.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/using_post_card.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/welcomepage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/menu/drawer_menu.xml" value="0.3671875" />
+        <entry key="..\:/Users/49058/AppData/Local/Android/Sdk/platforms/android-32/data/res/drawable/editbox_background.xml" value="0.29010416666666666" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.181" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />

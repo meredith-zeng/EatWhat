@@ -151,7 +151,9 @@ public class SignUpActivity extends AppCompatActivity {
                     currentUser = new User(username_str, email_str, "");
                     Intent intent = new Intent(SignUpActivity.this, SetPreferenceActivity.class);
                     intent.putExtra("currentUser", currentUser);
+                    intent.putExtra("source", "signup");
                     startActivity(intent);
+                    finish();
                 }
                 else{
                     Log.d(TAG, "something wrong! " + task.getException());
