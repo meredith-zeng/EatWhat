@@ -92,13 +92,12 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = getIntent();
-                User curUser = (User) intent.getSerializableExtra("currentUser");
-                curUser.setPreference(personalPreference);
-                //Log.d(TAG, "set preference: " + personalPreference.size() + "  " + personalPreference.toString());
-                saveUserInfoToFireStore(curUser);
 
                 if (source.equals("signup")) {
+                    Intent intent = getIntent();
+                    User curUser = (User) intent.getSerializableExtra("currentUser");
+                    curUser.setPreference(personalPreference);
+                    saveUserInfoToFireStore(curUser);
                     jumpToMainActivity();
                 }
                 else if (source.equals("home")) {
