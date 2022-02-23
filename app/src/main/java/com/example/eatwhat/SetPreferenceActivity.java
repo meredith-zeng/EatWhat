@@ -8,23 +8,35 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 
 
+import com.example.eatwhat.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class SetPreferenceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private static final String TAG = "SetPreferenceActivity";
     private Button startToExplore;
     private List<String> personalPreference;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Map<String, User> users = new HashMap<>();
     private Intent homeIntent;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +79,7 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
                         item.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
                         item.setTextColor(Color.parseColor("#FFFFFF"));
                         personalPreference.add(name);
+                        //Log.d(TAG, "onClick: +++++++++++++++++++++++++++");
                     } else{
                         item.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
                         item.setTextColor(Color.parseColor("#978C8C"));
@@ -79,6 +92,12 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = getIntent();
+                User curUser = (User) intent.getSerializableExtra("currentUser");
+                curUser.setPreference(personalPreference);
+                //Log.d(TAG, "set preference: " + personalPreference.size() + "  " + personalPreference.toString());
+                saveUserInfoToFireStore(curUser);
+
                 if (source.equals("signup")) {
                     jumpToMainActivity();
                 }
@@ -95,6 +114,22 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void saveUserInfoToFireStore(User curUser){
+        String uid = curUser.getUid();
+        users.put(uid, curUser);
+        db.collection("user").add(users).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error adding document", e);
+            }
+        });
     }
 
     private void setToolBar() {
