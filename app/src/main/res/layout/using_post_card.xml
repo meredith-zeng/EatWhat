@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="1dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
-    app:cardMaxElevation="6dp"
+    app:cardMaxElevation="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
@@ -23,7 +23,7 @@
             android:layout_height="120dp"
             android:layout_margin="10dp"
             android:padding="5dp"
-            android:src="@drawable/post_photo" />
+            tools:srcCompat = "@tools:sample/avatars"/>
 
         <!--Text View to display post_title-->
         <TextView

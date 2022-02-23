@@ -1,22 +1,18 @@
 package com.example.eatwhat.cardview;
-import java.io.Serializable;
-public class PostCard implements Serializable{
+
+public class PostCard{
+
 
     private String post_title;
     private String post_content;
     private int number_of_likes;
-    private int post_image;
-    private String restuarant_name;
-    private double star;
+    private String post_image_url;
 
-
-    public PostCard(String post_title, String post_content, int number_of_likes, int course_image, String restuarant_name, double star) {
+    public PostCard(String post_title, String post_content, int number_of_likes, String post_image_url) {
         this.post_title = post_title;
         this.post_content = post_content;
         this.number_of_likes = number_of_likes;
-        this.post_image = post_image;
-        this.restuarant_name = restuarant_name;
-        this.star = star;
+        this.post_image_url = post_image_url;
     }
 
     public String getPost_title() {
@@ -43,27 +39,22 @@ public class PostCard implements Serializable{
         this.number_of_likes = number_of_likes;
     }
 
-    public int getPost_image() {
-        return post_image;
+    public String getPost_image_url() {
+        return post_image_url;
     }
 
-    public void setPost_image(int course_image) {
-        this.post_image = post_image;
+    public void setPost_image_url(String post_image_url) {
+        this.post_image_url = post_image_url;
     }
 
-    public String getRestuarant_name() {
-        return restuarant_name;
+    @Override
+    public String toString() {
+        return "PostCard{" +
+                "post_title='" + post_title + '\'' +
+                ", post_content='" + post_content + '\'' +
+                ", number_of_likes=" + number_of_likes +
+                ", post_image_url='" + post_image_url + '\'' +
+                '}';
     }
 
-    public void setPost_image(String restuarant_name) {
-        this.restuarant_name = restuarant_name;
-    }
-
-    public double getstar() {
-        return star;
-    }
-
-    public void setstar(double star) {
-        this.star = star;
-    }
 }
