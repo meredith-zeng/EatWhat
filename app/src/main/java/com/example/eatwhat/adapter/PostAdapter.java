@@ -22,7 +22,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     private ArrayList<PostCard> postCardArrayList;
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
 
-
     // Constructor
     public PostAdapter(Context context, ArrayList<PostCard> postCardArrayList) {
         this.context = context;
@@ -37,6 +36,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         return new Viewholder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.Viewholder holder, int position) {
         // to set data to textview and imageview of each card layout
@@ -44,14 +44,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
-        holder.postTitleV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
-                profilePageIntent.putExtra("card", model);
-                context.startActivity(profilePageIntent);
-            }
-        });
 
         holder.numberOfLikeV.setText(String.valueOf(model.getNumber_of_likes()));
 
@@ -63,12 +55,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
 
     }
 
+
     @Override
     public int getItemCount() {
         return postCardArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder {
+    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView postImageV;
         private TextView postTitleV, postContentV,numberOfLikeV;
 
@@ -78,8 +71,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
             postTitleV = itemView.findViewById(R.id.idPostTitle);
             postContentV = itemView.findViewById(R.id.idPostContent);
             numberOfLikeV = itemView.findViewById(R.id.numberOfLike);
+
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+            PostCard model = postCardArrayList.get(getLayoutPosition());
+            Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
+            profilePageIntent.putExtra("card", model);
+            context.startActivity(profilePageIntent);
+        }
     }
 }
