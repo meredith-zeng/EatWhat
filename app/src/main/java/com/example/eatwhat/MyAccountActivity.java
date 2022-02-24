@@ -24,16 +24,13 @@ import java.util.ArrayList;
 
 public class MyAccountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Intent homeIntent;
-    private DrawerLayout myDrawerLayout;
-    private NavigationView myNavigationView;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setToolBar();
-       // setItemList();
+        setItemList();
     }
 
 

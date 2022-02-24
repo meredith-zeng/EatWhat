@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +17,35 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.adapter.RestaurantAdapter;
+import com.example.eatwhat.cardview.PostCard;
+import com.example.eatwhat.cardview.RestaurantCard;
+import com.example.eatwhat.service.RestaurantService;
+import com.example.eatwhat.service.RetrofitClient;
+import com.example.eatwhat.service.pojo.Business;
+import com.example.eatwhat.service.pojo.Restaurant;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment {
 
     private ArrayList<String> categoryList;
     private ArrayList<String> statesList;
+    private ArrayList<RestaurantCard> restaurantCardArrayList;
 
     private String selectedCategory;
     private String selectedState;
     private String selectedCity;
+
+    private RecyclerView recyclerView;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -37,7 +54,13 @@ public class RestaurantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
+        createSpinners(view, container);
+        createRecyclerView(view, container);
+        return view;
+    }
 
+    private void createSpinners(View view, ViewGroup container) {
         String [] categoryArray = {"Chinese", "American", "Italian", "French", "Korean", "Japanese"};
         categoryList = new ArrayList<>();
         for (int i = 0; i < categoryArray.length; i++) {
@@ -56,14 +79,22 @@ public class RestaurantFragment extends Fragment {
             statesList.add(statesArray[i]);
         }
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
         TextView categoryView = view.findViewById(R.id.selectCategoryView);
         TextView statesView = view.findViewById(R.id.selectStateView);
 
         createSpinnerDialog(categoryView, categoryList, "category");
         createSpinnerDialog(statesView, statesList, "state");
-        return view;
+
+    }
+
+    private void createRecyclerView(View view, ViewGroup container) {
+        recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        initData();
+
+        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getContext(), restaurantCardArrayList);
+        recyclerView.setAdapter(restaurantAdapter);
     }
 
     private void createSpinnerDialog(TextView textview, ArrayList<String> list, String type) {
@@ -125,4 +156,44 @@ public class RestaurantFragment extends Fragment {
             }
         });
     }
+
+    private void initData(){
+        restaurantCardArrayList = new ArrayList<>();
+//        RestaurantService methods = RetrofitClient.getRetrofit().create(RestaurantService.class);
+//        String location = "Santa Clara University";
+//        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 1);
+//        call.enqueue(new Callback<Restaurant>() {
+//            @Override
+//            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+//                Log.e("Restaurant card Test", response.body() + " ");
+//                if (response.code() == 200){
+//
+//                    for (Business business: response.body().getBusinesses()){
+//                        RestaurantCard restaurantCard = new RestaurantCard();
+//                        restaurantCard.setRestaurantImageUrl(business.getImageUrl());
+//                        restaurantCard.setTitle(business.getName());
+//                        restaurantCard.setCollect(false);
+//                        restaurantCard.setContent(business.getCategories().toString());
+//                        restaurantCardArrayList.add(restaurantCard);
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Restaurant> call, Throwable t) {
+//
+//            }
+//        });
+        String imageUrl = "https://s3-media3.fl.yelpcdn.com/bphoto/XUS57sY4C2BUUjiP2-vLqw/o.jpg";
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+
+    }
+
 }
