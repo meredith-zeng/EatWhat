@@ -16,6 +16,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.PostDetailActivity;
 import com.example.eatwhat.R;
+import com.example.eatwhat.RestaurantDetailActivity;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.cardview.RestaurantCard;
 
@@ -61,7 +62,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return restaurantCardArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder {
+    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView restaurantImage, isCollect;
         private TextView restaurantTitle, restaurantContent;
 
@@ -71,8 +72,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             restaurantTitle = itemView.findViewById(R.id.restaurant_title);
             restaurantContent = itemView.findViewById(R.id.restaurant_content);
             isCollect = itemView.findViewById(R.id.is_collect);
+
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+            Intent restaurantDetailIntent = new Intent(context, RestaurantDetailActivity.class);
+            context.startActivity(restaurantDetailIntent);
+        }
     }
 }
