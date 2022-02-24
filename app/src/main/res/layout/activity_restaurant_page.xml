@@ -8,19 +8,18 @@
 
 
     <ImageView
-        android:id="@+id/image_view_in_res"
+        android:id="@+id/restaurant_detail_image"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="450dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true">
-
     </ImageView>
 
     <LinearLayout
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/image_view_in_res"
+        android:layout_below="@id/restaurant_detail_image"
         android:orientation="horizontal"
         android:layout_height="120dp"
         android:id="@+id/linear_layout_1_in_res"
@@ -30,13 +29,14 @@
             android:orientation="vertical"
             android:layout_weight="6"
             android:layout_height="match_parent"
-            android:layout_width="wrap_content">
+            android:layout_width="match_parent">
 
             <TextView
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Restaurant Name"
+                android:id="@+id/restaurant_detail_name"
+                android:text="Name"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 >
             </TextView>
             <TextView
-
+                android:id="@+id/restaurant_category"
                 android:text="Thai, Bar"
                 android:layout_marginLeft="18dp"
                 android:layout_height="wrap_content"
@@ -55,6 +55,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="12dp"
+                android:id="@+id/restaurant_address"
                 android:text="2097 Board Way, San Jose, CA, 95111"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -69,36 +70,36 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
+            android:layout_width="50dp">
 
         </TextView>
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/linear_layout_1_in_res"
-        android:orientation="vertical"
-        android:id="@+id/linear_layout_2_in_res"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+<!--    <LinearLayout-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_below="@id/linear_layout_1_in_res"-->
+<!--        android:orientation="vertical"-->
+<!--        android:id="@+id/linear_layout_2_in_res"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_width="match_parent">-->
 
-        <TextView
-            android:layout_marginLeft="12dp"
-            android:text="Description"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
+<!--        <TextView-->
+<!--            android:layout_marginLeft="12dp"-->
+<!--            android:text="Description"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="wrap_content">-->
+<!--        </TextView>-->
 
-        </TextView>
-
-        <TextView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:text="A restaurant is a business that prepares and serves food and drinks to customers.[1] Meals are generally served and eaten on the premises, but many restaurants also offer take-out and food delivery services. Restaurants vary greatly in appearance and offerings, including a wide variety of cuisines and service models ranging from inexpensive fast-food restaurants and cafeterias to mid-priced family restaurants, to high-priced luxury establishments"
-            >
-        </TextView>
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:id="@+id/webView_restaurant"-->
+<!--            android:text="A restaurant is a business that prepares and serves food and drinks to customers.[1] Meals are generally served and eaten on the premises, but many restaurants also offer take-out and food delivery services. Restaurants vary greatly in appearance and offerings, including a wide variety of cuisines and service models ranging from inexpensive fast-food restaurants and cafeterias to mid-priced family restaurants, to high-priced luxury establishments"-->
+<!--            >-->
+<!--        </TextView>-->
+<!--    </LinearLayout>-->
 </RelativeLayout>

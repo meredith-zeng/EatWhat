@@ -143,7 +143,6 @@ public class RestaurantFragment extends Fragment {
                                 break;
                         }
 
-                        //System.out.println(selectedCategory + "  " + selectedState + "  " + selectedCity);
                         dialog.dismiss();
                     }
                 });
@@ -152,25 +151,15 @@ public class RestaurantFragment extends Fragment {
     }
 
     private void initData(){
-//        String imageUrl = "https://s3-media3.fl.yelpcdn.com/bphoto/XUS57sY4C2BUUjiP2-vLqw/o.jpg";
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-
         RetrofitClient retrofitClient = new RetrofitClient();
-
         ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
         String location = "Santa Clara University";
-        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 10, 1);
+        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 35, 1);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                Log.e("Restaurant card Test", response.body() + " ");
+                Log.i("Restaurant card Test", response.body() + " ");
                 if (response.code() == 200){
 
                     for (Business business: response.body().getBusinesses()){
