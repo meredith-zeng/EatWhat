@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,8 @@ import com.example.eatwhat.service.pojo.Restaurant;
 
 import java.util.ArrayList;
 
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +42,6 @@ public class RestaurantFragment extends Fragment {
 
     private ArrayList<String> categoryList;
     private ArrayList<String> statesList;
-    private ArrayList<RestaurantCard> restaurantCardArrayList;
 
     private String selectedCategory;
     private String selectedState;
@@ -56,7 +58,8 @@ public class RestaurantFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
         createSpinners(view, container);
-        createRecyclerView(view, container);
+        recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
+        initData();
         return view;
     }
 
@@ -87,15 +90,6 @@ public class RestaurantFragment extends Fragment {
 
     }
 
-    private void createRecyclerView(View view, ViewGroup container) {
-        recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        initData();
-
-        RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getContext(), restaurantCardArrayList);
-        recyclerView.setAdapter(restaurantAdapter);
-    }
 
     private void createSpinnerDialog(TextView textview, ArrayList<String> list, String type) {
         textview.setOnClickListener(new View.OnClickListener() {
@@ -158,41 +152,49 @@ public class RestaurantFragment extends Fragment {
     }
 
     private void initData(){
-        restaurantCardArrayList = new ArrayList<>();
-//        RestaurantService methods = RetrofitClient.getRetrofit().create(RestaurantService.class);
-//        String location = "Santa Clara University";
-//        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 1);
-//        call.enqueue(new Callback<Restaurant>() {
-//            @Override
-//            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-//                Log.e("Restaurant card Test", response.body() + " ");
-//                if (response.code() == 200){
-//
-//                    for (Business business: response.body().getBusinesses()){
-//                        RestaurantCard restaurantCard = new RestaurantCard();
-//                        restaurantCard.setRestaurantImageUrl(business.getImageUrl());
-//                        restaurantCard.setTitle(business.getName());
-//                        restaurantCard.setCollect(false);
-//                        restaurantCard.setContent(business.getCategories().toString());
-//                        restaurantCardArrayList.add(restaurantCard);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Restaurant> call, Throwable t) {
-//
-//            }
-//        });
-        String imageUrl = "https://s3-media3.fl.yelpcdn.com/bphoto/XUS57sY4C2BUUjiP2-vLqw/o.jpg";
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
-        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        String imageUrl = "https://s3-media3.fl.yelpcdn.com/bphoto/XUS57sY4C2BUUjiP2-vLqw/o.jpg";
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+//        restaurantCardArrayList.add(new RestaurantCard(imageUrl, "title", "content", false));
+
+        RetrofitClient retrofitClient = new RetrofitClient();
+
+        ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
+        RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
+        String location = "Santa Clara University";
+        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 10, 1);
+        call.enqueue(new Callback<Restaurant>() {
+            @Override
+            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                Log.e("Restaurant card Test", response.body() + " ");
+                if (response.code() == 200){
+
+                    for (Business business: response.body().getBusinesses()){
+                        RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
+                        restaurantCardArrayList.add(restaurantCard);
+                    }
+                    initRecycleView(restaurantCardArrayList);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Restaurant> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void initRecycleView(ArrayList<RestaurantCard> restaurantCardArrayList) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getActivity(), restaurantCardArrayList);
+            recyclerView.setAdapter(restaurantAdapter);
 
     }
 
