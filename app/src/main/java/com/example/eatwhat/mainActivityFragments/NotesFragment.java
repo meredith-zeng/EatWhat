@@ -65,7 +65,5 @@ public class NotesFragment extends Fragment {
         postCardArrayList.add(new PostCard("C++", "great great great great", 103, R.drawable.post_photo, "Panda", 3.5));
         postCardArrayList.add(new PostCard("C", "great great great great", 223, R.drawable.post_photo, "Panda", 3.5));
         postCardArrayList.add(new PostCard("JavaScript", "great great great great", 123, R.drawable.post_photo, "Panda", 3.5));
-
-
     }
 }

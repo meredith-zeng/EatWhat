@@ -17,7 +17,7 @@
 
         <item android:id="@+id/drawer_postes"
             android:checkable="true"
-            android:title="My Posts"
+            android:title="My Notes"
             android:icon="@drawable/drawer_myposts_24"
             />
 

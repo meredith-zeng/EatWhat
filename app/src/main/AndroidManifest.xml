@@ -18,6 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat" >
         <activity
+            android:name=".MyNotesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EatWhat.NoActionBar" />
+        <activity
             android:name=".SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
@@ -44,12 +48,14 @@
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".Welcomepage"
-            android:exported="true" >
-        </activity>
+            android:exported="true">
+         </activity>
+      
         <activity
             android:name=".RestaurantPageActivity"
             android:exported="true" >
         </activity>
+
         <activity
             android:name=".SignUpActivity"
             android:exported="true" />
