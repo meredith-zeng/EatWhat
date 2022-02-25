@@ -1,6 +1,7 @@
 package com.example.eatwhat.mainActivityFragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,8 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.RestaurantPageActivity;
 import com.example.eatwhat.adapter.RestaurantAdapter;
-import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.cardview.RestaurantCard;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
@@ -154,7 +155,10 @@ public class RestaurantFragment extends Fragment {
         RetrofitClient retrofitClient = new RetrofitClient();
         ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
-        String location = "Santa Clara University";
+
+        String location = "Santa Clara";
+        Log.i("selection", location +" ");
+
         Call<Restaurant> call = methods.queryRestaurantByLocation(location, 35, 1);
         call.enqueue(new Callback<Restaurant>() {
             @Override
@@ -183,6 +187,18 @@ public class RestaurantFragment extends Fragment {
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             RestaurantAdapter restaurantAdapter = new RestaurantAdapter(getActivity(), restaurantCardArrayList);
+            restaurantAdapter.setRecyclerViewOnItemClickListener(new RestaurantAdapter.RecyclerViewOnItemClickListener() {
+                @Override
+                public void onItemClickListener(View view, int position) {
+//                    Snackbar.make(view, "OnClick：" + restaurantCardArrayList.get(position).getContent().toString(), Snackbar.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), RestaurantPageActivity.class);
+                    intent.putExtra("title", restaurantCardArrayList.get(position).getTitle());
+                    intent.putExtra("content", restaurantCardArrayList.get(position).getContent());
+                    intent.putExtra("imageUrl", restaurantCardArrayList.get(position).getRestaurantImageUrl());
+                    getContext().startActivity(intent);
+                }
+            });
+
             recyclerView.setAdapter(restaurantAdapter);
 
     }
