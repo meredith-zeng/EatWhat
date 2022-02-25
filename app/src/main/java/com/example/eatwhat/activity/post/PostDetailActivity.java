@@ -1,8 +1,9 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.post;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
 
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,12 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.eatwhat.activity.MainActivity;
+import com.example.eatwhat.R;
 import com.example.eatwhat.adapter.MyNotesAdapter;
-import com.example.eatwhat.adapter.ReviewHistoryAdapter;
 import com.example.eatwhat.cardview.MyNotesCard;
-import com.example.eatwhat.cardview.PostCard;
-import com.example.eatwhat.service.RestaurantService;
-import com.example.eatwhat.service.RetrofitClient;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;

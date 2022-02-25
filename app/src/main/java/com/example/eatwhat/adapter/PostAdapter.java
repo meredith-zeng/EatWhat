@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eatwhat.PostDetailActivity;
+import com.example.eatwhat.activity.post.PostDetailActivity;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
 

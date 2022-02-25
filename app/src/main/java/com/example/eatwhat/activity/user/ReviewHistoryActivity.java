@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.example.eatwhat.activity.MainActivity;
+import com.example.eatwhat.R;
 import com.example.eatwhat.adapter.ReviewHistoryAdapter;
 import com.example.eatwhat.cardview.ReviewHistoryCard;
 import com.google.android.material.navigation.NavigationView;

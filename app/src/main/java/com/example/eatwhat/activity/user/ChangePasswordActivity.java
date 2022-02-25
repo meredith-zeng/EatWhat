@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.eatwhat.R;
 import com.example.eatwhat.mainActivityFragments.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 

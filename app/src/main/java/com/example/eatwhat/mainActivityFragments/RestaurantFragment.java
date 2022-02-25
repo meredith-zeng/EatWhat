@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatwhat.R;
-import com.example.eatwhat.RestaurantPageActivity;
+import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
 import com.example.eatwhat.adapter.RestaurantAdapter;
 import com.example.eatwhat.cardview.RestaurantCard;
 import com.example.eatwhat.service.RestaurantService;

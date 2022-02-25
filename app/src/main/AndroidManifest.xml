@@ -18,49 +18,49 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat" >
         <activity
-            android:name=".MyNotesActivity"
+            android:name=".activity.user.MyNotesActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".activity.SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".activity.user.ChangePasswordActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".PostCreationActivity"
+            android:name=".activity.post.PostCreationActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".PostDetailActivity"
+            android:name=".activity.post.PostDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".MyAccountActivity"
+            android:name=".activity.user.MyAccountActivity"
             android:exported="true"
             android:label="My Account"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".SetPreferenceActivity"
+            android:name=".activity.user.SetPreferenceActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".Welcomepage"
+            android:name=".activity.user.Welcomepage"
             android:exported="true">
          </activity>
       
         <activity
-            android:name=".RestaurantPageActivity"
+            android:name=".activity.restaurant.RestaurantPageActivity"
             android:exported="true" >
         </activity>
 
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activity.user.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".activity.user.SignInActivity"
             android:exported="true" />
         <activity
             android:name=".mainActivityFragments.ProfileActivity"
@@ -68,11 +68,11 @@
             android:label="My Profile"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".ReviewHistoryActivity"
+            android:name=".activity.user.ReviewHistoryActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EatWhat.NoActionBar" >

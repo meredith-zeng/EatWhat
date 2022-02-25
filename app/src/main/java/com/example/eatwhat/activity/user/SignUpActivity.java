@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.user;
 
 
 import androidx.annotation.NonNull;
@@ -25,6 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.eatwhat.R;
 import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

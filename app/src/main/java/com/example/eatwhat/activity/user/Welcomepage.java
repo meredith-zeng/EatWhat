@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.eatwhat.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity.post;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.eatwhat.R;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
 import com.example.eatwhat.service.pojo.Business;

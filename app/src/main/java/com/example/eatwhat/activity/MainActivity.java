@@ -1,10 +1,15 @@
-package com.example.eatwhat;
+package com.example.eatwhat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.eatwhat.R;
+import com.example.eatwhat.activity.user.MyNotesActivity;
+import com.example.eatwhat.activity.post.PostCreationActivity;
+import com.example.eatwhat.activity.user.ReviewHistoryActivity;
+import com.example.eatwhat.activity.SearchActivity;
+import com.example.eatwhat.activity.user.SetPreferenceActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
-import com.example.eatwhat.adapter.MyNotesAdapter;
 import com.example.eatwhat.mainActivityFragments.ProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
