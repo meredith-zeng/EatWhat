@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.eatwhat">
+    package="com.example.eatwhat" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,11 +16,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EatWhat">
+        android:theme="@style/Theme.EatWhat" >
         <activity
             android:name=".MyNotesActivity"
             android:exported="false"
-            android:theme="@style/Theme.EatWhat.NoActionBar"/>
+            android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".SearchActivity"
             android:exported="false"
@@ -48,10 +48,14 @@
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".Welcomepage"
-            android:exported="true"></activity>
+            android:exported="true">
+         </activity>
+      
         <activity
             android:name=".RestaurantPageActivity"
-            android:exported="true"></activity>
+            android:exported="true" >
+        </activity>
+
         <activity
             android:name=".SignUpActivity"
             android:exported="true" />
@@ -71,7 +75,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EatWhat.NoActionBar">
+            android:theme="@style/Theme.EatWhat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

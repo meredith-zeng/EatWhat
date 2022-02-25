@@ -16,12 +16,19 @@ public interface RestaurantService {
 //                                             @Query("latitude") String latitude,
 //                                             @Query("longitude") String longitude,
 //                                             @Query("categories") String categories,
-//                                             @Query("limit") int limit,
+                                             @Query("limit") int limit,
                                              @Query("offset") int offset);
 
     @GET("businesses")
     Call<Business> getRestaurantById(@Query("id") String id);
 
-    @GET
-    Call<ResponseBody> getImage(@Url String imageUrl);
+    @GET("businesses/search")
+    Call<Restaurant> queryRestaurantByCategory(@Query("location") String location,
+//                                             @Query("latitude") String latitude,
+//                                             @Query("longitude") String longitude,
+                                               @Query("categories") String categories,
+                                               @Query("limit") int limit,
+                                               @Query("offset") int offset);
+
+
 }
