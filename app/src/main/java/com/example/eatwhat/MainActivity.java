@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.eatwhat.adapter.MainTabAdapter;
+import com.example.eatwhat.adapter.MyNotesAdapter;
 import com.example.eatwhat.mainActivityFragments.ProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -133,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 return true;
             case R.id.drawer_postes:
-                myDrawerLayout.closeDrawer(GravityCompat.START);
+                Intent toMyNotes = new Intent(this, MyNotesActivity.class);
+                startActivity(toMyNotes);
                 return true;
             case R.id.drawer_history:
                 Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);

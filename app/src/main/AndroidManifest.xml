@@ -18,9 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat">
         <activity
-            android:name=".SearchActivity"
+            android:name=".MyNotesActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar"/>
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".ChangePasswordActivity"
             android:exported="false"
@@ -44,24 +48,16 @@
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".Welcomepage"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".RestaurantPageActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".SignUpActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".SignInActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".mainActivityFragments.ProfileActivity"
             android:exported="true"
@@ -76,8 +72,11 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EatWhat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
