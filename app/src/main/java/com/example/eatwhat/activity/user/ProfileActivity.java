@@ -1,4 +1,4 @@
-package com.example.eatwhat.mainActivityFragments;
+package com.example.eatwhat.activity.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

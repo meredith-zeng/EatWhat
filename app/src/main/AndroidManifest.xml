@@ -63,7 +63,7 @@
             android:name=".activity.user.SignInActivity"
             android:exported="true" />
         <activity
-            android:name=".mainActivityFragments.ProfileActivity"
+            android:name=".activity.user.ProfileActivity"
             android:exported="true"
             android:label="My Profile"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
