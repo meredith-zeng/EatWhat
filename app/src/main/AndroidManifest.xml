@@ -18,9 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat" >
         <activity
-            android:name=".RestaurantDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />

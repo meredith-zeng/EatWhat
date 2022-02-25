@@ -1,7 +1,6 @@
 package com.example.eatwhat.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
-import com.example.eatwhat.PostDetailActivity;
 import com.example.eatwhat.R;
-import com.example.eatwhat.RestaurantDetailActivity;
-import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.cardview.RestaurantCard;
 
 import java.util.ArrayList;
 
-public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Viewholder> {
+public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Viewholder> implements View.OnClickListener{
 
     private Context context;
     private ArrayList<RestaurantCard> restaurantCardArrayList;
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
-
+    private RecyclerViewOnItemClickListener onItemClickListener;
 
     // Constructor
     public RestaurantAdapter(Context context, ArrayList<RestaurantCard> restaurantCardArrayList) {
@@ -38,8 +34,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     @NonNull
     @Override
     public RestaurantAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_cardview_item, parent, false);
-        return new RestaurantAdapter.Viewholder(view);
+        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_cardview_item, parent, false);
+        Viewholder vh = new Viewholder(root);
+        root.setOnClickListener(this);
+        return new RestaurantAdapter.Viewholder(root);
     }
 
     @Override
@@ -55,6 +53,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         Glide.with(this.context).load(glideUrl).into(holder.restaurantImage);
 
+        holder.root.setTag(position);
     }
 
     @Override
@@ -62,25 +61,41 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return restaurantCardArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public class Viewholder extends RecyclerView.ViewHolder {
         private ImageView restaurantImage, isCollect;
         private TextView restaurantTitle, restaurantContent;
+        private View root;
 
-        public Viewholder(@NonNull View itemView) {
-            super(itemView);
-            restaurantImage = itemView.findViewById(R.id.restaurant_image);
-            restaurantTitle = itemView.findViewById(R.id.restaurant_title);
-            restaurantContent = itemView.findViewById(R.id.restaurant_content);
-            isCollect = itemView.findViewById(R.id.is_collect);
+        public Viewholder(@NonNull View root) {
+            super(root);
+            this.root = root;
 
-            itemView.setOnClickListener(this);
+            restaurantImage = root.findViewById(R.id.restaurant_image);
+            restaurantTitle = root.findViewById(R.id.restaurant_title);
+            restaurantContent = root.findViewById(R.id.restaurant_content);
+            isCollect = root.findViewById(R.id.is_collect);
+
         }
-
+    }
 
         @Override
         public void onClick(View view) {
-            Intent restaurantDetailIntent = new Intent(context, RestaurantDetailActivity.class);
-            context.startActivity(restaurantDetailIntent);
+            if (onItemClickListener != null) {
+                // Use getTag() to get data
+                onItemClickListener.onItemClickListener(view, (Integer) view.getTag());
+            }
         }
-    }
+
+        public void setRecyclerViewOnItemClickListener(RecyclerViewOnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+        public interface RecyclerViewOnItemClickListener {
+
+            void onItemClickListener(View view, int position);
+
+        }
+
+
+
 }
