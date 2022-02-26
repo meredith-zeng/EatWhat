@@ -34,6 +34,8 @@ import com.example.eatwhat.service.RetrofitClient;
 import com.example.eatwhat.service.pojo.Business;
 import com.example.eatwhat.service.pojo.Restaurant;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 //import butterknife.BindView;
@@ -214,6 +216,7 @@ public class RestaurantFragment extends Fragment  {
     }
 
     private void initRecycleView(ArrayList<RestaurantCard> restaurantCardArrayList) {
+
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -222,6 +225,7 @@ public class RestaurantFragment extends Fragment  {
                 @Override
                 public void onItemClickListener(View view, int position) {
                     Intent intent = new Intent(getActivity(), RestaurantPageActivity.class);
+
                     intent.putExtra("title", restaurantCardArrayList.get(position).getTitle());
                     intent.putExtra("content", restaurantCardArrayList.get(position).getContent());
                     intent.putExtra("imageUrl", restaurantCardArrayList.get(position).getRestaurantImageUrl());

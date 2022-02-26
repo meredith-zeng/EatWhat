@@ -17,63 +17,81 @@
     </ImageView>
 
     <LinearLayout
+        android:id="@+id/linear_layout_1_in_res"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@id/restaurant_detail_image"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/restaurant_detail_image"
-        android:orientation="horizontal"
-        android:layout_height="120dp"
-        android:id="@+id/linear_layout_1_in_res"
-        android:layout_width="match_parent">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="6"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_weight="6"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_marginLeft="12dp"
+                android:id="@+id/restaurant_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/restaurant_detail_name"
                 android:text="Name"
-                android:textSize="20dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/robotoserif_lightitalic"
+                android:textSize="25dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                >
-            </TextView>
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/location_transparent"
+                    />
+                <TextView
+                    android:id="@+id/restaurant_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="2097 Board Way, San Jose, CA, 95111"/>
+            </LinearLayout>
             <TextView
                 android:id="@+id/restaurant_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Thai, Bar"
-                android:layout_marginLeft="18dp"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                >
-            </TextView>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="12dp"
-                android:id="@+id/restaurant_address"
-                android:text="2097 Board Way, San Jose, CA, 95111"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                >
-            </TextView>
-        </LinearLayout>
+                android:layout_marginStart="40dp"
+                />
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/price_icon"
+                android:scaleType="fitXY"/>
         <TextView
+            android:id="@+id/price_level"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="$$$"
             android:textSize="20dp"
-            android:id="@+id/price_level"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
-            android:layout_width="50dp">
+            android:textStyle="bold">
 
         </TextView>
+        </LinearLayout>
 
 
     </LinearLayout>
