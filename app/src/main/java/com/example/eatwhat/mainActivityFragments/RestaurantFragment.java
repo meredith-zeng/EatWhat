@@ -40,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment {
-
+    private final static String TAG = "RestaurantFragment";
     private ArrayList<String> categoryList;
     private ArrayList<String> statesList;
 
@@ -203,4 +203,10 @@ public class RestaurantFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume(){
+        Log.e(TAG, "onResume");
+        super.onResume();
+
+    }
 }

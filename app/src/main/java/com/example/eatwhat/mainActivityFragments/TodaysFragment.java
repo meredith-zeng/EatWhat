@@ -11,7 +11,6 @@ import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -36,6 +35,7 @@ import androidx.fragment.app.Fragment;
 import com.example.eatwhat.R;
 
 public class TodaysFragment extends Fragment {
+    private final static String TAG = "Today's Fragment";
     private SensorManager sensorManager;
     private ShakeSensorListener shakeListener;
     private boolean isShake = false;
@@ -55,7 +55,7 @@ public class TodaysFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_todays, container, false);
 
         imgHand = (ImageView) view.findViewById(R.id.imgHand);
-        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         shakeListener = new ShakeSensorListener();
 
 
@@ -68,6 +68,7 @@ public class TodaysFragment extends Fragment {
     @Override
     public void onResume() {
         //注册监听加速度传感器
+        Log.e(TAG, "register shakeListener");
         sensorManager.registerListener(shakeListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_FASTEST);
         super.onResume();
@@ -75,9 +76,7 @@ public class TodaysFragment extends Fragment {
 
     @Override
     public void onPause() {
-        /**
-         * 资源释放
-         */
+        Log.e(TAG, "unregisterListener");
         sensorManager.unregisterListener(shakeListener);
         super.onPause();
     }
@@ -93,16 +92,11 @@ public class TodaysFragment extends Fragment {
             // 开始动画
             anim.start();
             float[] values = event.values;
-            /*
-             * x : x轴方向的重力加速度，向右为正
-             * y : y轴方向的重力加速度，向前为正
-             * z : z轴方向的重力加速度，向上为正
-             */
             float x = Math.abs(values[0]);
             float y = Math.abs(values[1]);
             float z = Math.abs(values[2]);
-            //加速度超过19，摇一摇成功
-            if (x > 30 || y > 30 || z > 30) {
+            //加速度超过45，摇一摇成功
+            if (x > 45 || y > 45 || z > 10000) {
                 isShake = true;
                 playSound(getContext());
                 vibrate( 500);
@@ -130,7 +124,7 @@ public class TodaysFragment extends Fragment {
     }
 
     private void vibrate(long milliseconds) {
-        Vibrator vibrator = (Vibrator)getActivity().getSystemService(Service.VIBRATOR_SERVICE);
+        Vibrator vibrator = (Vibrator)getContext().getSystemService(Service.VIBRATOR_SERVICE);
         vibrator.vibrate(milliseconds);
     }
 
