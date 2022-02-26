@@ -51,7 +51,6 @@ public class RestaurantFragment extends Fragment  {
 
     private String selectedCategory = null;
     private String selectedSortCondition = null;
-
     private RecyclerView recyclerView;
 
     public RestaurantFragment() {
@@ -82,7 +81,7 @@ public class RestaurantFragment extends Fragment  {
                     count += limit;
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
-                    if (count < 200) {
+                    if (count < 100) {
                         // on below line we are again calling
                         // a method to load data in our array list.
                         initData();
@@ -161,7 +160,6 @@ public class RestaurantFragment extends Fragment  {
                         textview.setText(adapter.getItem(position));
                         switch (type) {
                             case "category":
-
                                 selectedCategory = adapter.getItem(position);
                                 Log.e("choose category", selectedCategory);
                                 if (selectedCategory != null && selectedSortCondition != null) {
@@ -192,8 +190,7 @@ public class RestaurantFragment extends Fragment  {
 
         String category = selectedCategory;
 
-        System.out.println("count" + count);
-        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", null, 2, count);
+        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", null, 10, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
