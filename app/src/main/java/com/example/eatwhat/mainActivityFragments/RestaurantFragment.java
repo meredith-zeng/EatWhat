@@ -161,10 +161,10 @@ public class RestaurantFragment extends Fragment  {
                         textview.setText(adapter.getItem(position));
                         switch (type) {
                             case "category":
-
                                 selectedCategory = adapter.getItem(position);
                                 Log.e("choose category", selectedCategory);
                                 if (selectedCategory != null && selectedSortCondition != null) {
+                                    restaurantCardArrayList.clear();
                                     initData();
                                 }
                                 break;
@@ -172,6 +172,7 @@ public class RestaurantFragment extends Fragment  {
                                 selectedSortCondition = adapter.getItem(position);
                                 Log.e("choose location", selectedSortCondition);
                                 if (selectedCategory != null && selectedSortCondition != null) {
+                                    restaurantCardArrayList.clear();
                                     initData();
                                 }
                                 break;
@@ -190,10 +191,8 @@ public class RestaurantFragment extends Fragment  {
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
-        String category = selectedCategory;
-
         System.out.println("count" + count);
-        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", null, 2, count);
+        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  2, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
