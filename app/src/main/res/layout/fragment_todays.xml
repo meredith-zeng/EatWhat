@@ -6,37 +6,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mainActivityFragments.TodaysFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="120dp">
+
 
         <ImageView
-            android:layout_gravity="center"
-            android:src="@drawable/shake"
-            android:layout_height="350dp"
-            android:layout_width="350dp">
-        </ImageView>
-        <TextView
-            android:textSize="25dp"
-            android:layout_gravity="center"
-            android:textStyle="italic|bold"
-            android:text="Let Us Shake!"
-            android:layout_height="100dp"
+            android:id="@+id/imgHand"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="10dp"
-            >
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="122dp"
+            android:layout_marginBottom="298dp"
+            android:src="@mipmap/shake_hand" />
 
-        </TextView>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
