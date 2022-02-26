@@ -58,7 +58,6 @@ public class TodaysFragment extends Fragment {
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         shakeListener = new ShakeSensorListener();
 
-
         anim = ObjectAnimator.ofFloat(imgHand,"rotation",0f,45f,-30f,0f);
         anim.setDuration(500);
         anim.setRepeatCount(ValueAnimator.INFINITE);
@@ -102,7 +101,7 @@ public class TodaysFragment extends Fragment {
             float y = Math.abs(values[1]);
             float z = Math.abs(values[2]);
             //加速度超过19，摇一摇成功
-            if (x > 30 || y > 30 || z > 30) {
+            if (x > 45 || y > 45 || z > 10000) {
                 isShake = true;
                 playSound(getContext());
                 vibrate( 500);

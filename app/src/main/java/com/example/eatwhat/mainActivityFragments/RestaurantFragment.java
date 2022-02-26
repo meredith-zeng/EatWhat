@@ -15,12 +15,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
@@ -39,14 +42,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestaurantFragment extends Fragment {
+public class RestaurantFragment extends Fragment  {
 
+    int count = 0;
     private ArrayList<String> categoryList;
-    private ArrayList<String> statesList;
+    private ArrayList<String> sortConditionList;
+    ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
 
-    private String selectedCategory;
-    private String selectedState;
-    private String selectedCity;
+    private String selectedCategory = null;
+    private String selectedSortCondition = null;
 
     private RecyclerView recyclerView;
 
@@ -61,7 +65,31 @@ public class RestaurantFragment extends Fragment {
         createSpinners(view, container);
         recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
         initData();
+        pullUpToRefresh(view);
         return view;
+    }
+
+    private void pullUpToRefresh(View rootView) {
+        NestedScrollView nestedSV = (NestedScrollView) rootView.findViewById(R.id.swipe_container);
+        ProgressBar loadingPB = (ProgressBar)rootView.findViewById(R.id.pb_loading);
+        nestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                // on scroll change we are checking when users scroll as bottom.
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                    // in this method we are incrementing page number,
+                    // making progress bar visible and calling get data method.
+                    count++;
+                    // on below line we are making our progress bar visible.
+                    loadingPB.setVisibility(View.VISIBLE);
+                    if (count < 20) {
+                        // on below line we are again calling
+                        // a method to load data in our array list.
+                        initData();
+                    }
+                }
+            }
+        });
     }
 
     private void createSpinners(View view, ViewGroup container) {
@@ -71,23 +99,23 @@ public class RestaurantFragment extends Fragment {
             categoryList.add(categoryArray[i]);
         }
 
-        String [] statesArray = { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+        String [] sortConditionArray = { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
                 "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
                 "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
                 "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
                 "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
                 "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "ennessee", "Texas", "Utah",
                 "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
-        statesList = new ArrayList<>();
-        for (int i = 0; i < statesArray.length; i++) {
-            statesList.add(statesArray[i]);
+        sortConditionList = new ArrayList<>();
+        for (int i = 0; i < sortConditionArray.length; i++) {
+            sortConditionList.add(sortConditionArray[i]);
         }
 
         TextView categoryView = view.findViewById(R.id.selectCategoryView);
         TextView statesView = view.findViewById(R.id.selectStateView);
 
         createSpinnerDialog(categoryView, categoryList, "category");
-        createSpinnerDialog(statesView, statesList, "state");
+        createSpinnerDialog(statesView, sortConditionList, "sort");
 
     }
 
@@ -134,13 +162,19 @@ public class RestaurantFragment extends Fragment {
                         textview.setText(adapter.getItem(position));
                         switch (type) {
                             case "category":
+
                                 selectedCategory = adapter.getItem(position);
+                                Log.e("choose category", selectedCategory);
+                                if (selectedCategory != null && selectedSortCondition != null) {
+                                    initData();
+                                }
                                 break;
-                            case "state":
-                                selectedState = adapter.getItem(position);
-                                break;
-                            case "city":
-                                selectedCity = adapter.getItem(position);
+                            case "sort":
+                                selectedSortCondition = adapter.getItem(position);
+                                Log.e("choose location", selectedSortCondition);
+                                if (selectedCategory != null && selectedSortCondition != null) {
+                                    initData();
+                                }
                                 break;
                         }
 
@@ -151,24 +185,29 @@ public class RestaurantFragment extends Fragment {
         });
     }
 
+
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
-        ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
-        String location = "Santa Clara";
-        Log.i("selection", location +" ");
+        String category = selectedCategory;
+        System.out.println(selectedCategory);
 
-        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 35, 1);
+        System.out.println("count" + count);
+        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", category, 2, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                Log.i("Restaurant card Test", response.body() + " ");
+//                Log.i("Restaurant card Test", response.body() + " ");
+                Log.e("Test data", response.body().getBusinesses().size() + " ");
                 if (response.code() == 200){
-
                     for (Business business: response.body().getBusinesses()){
                         RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
                         restaurantCardArrayList.add(restaurantCard);
+                    }
+
+                    for (RestaurantCard card: restaurantCardArrayList) {
+                        System.out.println(card.getTitle());
                     }
                     initRecycleView(restaurantCardArrayList);
                 }
@@ -190,7 +229,6 @@ public class RestaurantFragment extends Fragment {
             restaurantAdapter.setRecyclerViewOnItemClickListener(new RestaurantAdapter.RecyclerViewOnItemClickListener() {
                 @Override
                 public void onItemClickListener(View view, int position) {
-//                    Snackbar.make(view, "OnClick：" + restaurantCardArrayList.get(position).getContent().toString(), Snackbar.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), RestaurantPageActivity.class);
                     intent.putExtra("title", restaurantCardArrayList.get(position).getTitle());
                     intent.putExtra("content", restaurantCardArrayList.get(position).getContent());
@@ -200,7 +238,5 @@ public class RestaurantFragment extends Fragment {
             });
 
             recyclerView.setAdapter(restaurantAdapter);
-
     }
-
 }
