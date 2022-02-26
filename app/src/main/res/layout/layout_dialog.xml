@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/iv_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="370dp"
+            android:layout_height="500dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:scaleType="fitXY"
@@ -31,8 +31,22 @@
             android:gravity="center"
             android:text="benson center"
             android:textColor="#b87b57"
-            android:textSize="16sp" />
-        
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/shake_image"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_above="@+id/pop_btn"
+            android:layout_below="@+id/tvTitle"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/post_photo" />
 
         <RelativeLayout
             android:id="@+id/pop_btn"
@@ -41,13 +55,13 @@
             android:layout_alignBottom="@+id/iv_image"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:background="@mipmap/shake_pop_btn"
             android:gravity="center"
             android:scaleType="fitXY">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/bt_today"
                 android:gravity="center"
                 android:text="Go"
                 android:textColor="#fff"
