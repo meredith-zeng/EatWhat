@@ -33,6 +33,17 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.cardview.RestaurantCard;
+import com.example.eatwhat.service.RestaurantService;
+import com.example.eatwhat.service.RetrofitClient;
+import com.example.eatwhat.service.pojo.Business;
+import com.example.eatwhat.service.pojo.Restaurant;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TodaysFragment extends Fragment {
     private final static String TAG = "Today's Fragment";
@@ -143,4 +154,27 @@ public class TodaysFragment extends Fragment {
         Window window = mAlertDialog.getWindow();
         window.setBackgroundDrawable(new ColorDrawable(0x00000000));
     }
+
+//    private void initData(){
+//        RetrofitClient retrofitClient = new RetrofitClient();
+//        RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
+//
+//        String location = "Santa Clara University";
+//        Call<Restaurant> call = methods.queryRestaurantByLocation(location, 1, 1);
+//        call.enqueue(new Callback<Restaurant>() {
+//            @Override
+//            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+//                if (response.code() == 200){
+//                    Business business = response.body().getBusinesses().get(0);
+//                    RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Restaurant> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
 }
