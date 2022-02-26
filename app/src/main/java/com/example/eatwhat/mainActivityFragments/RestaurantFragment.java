@@ -232,4 +232,5 @@ public class RestaurantFragment extends Fragment  {
 
             recyclerView.setAdapter(restaurantAdapter);
     }
+
 }
