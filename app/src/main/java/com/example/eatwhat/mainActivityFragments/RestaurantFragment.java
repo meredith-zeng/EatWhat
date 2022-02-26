@@ -44,7 +44,7 @@ import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment  {
 
-    int count = 0;
+    int count = 0, limit = 10;
     private ArrayList<String> categoryList;
     private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
@@ -79,10 +79,10 @@ public class RestaurantFragment extends Fragment  {
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                     // in this method we are incrementing page number,
                     // making progress bar visible and calling get data method.
-                    count++;
+                    count += limit;
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
-                    if (count < 20) {
+                    if (count < 200) {
                         // on below line we are again calling
                         // a method to load data in our array list.
                         initData();
@@ -118,7 +118,6 @@ public class RestaurantFragment extends Fragment  {
         createSpinnerDialog(statesView, sortConditionList, "sort");
 
     }
-
 
     private void createSpinnerDialog(TextView textview, ArrayList<String> list, String type) {
         textview.setOnClickListener(new View.OnClickListener() {
@@ -186,28 +185,22 @@ public class RestaurantFragment extends Fragment  {
     }
 
 
+
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
         String category = selectedCategory;
-        System.out.println(selectedCategory);
 
         System.out.println("count" + count);
-        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", category, 2, count);
+        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", null, 2, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-//                Log.i("Restaurant card Test", response.body() + " ");
-                Log.e("Test data", response.body().getBusinesses().size() + " ");
                 if (response.code() == 200){
                     for (Business business: response.body().getBusinesses()){
                         RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
                         restaurantCardArrayList.add(restaurantCard);
-                    }
-
-                    for (RestaurantCard card: restaurantCardArrayList) {
-                        System.out.println(card.getTitle());
                     }
                     initRecycleView(restaurantCardArrayList);
                 }
