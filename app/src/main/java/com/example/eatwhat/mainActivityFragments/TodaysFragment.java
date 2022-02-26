@@ -91,7 +91,6 @@ public class TodaysFragment extends Fragment {
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         shakeListener = new ShakeSensorListener();
 
-
         anim = ObjectAnimator.ofFloat(imgHand,"rotation",0f,45f,-30f,0f);
         anim.setDuration(500);
         anim.setRepeatCount(ValueAnimator.INFINITE);
@@ -128,8 +127,8 @@ public class TodaysFragment extends Fragment {
             float x = Math.abs(values[0]);
             float y = Math.abs(values[1]);
             float z = Math.abs(values[2]);
-            //加速度超过45，摇一摇成功
-            if (x > 45 || y > 45 || z > 10000) {
+
+            if (x > 45 || y > 45 || z > 100000) {
                 isShake = true;
                 playSound(getContext());
                 vibrate( 500);
@@ -158,16 +157,10 @@ public class TodaysFragment extends Fragment {
                     }
                 });
 
-
-                //仿网络延迟操作，这里可以去请求服务器...
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
-
-                        //弹框
                         showDialog();
-                        //动画取消
                         anim.cancel();
                     }
                 },1000);
