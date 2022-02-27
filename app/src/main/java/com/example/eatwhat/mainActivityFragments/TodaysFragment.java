@@ -137,7 +137,7 @@ public class TodaysFragment extends Fragment {
                 RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
                 String location = "Santa Clara";
-                int offset = RandomUtil.getRandomNumber(0, 100);
+                int offset = RandomUtil.getRandomNumber(0, 30);
                 Call<Restaurant> call = methods.queryRestaurantByLocation(location, 1, offset);
                 Log.d(TAG, "run: " + call.toString());
                 call.enqueue(new Callback<Restaurant>() {
