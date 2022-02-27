@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private ViewPager viewPager;
-
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
 
@@ -161,8 +160,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
-
-
-
-
 }

@@ -28,6 +28,8 @@ public class MyMap extends AppCompatActivity implements OnMapReadyCallback {
     // Get a handle to the GoogleMap object and display marker.
     @Override
     public void onMapReady(@NonNull com.google.android.gms.maps.GoogleMap googleMap) {
+        //updateLocationUI();
+        //getDeviceLocation();
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(0, 0))
                 .title("Marker"));
