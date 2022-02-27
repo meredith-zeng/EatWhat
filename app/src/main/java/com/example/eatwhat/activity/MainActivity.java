@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private ViewPager viewPager;
-
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
 
@@ -119,8 +118,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 myDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_search:
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
+                Intent searchIntent = new Intent(this, SearchActivity.class);
+                startActivity(searchIntent);
+                return true;
+            case R.id.action_map:
+                Intent mapIntent = new Intent(this, MyMap.class);
+                startActivity(mapIntent);
                 return true;
         }
 
@@ -157,8 +160,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
-
-
-
-
 }

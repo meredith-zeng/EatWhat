@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -51,7 +52,6 @@ public class RestaurantFragment extends Fragment  {
 
     private String selectedCategory = null;
     private String selectedSortCondition = null;
-
     private RecyclerView recyclerView;
 
     public RestaurantFragment() {
@@ -82,7 +82,7 @@ public class RestaurantFragment extends Fragment  {
                     count += limit;
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
-                    if (count < 200) {
+                    if (count < 100) {
                         // on below line we are again calling
                         // a method to load data in our array list.
                         initData();
@@ -93,29 +93,27 @@ public class RestaurantFragment extends Fragment  {
     }
 
     private void createSpinners(View view, ViewGroup container) {
-        String [] categoryArray = {"Chinese", "American", "Italian", "French", "Korean", "Japanese"};
+        String [] categoryArray  = new String[]{"tradamerican", "arabic", "asianfusion", "brazilian",
+                "barbeque", "breakfast_brunch", "british", "buffets", "burgers", "cafes",
+                "cheesesteaks", "chinese", "chicken_wings", "creperies", "dimsum", "diners",
+                "hotdogs", "foodstands", "french", "german", "gluten_free", "greek", "indpak",
+                "irish", "italian", "japanese", "korean", "latin", "raw_food", "mediterranean",
+                "mexican", "russian", "salad", "pizza", "steak", "thai",
+                "seafood", "spanish", "vegetarian", "vietnamese"};
+
         categoryList = new ArrayList<>();
         for (int i = 0; i < categoryArray.length; i++) {
             categoryList.add(categoryArray[i]);
         }
 
-        String [] sortConditionArray = { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
-                "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
-                "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-                "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
-                "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
-                "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "ennessee", "Texas", "Utah",
-                "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"};
+        String [] sortConditionArray = { "Rating", "$-$$", "$-$$$", "$$ - $$$", "$$ - $$$$", "$$$ - $$$$$"};
         sortConditionList = new ArrayList<>();
         for (int i = 0; i < sortConditionArray.length; i++) {
             sortConditionList.add(sortConditionArray[i]);
         }
 
         TextView categoryView = view.findViewById(R.id.selectCategoryView);
-        TextView statesView = view.findViewById(R.id.selectStateView);
-
         createSpinnerDialog(categoryView, categoryList, "category");
-        createSpinnerDialog(statesView, sortConditionList, "sort");
 
     }
 
@@ -163,7 +161,8 @@ public class RestaurantFragment extends Fragment  {
                             case "category":
                                 selectedCategory = adapter.getItem(position);
                                 Log.e("choose category", selectedCategory);
-                                if (selectedCategory != null && selectedSortCondition != null) {
+
+                                if (selectedCategory != null) {
                                     restaurantCardArrayList.clear();
                                     initData();
                                 }
@@ -190,18 +189,21 @@ public class RestaurantFragment extends Fragment  {
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
-
         System.out.println("count" + count);
         Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  2, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                 if (response.code() == 200){
+                    System.out.println("Network " + response.code());
                     for (Business business: response.body().getBusinesses()){
                         RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
                         restaurantCardArrayList.add(restaurantCard);
                     }
                     initRecycleView(restaurantCardArrayList);
+                }
+                else {
+                    System.out.println("Network " + response.code());
                 }
 
             }
