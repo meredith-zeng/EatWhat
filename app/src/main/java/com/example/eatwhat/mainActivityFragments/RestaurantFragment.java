@@ -161,6 +161,7 @@ public class RestaurantFragment extends Fragment  {
                             case "category":
                                 selectedCategory = adapter.getItem(position);
                                 Log.e("choose category", selectedCategory);
+
                                 if (selectedCategory != null) {
                                     restaurantCardArrayList.clear();
                                     initData();
@@ -188,8 +189,8 @@ public class RestaurantFragment extends Fragment  {
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
-        System.out.println(selectedCategory);
-        Call<Restaurant> call = methods.queryRestaurantByLocation("Santa clara", selectedCategory, 10, count);
+        System.out.println("count" + count);
+        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  2, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
@@ -232,4 +233,5 @@ public class RestaurantFragment extends Fragment  {
 
             recyclerView.setAdapter(restaurantAdapter);
     }
+
 }

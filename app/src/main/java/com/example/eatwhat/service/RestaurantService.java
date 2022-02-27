@@ -15,7 +15,7 @@ public interface RestaurantService {
     Call<Restaurant> queryRestaurantByLocation(@Query("location") String location,
 //                                             @Query("latitude") String latitude,
 //                                             @Query("longitude") String longitude,
-                                             @Query("categories") String categories,
+//                                             @Query("categories") String categories,
                                              @Query("limit") int limit,
                                              @Query("offset") int offset);
 
@@ -24,8 +24,6 @@ public interface RestaurantService {
 
     @GET("businesses/search")
     Call<Restaurant> queryRestaurantByCategory(@Query("location") String location,
-//                                             @Query("latitude") String latitude,
-//                                             @Query("longitude") String longitude,
                                                @Query("categories") String categories,
                                                @Query("limit") int limit,
                                                @Query("offset") int offset);
