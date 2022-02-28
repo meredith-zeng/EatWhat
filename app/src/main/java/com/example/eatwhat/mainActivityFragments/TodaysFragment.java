@@ -191,6 +191,13 @@ public class TodaysFragment extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         bt_today = (Button) view.findViewById(R.id.bt_today);
 
+        if (restaurantCard == null){
+            restaurantId = "nHLD88-716MTMoV1kjK-wQ";
+            String url = "https://s3-media3.fl.yelpcdn.com/bphoto/rebiw-Xttu2iHPDNaBliLA/o.jpg";
+            String title = "Smoking Pig BBQ";
+            String content ="It's the best one!";
+            restaurantCard = new RestaurantCard(url, title, content, false);
+        }
 
 
         tvTitle.setText(restaurantCard.getTitle());

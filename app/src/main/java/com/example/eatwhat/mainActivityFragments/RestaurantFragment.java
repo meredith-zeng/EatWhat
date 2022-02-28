@@ -45,7 +45,7 @@ import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment  {
 
-    int count = 0, limit = 10;
+    int offset = 0, limit = 10, totalNum;
     private ArrayList<String> categoryList;
     private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
@@ -79,12 +79,15 @@ public class RestaurantFragment extends Fragment  {
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                     // in this method we are incrementing page number,
                     // making progress bar visible and calling get data method.
-                    count += limit;
+                    offset += limit;
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
-                    if (count < 100) {
+                    if (offset + limit < totalNum) {
                         // on below line we are again calling
                         // a method to load data in our array list.
+                        initData();
+                    }else {
+                        limit = totalNum - offset;
                         initData();
                     }
                 }
@@ -189,8 +192,8 @@ public class RestaurantFragment extends Fragment  {
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
-        System.out.println("count" + count);
-        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  2, count);
+
+        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  limit, offset);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
