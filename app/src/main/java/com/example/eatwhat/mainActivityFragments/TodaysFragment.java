@@ -87,7 +87,6 @@ public class TodaysFragment extends Fragment {
 
         imgHand = (ImageView) view.findViewById(R.id.imgHand);
 
-
         sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         shakeListener = new ShakeSensorListener();
 
@@ -191,7 +190,12 @@ public class TodaysFragment extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.tvTitle);
         bt_today = (Button) view.findViewById(R.id.bt_today);
 
-
+        if (restaurantCard == null){
+            restaurantCard.setTitle("Kunjip");
+            restaurantCard.setRestaurantImageUrl("https://s3-media3.fl.yelpcdn.com/bphoto/D07uKF98G3eRWgEzi3puGQ/o.jpg");
+            restaurantCard.setContent("great one in santa clara");
+            restaurantId = "9uz3zmGdzmgNMDEtkWxTrw";
+        }
 
         tvTitle.setText(restaurantCard.getTitle());
 
