@@ -28,7 +28,9 @@ public class Welcomepage extends AppCompatActivity {
     String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
     @Override
@@ -97,7 +99,6 @@ public class Welcomepage extends AppCompatActivity {
             result = ContextCompat.checkSelfPermission(Welcomepage.this,p);
             if (result != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(p);
-
             }
         }
         if (!listPermissionsNeeded.isEmpty()) {
