@@ -8,15 +8,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/post_create_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/heavy_pink"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageButton
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
                 android:id="@+id/post_creation_cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,18 +26,20 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_clear_24" />
 
-            <TextView
+            <Button
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+
                 android:id="@+id/post_creation_post_textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100sp"
-                android:layout_marginEnd="18sp"
                 android:gravity="end"
+                android:layout_marginEnd="18sp"
                 android:text="Post"
                 android:textAllCaps="true"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"/>
-        </LinearLayout>
+        </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -101,7 +105,7 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <EditText
-                    android:id="@+id/post_create_restaurant"
+                    android:id="@+id/post_creation_restaurant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16sp"
