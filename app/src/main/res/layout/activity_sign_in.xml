@@ -56,7 +56,7 @@
         <EditText
             android:inputType="textPassword"
             android:maxLines="1"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:id="@+id/password_in_signIn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
