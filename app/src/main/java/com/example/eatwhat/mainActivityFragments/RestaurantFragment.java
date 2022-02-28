@@ -17,14 +17,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
@@ -32,8 +30,8 @@ import com.example.eatwhat.adapter.RestaurantAdapter;
 import com.example.eatwhat.cardview.RestaurantCard;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
-import com.example.eatwhat.service.pojo.Business;
-import com.example.eatwhat.service.pojo.Restaurant;
+import com.example.eatwhat.service.RestaurantPojo.Business;
+import com.example.eatwhat.service.RestaurantPojo.Restaurant;
 
 import java.util.ArrayList;
 
@@ -45,7 +43,7 @@ import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment  {
 
-    int offset = 0, limit = 10, totalNum;
+    int offset = 10, limit = 10, totalNum;
     private ArrayList<String> categoryList;
     private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
@@ -200,7 +198,7 @@ public class RestaurantFragment extends Fragment  {
                 if (response.code() == 200){
                     System.out.println("Network " + response.code());
                     for (Business business: response.body().getBusinesses()){
-                        RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
+                        RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), false, business.getId());
                         restaurantCardArrayList.add(restaurantCard);
                     }
                     initRecycleView(restaurantCardArrayList);
@@ -230,6 +228,7 @@ public class RestaurantFragment extends Fragment  {
                     intent.putExtra("title", restaurantCardArrayList.get(position).getTitle());
                     intent.putExtra("content", restaurantCardArrayList.get(position).getContent());
                     intent.putExtra("imageUrl", restaurantCardArrayList.get(position).getRestaurantImageUrl());
+                    intent.putExtra("id", restaurantCardArrayList.get(position).getId());
                     getContext().startActivity(intent);
                 }
             });

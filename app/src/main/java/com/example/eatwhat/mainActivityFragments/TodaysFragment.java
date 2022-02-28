@@ -1,10 +1,5 @@
 package com.example.eatwhat.mainActivityFragments;
 
-import static android.content.Context.SENSOR_SERVICE;
-import static android.content.Context.VIBRATOR_SERVICE;
-
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
@@ -17,9 +12,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -30,7 +23,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -43,14 +35,9 @@ import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
 import com.example.eatwhat.cardview.RestaurantCard;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
-import com.example.eatwhat.service.pojo.Business;
-import com.example.eatwhat.service.pojo.Restaurant;
+import com.example.eatwhat.service.RestaurantPojo.Business;
+import com.example.eatwhat.service.RestaurantPojo.Restaurant;
 import com.example.eatwhat.util.RandomUtil;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -145,7 +132,7 @@ public class TodaysFragment extends Fragment {
                     public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                         if (response.code() == 200){
                             Business business = response.body().getBusinesses().get(0);
-                            restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).toString(), false);
+                            restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), false, business.getId());
                             restaurantId = business.getId();
                             Log.e("Shake res" , restaurantCard.getRestaurantImageUrl());
                         }
@@ -196,7 +183,7 @@ public class TodaysFragment extends Fragment {
             String url = "https://s3-media3.fl.yelpcdn.com/bphoto/rebiw-Xttu2iHPDNaBliLA/o.jpg";
             String title = "Smoking Pig BBQ";
             String content ="It's the best one!";
-            restaurantCard = new RestaurantCard(url, title, content, false);
+            restaurantCard = new RestaurantCard(url, title, content, false, restaurantId);
         }
 
 

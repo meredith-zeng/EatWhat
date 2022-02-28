@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context=".activity.restaurant.RestaurantPageActivity">
-
 
     <ImageView
         android:id="@+id/restaurant_detail_image"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true" >
-    </ImageView>
+        android:layout_alignParentRight="true"/>
+
 
     <LinearLayout
         android:id="@+id/linear_layout_1_in_res"
@@ -27,7 +26,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="171dp"
             android:layout_weight="6"
             android:orientation="vertical">
 
@@ -38,87 +37,62 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Name"
                 android:fontFamily="@font/robotoserif_lightitalic"
-                android:textSize="25dp"
-                />
+                android:textSize="25dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:layout_marginStart="20dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/location_transparent"
-                    />
+                    android:src="@drawable/location_transparent" />
+
                 <TextView
                     android:id="@+id/restaurant_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="2097 Board Way, San Jose, CA, 95111"/>
+                    android:layout_marginBottom="10dp" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/restaurant_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thai, Bar"
-                android:layout_marginStart="40dp"
-                />
+                android:layout_marginStart="40dp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/price_icon"
-                android:scaleType="fitXY"/>
-        <TextView
-            android:id="@+id/price_level"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="$$$"
-            android:textSize="20dp"
-            android:textStyle="bold">
+                android:scaleType="fitXY"
+                android:src="@drawable/price_icon" />
 
-        </TextView>
+            <TextView
+                android:id="@+id/price_level"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textStyle="bold">
+
+            </TextView>
         </LinearLayout>
 
 
     </LinearLayout>
 
-<!--    <LinearLayout-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_below="@id/linear_layout_1_in_res"-->
-<!--        android:orientation="vertical"-->
-<!--        android:id="@+id/linear_layout_2_in_res"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_width="match_parent">-->
-
-<!--        <TextView-->
-<!--            android:layout_marginLeft="12dp"-->
-<!--            android:text="Description"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_width="wrap_content">-->
-<!--        </TextView>-->
-
-<!--        <TextView-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:id="@+id/webView_restaurant"-->
-<!--            android:text="A restaurant is a business that prepares and serves food and drinks to customers.[1] Meals are generally served and eaten on the premises, but many restaurants also offer take-out and food delivery services. Restaurants vary greatly in appearance and offerings, including a wide variety of cuisines and service models ranging from inexpensive fast-food restaurants and cafeterias to mid-priced family restaurants, to high-priced luxury establishments"-->
-<!--            >-->
-<!--        </TextView>-->
-<!--    </LinearLayout>-->
 </RelativeLayout>

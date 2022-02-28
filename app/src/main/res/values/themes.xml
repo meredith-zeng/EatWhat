@@ -19,7 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.EatWhat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.EatWhat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
 
-    <style name="Theme.EatWhat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="Theme.EatWhat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"  >
+</style>
 </resources>
