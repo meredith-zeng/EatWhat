@@ -153,7 +153,7 @@
         <EditText
             android:inputType="textPassword"
             android:maxLines="1"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:id="@+id/repassword_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
@@ -180,6 +180,7 @@
             android:layout_height="40dp"
             android:layout_width="40dp">
             <ImageButton
+
                 android:id="@+id/image_btn_in_signUp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
