@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="320dp"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.EatWhat.NoActionBar">
 
@@ -18,18 +18,28 @@
             android:id="@+id/toolbar_layout"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+
+
+            app:titleEnabled="false">
+            <ImageView
+                android:id="@+id/restaurant_detail_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                />
 
 <!--            <androidx.appcompat.widget.Toolbar-->
 <!--                android:id="@+id/toolbar"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="?attr/actionBarSize"-->
 <!--                app:layout_collapseMode="pin"-->
-<!--                app:popupTheme="@style/Theme.EatWhat.NoActionBar" >-->
+<!--                app:popupTheme="@style/Theme.EatWhat.PopupOverlay" >-->
 
 <!--            </androidx.appcompat.widget.Toolbar>-->
 
@@ -37,7 +47,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_scrolling" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -45,6 +54,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_baseline_star_24" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
