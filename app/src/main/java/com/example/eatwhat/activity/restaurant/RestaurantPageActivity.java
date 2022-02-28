@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RestaurantPageActivity extends AppCompatActivity {
-    private TextView nameTv, categoryTv, restaurant_address, price_level;
+    private TextView nameTv, categoryTv, restaurant_address, price_level, ratingText, phoneText;
     private ImageView resImage;
 
     private DetailedBusiness business;
@@ -61,7 +61,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Firebase: collect this restaurant", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -71,6 +71,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
         resImage = (ImageView) findViewById(R.id.restaurant_detail_image);
         price_level = (TextView) findViewById(R.id.price_level);
         restaurant_address = (TextView) findViewById(R.id.restaurant_address);
+        ratingText = (TextView) findViewById(R.id.rating);
+        phoneText = (TextView) findViewById(R.id.restaurant_phone);
 
         Intent intent = getIntent();
         String imageUrl = intent.getStringExtra("imageUrl");
@@ -117,6 +119,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     categoryTv.setText(categoryList.get(0).getTitle());
                     price_level.setText(priceLevel);
                     restaurant_address.setText(address);
+                    ratingText.setText(rating);
+                    phoneText.setText(phone);
 
                     Log.e("getAlias(): ", response.body().getAlias());
                 }
