@@ -192,7 +192,6 @@ public class TodaysFragment extends Fragment {
         bt_today = (Button) view.findViewById(R.id.bt_today);
 
 
-
         tvTitle.setText(restaurantCard.getTitle());
 
         GlideUrl glideUrl = new GlideUrl(restaurantCard.getRestaurantImageUrl(), new LazyHeaders.Builder()
@@ -224,7 +223,4 @@ public class TodaysFragment extends Fragment {
         Window window = mAlertDialog.getWindow();
         window.setBackgroundDrawable(new ColorDrawable(0x00000000));
     }
-
-
-
 }

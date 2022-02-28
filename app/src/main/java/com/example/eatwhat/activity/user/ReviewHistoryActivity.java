@@ -56,8 +56,6 @@ public class ReviewHistoryActivity extends AppCompatActivity implements Navigati
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            homeIntent = new Intent(this, MainActivity.class);
-            startActivity(homeIntent);
             finish();
             return true;
         }

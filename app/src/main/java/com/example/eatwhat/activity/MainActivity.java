@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createTabsFragment();
 
     }
+
 
     private void createFloatingButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(searchIntent);
                 return true;
             case R.id.action_map:
-                Intent mapIntent = new Intent(this, MyMap.class);
+                Intent mapIntent = new Intent(this, MyMapActivity.class);
                 startActivity(mapIntent);
                 return true;
         }
@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
-                finish();
                 return true;
             case R.id.drawer_postes:
                 Intent toMyNotes = new Intent(this, MyNotesActivity.class);
@@ -147,13 +146,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_history:
                 Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);
                 startActivity(toReviewHistory);
-                finish();
                 return true;
             case R.id.drawer_preference:
                 Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
                 toSetPreference.putExtra("source", "home");
                 startActivity(toSetPreference);
-                finish();
                 return true;
             case R.id.drawer_logout:
                 return true;

@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>
+
 
     <application
         android:allowBackup="true"
@@ -29,7 +30,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".activity.MyMap"
+            android:name=".activity.MyMapActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
 
@@ -65,6 +66,7 @@
         <activity
             android:name=".activity.user.Welcomepage"
             android:exported="true">
+
          </activity>
       
         <activity
