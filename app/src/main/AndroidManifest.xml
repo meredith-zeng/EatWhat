@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>
+
 
     <application
         android:allowBackup="true"
@@ -29,7 +30,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".activity.MyMap"
+            android:name=".activity.MyMapActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
 
@@ -47,12 +48,16 @@
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
             android:name=".activity.post.PostCreationActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EatWhat.NoActionBar" />
+            android:exported="true"
+            android:theme="@style/Theme.EatWhat.NoActionBar" >
+        </activity>
         <activity
             android:name=".activity.post.PostDetailActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EatWhat.NoActionBar" />
+            android:exported="true"
+            android:theme="@style/Theme.EatWhat.NoActionBar" >
+
+
+        </activity>
         <activity
             android:name=".activity.user.MyAccountActivity"
             android:exported="true"
@@ -65,6 +70,7 @@
         <activity
             android:name=".activity.user.Welcomepage"
             android:exported="true">
+
          </activity>
       
         <activity
@@ -77,7 +83,15 @@
             android:exported="true" />
         <activity
             android:name=".activity.user.SignInActivity"
-            android:exported="true" />
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".activity.user.ProfileActivity"
             android:exported="true"
@@ -92,11 +106,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EatWhat.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -45,7 +45,7 @@ import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment  {
 
-    int offset = 0, limit = 30, totalDataNum;
+    int count = 0, limit = 10;
     private ArrayList<String> categoryList;
     private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
@@ -79,15 +79,12 @@ public class RestaurantFragment extends Fragment  {
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                     // in this method we are incrementing page number,
                     // making progress bar visible and calling get data method.
+                    count += limit;
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
-                    if (offset + limit < totalDataNum) {
-                        offset += limit;
+                    if (count < 100) {
                         // on below line we are again calling
                         // a method to load data in our array list.
-                        initData();
-                    }else {
-                        limit = totalDataNum - offset;
                         initData();
                     }
                 }
@@ -192,7 +189,8 @@ public class RestaurantFragment extends Fragment  {
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
-        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  2, offset);
+        System.out.println("count" + count);
+        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  2, count);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
@@ -201,7 +199,6 @@ public class RestaurantFragment extends Fragment  {
                     for (Business business: response.body().getBusinesses()){
                         RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().toString(), false);
                         restaurantCardArrayList.add(restaurantCard);
-                        totalDataNum = response.body().getTotal();
                     }
                     initRecycleView(restaurantCardArrayList);
                 }

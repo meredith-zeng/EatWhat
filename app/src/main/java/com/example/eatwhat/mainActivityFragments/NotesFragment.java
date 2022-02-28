@@ -59,11 +59,11 @@ public class NotesFragment extends Fragment {
         postCardArrayList = new ArrayList<>();
         RestaurantService methods = RetrofitClient.getRetrofit().create(RestaurantService.class);
 
-        postCardArrayList.add(new PostCard("Santa clara", "great great great great", 100, R.drawable.post_photo, "Panda", 3.5));
-        postCardArrayList.add(new PostCard("Java", "the best one", 10000, R.drawable.post_photo, "Panda", 3.5));
-        postCardArrayList.add(new PostCard("Python", "great great great great", 102, R.drawable.post_photo, "Panda", 3.5));
-        postCardArrayList.add(new PostCard("C++", "great great great great", 103, R.drawable.post_photo, "Panda", 3.5));
-        postCardArrayList.add(new PostCard("C", "great great great great", 223, R.drawable.post_photo, "Panda", 3.5));
-        postCardArrayList.add(new PostCard("JavaScript", "great great great great", 123, R.drawable.post_photo, "Panda", 3.5));
+        postCardArrayList.add(new PostCard("1", "Santa clara", "great great great great", 100, R.drawable.post_photo, "Panda", 3.5f));
+        postCardArrayList.add(new PostCard("2", "Java", "the best one", 10000, R.drawable.post_photo, "Panda", 3.5f));
+        postCardArrayList.add(new PostCard("3","Python", "great great great great", 102, R.drawable.post_photo, "Panda", 3.5f));
+        postCardArrayList.add(new PostCard("4","C++", "great great great great", 103, R.drawable.post_photo, "Panda", 3.5f));
+        postCardArrayList.add(new PostCard("5","C", "great great great great", 223, R.drawable.post_photo, "Panda", 3.5f));
+        postCardArrayList.add(new PostCard("6","JavaScript", "great great great great", 123, R.drawable.post_photo, "Panda", 3.5f));
     }
 }

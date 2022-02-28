@@ -36,7 +36,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void changePassword() {
         Intent intent = new Intent(this, ChangePasswordActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void setToolBar() {
@@ -48,8 +47,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            homeIntent = new Intent(this, MainActivity.class);
-            startActivity(homeIntent);
             finish();
             return true;
         }
