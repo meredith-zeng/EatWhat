@@ -188,6 +188,8 @@ public class PostCreationActivity extends AppCompatActivity {
         //create a dialog for showing the optionsMenu
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+
+
         //set the items in builder
         builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
             @Override
