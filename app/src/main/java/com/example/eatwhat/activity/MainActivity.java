@@ -23,6 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,9 +37,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private ViewPager viewPager;
+
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
     private static int AUTOCOMPLETE_REQUEST_CODE = 1;
+
+    private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createTabsFragment();
 
     }
+/**
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart");
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+**/
     private void createFloatingButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -129,12 +157,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(searchIntent);
                 return true;
             case R.id.action_map:
-//                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
-//                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-//                        .build(this);
-//                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
                 Intent mapIntent = new Intent(this, MyMapActivity.class);
                 startActivity(mapIntent);
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
                 return true;
         }
 
@@ -149,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
+                finish();
                 return true;
             case R.id.drawer_postes:
                 Intent toMyNotes = new Intent(this, MyNotesActivity.class);
@@ -157,15 +184,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_history:
                 Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);
                 startActivity(toReviewHistory);
+                finish();
                 return true;
             case R.id.drawer_preference:
                 Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
                 toSetPreference.putExtra("source", "home");
                 startActivity(toSetPreference);
+                finish();
                 return true;
             case R.id.drawer_logout:
                 return true;
         }
         return false;
     }
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.eatwhat.activity.restaurant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -18,19 +19,32 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.databinding.ActivityScrollingBinding;
+import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.BusinessesPojo.Category;
 import com.example.eatwhat.service.BusinessesPojo.DetailedBusiness;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 
 import java.io.IOException;
+import java.io.ObjectStreamException;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +54,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
     private TextView nameTv, categoryTv, restaurant_address, price_level, ratingText, phoneText;
     private ImageView resImage;
 
+    private FloatingActionButton floatingActionButton;
+
     private DetailedBusiness business;
 
     private final static String TAG = "Restaurant Page Activity";
@@ -47,7 +63,10 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
     private ActivityScrollingBinding binding;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+
     private boolean isCollected;
 
     @Override
@@ -56,6 +75,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_scrolling);
 
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
         binding = ActivityScrollingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -63,11 +85,65 @@ public class RestaurantPageActivity extends AppCompatActivity {
 //        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
 
         FloatingActionButton fab = binding.fab;
+
+        String uid = mAuth.getUid();
+        DocumentReference docRef = db.collection("user").document(uid);
+        checkIsCollected(fab, docRef);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Firebase: collect this restaurant", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+
+                                User user = document.toObject(User.class);
+                                List<String> collectedList = user.getCollected_restaurant();
+
+                                Log.d(TAG, "current collectedList" + collectedList.size());
+
+                                    Intent intent = getIntent();
+                                    String id = intent.getStringExtra("id");
+                                    if(!collectedList.contains(id)){
+                                        collectedList.add(id);
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put("collected_restaurant", collectedList);
+                                        fab.setImageResource (R.drawable.collected_36);
+                                    }else {
+                                        collectedList.remove(id);
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put("collected_restaurant", collectedList);
+                                        fab.setImageResource (R.drawable.not_collect_36);
+                                    }
+
+
+                                docRef
+                                        .update("collected_restaurant", collectedList)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
+
+
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -138,6 +214,30 @@ public class RestaurantPageActivity extends AppCompatActivity {
         });
     }
 
+    public void checkIsCollected(FloatingActionButton fab, DocumentReference docRef) {
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
 
+                        User user = document.toObject(User.class);
+                        List<String> collectedList = user.getCollected_restaurant();
 
+                        Intent intent = getIntent();
+                        String id = intent.getStringExtra("id");
+
+                            if(collectedList.contains(id)) {
+                                isCollected = true;
+                                fab.setImageResource (R.drawable.collected_36);
+                            }else {
+                                fab.setImageResource (R.drawable.not_collect_36);
+                            }
+                        }
+                    }
+                }
+            });
+
+    }
 }

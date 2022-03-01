@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,19 +8,20 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="370dp"
-            android:layout_height="500dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            android:src="@mipmap/shake_pop_card_bg" />
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/shake_pop_card_bg" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -33,41 +34,38 @@
             android:textColor="#b87b57"
             android:textSize="30sp" />
 
-        <ImageView
-            android:id="@+id/shake_image"
-            android:layout_width="80dp"
-            android:layout_height="70dp"
-            android:layout_above="@+id/pop_btn"
-            android:layout_below="@+id/tvTitle"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/post_photo" />
+    <ImageView
 
-        <RelativeLayout
-            android:id="@+id/pop_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_image"
+        android:id="@+id/shake_image"
+        android:layout_marginTop="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/post_photo" />
+
+    <Button
+        android:id="@+id/bt_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shake_image"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Go"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <TextView
+            android:layout_below="@id/bt_today"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
-            android:gravity="center"
-            android:scaleType="fitXY">
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Don't like it? Let's Shake Again!"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+        </TextView>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bt_today"
-                android:gravity="center"
-                android:text="Go"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

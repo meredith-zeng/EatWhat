@@ -13,7 +13,9 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
-            android:src="@drawable/hoticon"
+            android:scaleX="3.5"
+            android:scaleY="3.5"
+            android:src="@drawable/hoticon_transparent"
             android:layout_marginStart="20dp"/>
         <TextView
             android:layout_width="wrap_content"
