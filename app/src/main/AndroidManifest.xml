@@ -70,7 +70,11 @@
         <activity
             android:name=".activity.user.Welcomepage"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
          </activity>
       
         <activity
@@ -85,12 +89,6 @@
             android:name=".activity.user.SignInActivity"
             android:exported="true" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
         <activity
             android:name=".activity.user.ProfileActivity"
@@ -101,11 +99,20 @@
             android:name=".activity.user.ReviewHistoryActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EatWhat.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+
 
         </activity>
     </application>

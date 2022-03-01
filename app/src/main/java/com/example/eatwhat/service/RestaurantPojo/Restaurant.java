@@ -1,5 +1,5 @@
 
-package com.example.eatwhat.service.pojo;
+package com.example.eatwhat.service.RestaurantPojo;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

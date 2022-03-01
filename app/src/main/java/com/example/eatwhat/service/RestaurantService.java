@@ -1,13 +1,12 @@
 package com.example.eatwhat.service;
 
-import com.example.eatwhat.service.pojo.Business;
-import com.example.eatwhat.service.pojo.Restaurant;
-import com.squareup.okhttp.ResponseBody;
+import com.example.eatwhat.service.BusinessesPojo.DetailedBusiness;
+import com.example.eatwhat.service.RestaurantPojo.Restaurant;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 
 public interface RestaurantService {
@@ -19,14 +18,15 @@ public interface RestaurantService {
                                              @Query("limit") int limit,
                                              @Query("offset") int offset);
 
-    @GET("businesses")
-    Call<Business> getRestaurantById(@Query("id") String id);
+    @GET("businesses/{id}")
+    Call<DetailedBusiness> getRestaurantById(@Path("id") String id);
 
     @GET("businesses/search")
     Call<Restaurant> queryRestaurantByCategory(@Query("location") String location,
                                                @Query("categories") String categories,
                                                @Query("limit") int limit,
                                                @Query("offset") int offset);
+
 
 
 }

@@ -37,7 +37,7 @@
         android:clickable="true"
         android:layout_marginTop="15dp"
         android:text="Comfirm Location"
-        android:textSize="12sp"
+        android:textSize="18sp"
         android:background="@drawable/profile_button"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"

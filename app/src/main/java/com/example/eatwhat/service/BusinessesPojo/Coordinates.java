@@ -1,5 +1,5 @@
 
-package com.example.eatwhat.service.pojo;
+package com.example.eatwhat.service.BusinessesPojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,24 +8,24 @@ public class Coordinates {
 
     @SerializedName("latitude")
     @Expose
-    private float latitude;
+    private Double latitude;
     @SerializedName("longitude")
     @Expose
-    private float longitude;
+    private Double longitude;
 
-    public float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 

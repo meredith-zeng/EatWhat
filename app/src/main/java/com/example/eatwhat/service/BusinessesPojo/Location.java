@@ -1,5 +1,5 @@
 
-package com.example.eatwhat.service.pojo;
+package com.example.eatwhat.service.BusinessesPojo;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -31,6 +31,9 @@ public class Location {
     @SerializedName("display_address")
     @Expose
     private List<String> displayAddress = null;
+    @SerializedName("cross_streets")
+    @Expose
+    private String crossStreets;
 
     public String getAddress1() {
         return address1;
@@ -94,6 +97,14 @@ public class Location {
 
     public void setDisplayAddress(List<String> displayAddress) {
         this.displayAddress = displayAddress;
+    }
+
+    public String getCrossStreets() {
+        return crossStreets;
+    }
+
+    public void setCrossStreets(String crossStreets) {
+        this.crossStreets = crossStreets;
     }
 
 }

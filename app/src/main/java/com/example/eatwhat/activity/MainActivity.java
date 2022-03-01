@@ -10,10 +10,12 @@ import com.example.eatwhat.activity.user.ReviewHistoryActivity;
 import com.example.eatwhat.activity.user.SetPreferenceActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
 import com.example.eatwhat.activity.user.ProfileActivity;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-
 import androidx.annotation.NonNull;
 
 import androidx.core.view.GravityCompat;
@@ -28,6 +30,9 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private TabLayout tabLayout;
     private Toolbar toolbar;
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
+    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
 
     private static final String TAG = "MainActivity";
 
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         createDrawer();
         createFloatingButton();
         createTabsFragment();
