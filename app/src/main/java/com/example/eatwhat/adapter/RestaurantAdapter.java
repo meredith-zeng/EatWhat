@@ -25,6 +25,22 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
     private RecyclerViewOnItemClickListener onItemClickListener;
 
+    public class Viewholder extends RecyclerView.ViewHolder {
+        private ImageView restaurantImage, isCollect;
+        private TextView restaurantTitle, restaurantContent;
+        private View root;
+
+        public Viewholder(@NonNull View root) {
+            super(root);
+            this.root = root;
+
+            restaurantImage = root.findViewById(R.id.restaurant_image);
+            restaurantTitle = root.findViewById(R.id.restaurant_title);
+            restaurantContent = root.findViewById(R.id.restaurant_content);
+            isCollect = root.findViewById(R.id.is_collect);
+        }
+    }
+
     // Constructor
     public RestaurantAdapter(Context context, ArrayList<RestaurantCard> restaurantCardArrayList) {
         this.context = context;
@@ -62,36 +78,22 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     }
 
 
-    public class Viewholder extends RecyclerView.ViewHolder {
-        private ImageView restaurantImage, isCollect;
-        private TextView restaurantTitle, restaurantContent;
-        private View root;
-
-        public Viewholder(@NonNull View root) {
-            super(root);
-            this.root = root;
-
-            restaurantImage = root.findViewById(R.id.restaurant_image);
-            restaurantTitle = root.findViewById(R.id.restaurant_title);
-            restaurantContent = root.findViewById(R.id.restaurant_content);
-            isCollect = root.findViewById(R.id.is_collect);
+    @Override
+    public void onClick(View view) {
+        if (onItemClickListener != null) {
+            // Use getTag() to get data
+            onItemClickListener.onItemClickListener(view, (Integer) view.getTag());
         }
     }
 
-        @Override
-        public void onClick(View view) {
-            if (onItemClickListener != null) {
-                // Use getTag() to get data
-                onItemClickListener.onItemClickListener(view, (Integer) view.getTag());
-            }
-        }
+    public void setRecyclerViewOnItemClickListener(RecyclerViewOnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
-        public void setRecyclerViewOnItemClickListener(RecyclerViewOnItemClickListener onItemClickListener) {
-            this.onItemClickListener = onItemClickListener;
-        }
-        public interface RecyclerViewOnItemClickListener {
+    public interface RecyclerViewOnItemClickListener {
 
-            void onItemClickListener(View view, int position);
+        void onItemClickListener(View view, int position);
 
-        }
+    }
+
 }

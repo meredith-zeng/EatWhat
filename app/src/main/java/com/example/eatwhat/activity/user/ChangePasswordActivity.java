@@ -34,8 +34,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements Navigat
     @Override
         public boolean onOptionsItemSelected(MenuItem menuItem) {
             if (menuItem.getItemId() == android.R.id.home) {
-                Intent profileIntent = new Intent(this, ProfileActivity.class);
-                startActivity(profileIntent);
                 finish();
                 return true;
             }

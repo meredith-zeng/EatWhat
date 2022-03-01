@@ -47,7 +47,5 @@ public class RestaurantPageActivity extends AppCompatActivity {
         nameTv.setText(name);
         categoryTv.setText(category);
 
-
-
     }
 }

@@ -111,8 +111,6 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
 
     private void jumpToMainActivity(){
         System.out.println(Arrays.toString(personalPreference.toArray()));
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         finish();
     }
 
@@ -141,8 +139,6 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            homeIntent = new Intent(this, MainActivity.class);
-            startActivity(homeIntent);
             finish();
             return true;
         }
