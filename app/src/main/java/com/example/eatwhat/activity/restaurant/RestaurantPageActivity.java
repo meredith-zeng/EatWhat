@@ -85,10 +85,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Firebase: collect this restaurant", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 String uid = mAuth.getUid();
-//                String uid = "jtKBHVkFxYPl0AyLdNtzQcaWGiA2";
                 DocumentReference docRef = db.collection("user").document(uid);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
