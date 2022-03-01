@@ -42,6 +42,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -178,8 +180,8 @@ public class SignUpActivity extends AppCompatActivity {
                             Log.e(TAG, "onFailure: " + e.getCause());
                         }
                     });
-
-                    currentUser = new User(uid, username_str, email_str, "");
+                    List<String> list = new LinkedList<>();
+                    currentUser = new User(uid, username_str, email_str, "", list, list, list);
                     Intent intent = new Intent(SignUpActivity.this, SetPreferenceActivity.class);
                     intent.putExtra("currentUser", currentUser);
                     intent.putExtra("source", "signup");

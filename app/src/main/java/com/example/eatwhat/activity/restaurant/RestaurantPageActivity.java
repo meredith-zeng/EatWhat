@@ -25,6 +25,8 @@ import com.example.eatwhat.service.RetrofitClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.io.IOException;
@@ -44,6 +46,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
 
     private ActivityScrollingBinding binding;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private boolean isCollected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
