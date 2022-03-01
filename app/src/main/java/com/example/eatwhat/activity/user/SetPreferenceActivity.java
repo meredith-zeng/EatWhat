@@ -35,7 +35,7 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
     private Button startToExplore;
     private List<String> personalPreference;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Map<String, User> users = new HashMap<>();
+//    Map<String, User> users = new HashMap<>();
     private Intent homeIntent;
   
     @Override
@@ -116,8 +116,7 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
 
     public void saveUserInfoToFireStore(User curUser){
         String uid = curUser.getUid();
-        users.put(uid, curUser);
-        db.collection("user").document(uid).set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("user").document(uid).set(curUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d(TAG, "User upload successfully!");
