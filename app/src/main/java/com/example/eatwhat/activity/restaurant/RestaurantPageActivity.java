@@ -1,5 +1,6 @@
 package com.example.eatwhat.activity.restaurant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -18,19 +19,31 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.databinding.ActivityScrollingBinding;
+import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.BusinessesPojo.Category;
 import com.example.eatwhat.service.BusinessesPojo.DetailedBusiness;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +60,10 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
     private ActivityScrollingBinding binding;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+
     private boolean isCollected;
 
     @Override
@@ -56,6 +72,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_scrolling);
 
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
         binding = ActivityScrollingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -66,8 +85,55 @@ public class RestaurantPageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Firebase: collect this restaurant", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Firebase: collect this restaurant", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                String uid = mAuth.getUid();
+//                String uid = "jtKBHVkFxYPl0AyLdNtzQcaWGiA2";
+                DocumentReference docRef = db.collection("user").document(uid);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            DocumentReference userRef = db.collection("user").document(uid);
+                            if (document.exists()) {
+                                Log.d(TAG, "data" + document.getData());
+                                Object list = document.get("collected_restaurant");
+
+
+
+                                    List<String> collectedList = new LinkedList<>();
+                                    Intent intent = getIntent();
+                                    String id = intent.getStringExtra("id");
+                                    collectedList.add(id);
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("collected_restaurant", collectedList);
+
+                                userRef
+                                        .update("collected_restaurant", collectedList)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
+
+
+                            } else {
+                                Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
             }
         });
 

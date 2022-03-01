@@ -70,16 +70,22 @@
         <activity
             android:name=".activity.user.Welcomepage"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         </activity>
+
+
+
+
+        </activity>
       
         <activity
             android:name=".activity.restaurant.RestaurantPageActivity"
             android:exported="true" >
+
         </activity>
 
         <activity
@@ -105,12 +111,6 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EatWhat.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
 
 
 
