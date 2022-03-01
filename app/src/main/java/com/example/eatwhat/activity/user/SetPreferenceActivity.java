@@ -120,12 +120,12 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
         db.collection("user").document(uid).set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Log.d(TAG, "User file created successfully!");
+                Log.d(TAG, "User upload successfully!");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "User file created failed!");
+                Log.w(TAG, "Error adding document", e);
             }
         });
     }
