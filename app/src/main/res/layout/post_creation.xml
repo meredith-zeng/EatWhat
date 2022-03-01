@@ -78,18 +78,9 @@
                         android:src="@drawable/ic_baseline_add_photo_alternate_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                         />
 
-                    <TextView
-                        android:id="@+id/post_creation_add_pic_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="add picture"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/post_creation_add_btn" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,7 +98,8 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <EditText
-                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
                     android:id="@+id/post_creation_restaurant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,7 +107,6 @@
                     android:layout_marginTop="8sp"
                     android:background="@null"
                     android:hint="enter restuarant name"
-                    android:maxLines="1"
                     android:textAppearance="?attr/textAppearanceBody2" />
 
                 <RatingBar
@@ -128,6 +119,7 @@
                     android:layout_marginTop="8dp"/>
 
                 <EditText
+                    android:imeOptions="actionDone"
                     android:id="@+id/post_creation_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -80,6 +80,7 @@ public class SignInActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 email_str = email_addr.getText().toString().trim();
                 password_str = password.getText().toString().trim();
                 if(TextUtils.isEmpty(email_addr.getText())){
@@ -95,7 +96,6 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
