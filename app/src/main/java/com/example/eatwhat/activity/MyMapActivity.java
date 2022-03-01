@@ -116,12 +116,9 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                             try {
                                 List<Address> addresses = null;
                                 addresses = geocoder.getFromLocation(myLat, myLong, 1);
-                                System.out.println(addresses.get(0).getLocality().toString());
-
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
                         }
                     }
                 });
