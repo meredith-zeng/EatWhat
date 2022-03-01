@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -54,6 +56,7 @@ public class RestaurantFragment extends Fragment  {
     private String selectedSortCondition = null;
     private RecyclerView recyclerView;
     private ProgressBar loadingPB;
+    private String sortBy = "default";
 
     public RestaurantFragment() {
         // Required empty public constructor

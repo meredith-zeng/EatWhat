@@ -60,7 +60,6 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-
         noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -19,9 +20,11 @@ import com.example.eatwhat.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -34,6 +37,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
 
     private FusedLocationProviderClient fusedLocationClient;
     private String inputLocation = "";
+    private Marker myMarker;
 
 
 //    private void getLocation() {
@@ -80,7 +84,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                             double myLat = location.getLatitude() ;
                             LatLng latLng = new LatLng(myLat, myLong);
 
-                            googleMap.addMarker(new MarkerOptions()
+                            myMarker = googleMap.addMarker(new MarkerOptions()
                                     .position(latLng)
                                     .title("Marker"));
                             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
@@ -99,5 +103,15 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                         }
                     }
                 });
+
+        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(@NonNull LatLng latLng) {
+                myMarker.remove();
+                myMarker = googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Marker"));
+            }
+        });
     }
 }

@@ -129,12 +129,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(searchIntent);
                 return true;
             case R.id.action_map:
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
-                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-                        .build(this);
-                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
-                //Intent mapIntent = new Intent(this, MyMapActivity.class);
-                //startActivity(mapIntent);
+//                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+//                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+//                        .build(this);
+//                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+                Intent mapIntent = new Intent(this, MyMapActivity.class);
+                startActivity(mapIntent);
                 return true;
         }
 
