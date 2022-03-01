@@ -119,15 +119,15 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
     public void saveUserInfoToFireStore(User curUser){
         String uid = curUser.getUid();
         users.put(uid, curUser);
-        db.collection("user").add(users).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("user").document(uid).set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "User file created successfully!");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
+                Log.d(TAG, "User file created failed!");
             }
         });
     }

@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.eatwhat.R;
 
+import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.mainActivityFragments.NotesFragment;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,7 +54,6 @@ public class PostCreationActivity extends AppCompatActivity {
     ImageView add_btn, imageShow;
     RatingBar ratingBar;
     EditText res_title, res_name, res_comment;
-    TextView addPictureTV;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     Bitmap bitmap;
@@ -70,7 +72,6 @@ public class PostCreationActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
         FirebaseUser user = mAuth.getCurrentUser();
 
-
         post = findViewById(R.id.post_creation_post_textView);
         ratingBar = findViewById(R.id.ratingBar1);
         res_title = findViewById(R.id.post_creation_title);
@@ -79,12 +80,8 @@ public class PostCreationActivity extends AppCompatActivity {
         add_btn = findViewById(R.id.post_creation_add_btn);
         imageShow = findViewById(R.id.post_creation_thumbnail);
         mCancelBtn = findViewById(R.id.post_creation_cancel_btn);
-        addPictureTV = findViewById(R.id.post_creation_add_pic_textView);
-        add_btn.setVisibility(View.VISIBLE);
-        addPictureTV.setVisibility(View.VISIBLE);
 
-
-        add_btn.setOnClickListener(new View.OnClickListener() {
+        imageShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(listofImages.size() <= LIMIT){
@@ -93,11 +90,8 @@ public class PostCreationActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(PostCreationActivity.this, "Images Uploading Limitation is 6 !!", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,8 +108,8 @@ public class PostCreationActivity extends AppCompatActivity {
                 else if(ratingBar.getRating() == 0.0f){
                     Toast.makeText(PostCreationActivity.this, "Please rate the restaurant!", Toast.LENGTH_SHORT).show();
                 }
-                else if(listofImages.size() == 0){
-                    Toast.makeText(PostCreationActivity.this, "Please upload some images!", Toast.LENGTH_SHORT).show();
+                else if(imageShow.getDrawable() == null){
+                    Toast.makeText(PostCreationActivity.this, "Please upload an image!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     float ratings = ratingBar.getRating();
@@ -126,10 +120,6 @@ public class PostCreationActivity extends AppCompatActivity {
                     String uid = user.getUid();
                     String postId = UUID.randomUUID().toString();
                     List<String> imageIds = new ArrayList<>();
-
-
-
-
 
 
                     //store image into Storage
@@ -173,7 +163,7 @@ public class PostCreationActivity extends AppCompatActivity {
 
                     Log.d(TAG, "Size: " + listofImages.size());
 
-                    Intent intent = new Intent(PostCreationActivity.this, NotesFragment.class);
+                    Intent intent = new Intent(PostCreationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -184,28 +174,14 @@ public class PostCreationActivity extends AppCompatActivity {
         mCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PostCreationActivity.this, NotesFragment.class);
+                Intent intent = new Intent(PostCreationActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
-/**
-    private void cancel_button_init() {
-        mCancelBtn = findViewById(R.id.post_creation_cancel_btn);
-        mCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-**/
-    private void chooseImage(Context context){
 
-        //invisible add image button and add picture textView
-        add_btn.setVisibility(View.INVISIBLE);
-        addPictureTV.setVisibility(View.INVISIBLE);
+    private void chooseImage(Context context){
 
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit"};
 
@@ -272,10 +248,18 @@ public class PostCreationActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            imageShow.setImageBitmap(listofImages.get(0));
+
                         }
                         else if(data.getData() != null) {
                             Uri selectedImageUri = data.getData();
-                            //do what do you want to do
+
+                            try {
+                                Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                                imageShow.setImageBitmap(bitmap2);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                     break;

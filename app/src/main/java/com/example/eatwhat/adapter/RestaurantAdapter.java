@@ -75,7 +75,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             restaurantTitle = root.findViewById(R.id.restaurant_title);
             restaurantContent = root.findViewById(R.id.restaurant_content);
             isCollect = root.findViewById(R.id.is_collect);
-
         }
     }
 
@@ -95,7 +94,4 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             void onItemClickListener(View view, int position);
 
         }
-
-
-
 }

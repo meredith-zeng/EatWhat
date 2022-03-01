@@ -306,7 +306,6 @@ public class SignUpActivity extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         bitmap = (Bitmap) data.getExtras().get("data");
-
                         Matrix mMatrix = new Matrix();
                         Matrix mat=imageView.getImageMatrix();
                         mMatrix.set(mat);
