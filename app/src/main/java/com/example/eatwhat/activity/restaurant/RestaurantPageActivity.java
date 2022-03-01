@@ -40,6 +40,7 @@ import com.google.firebase.firestore.SetOptions;
 
 
 import java.io.IOException;
+import java.io.ObjectStreamException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,6 +53,8 @@ import retrofit2.Response;
 public class RestaurantPageActivity extends AppCompatActivity {
     private TextView nameTv, categoryTv, restaurant_address, price_level, ratingText, phoneText;
     private ImageView resImage;
+
+    private FloatingActionButton floatingActionButton;
 
     private DetailedBusiness business;
 
@@ -82,36 +85,50 @@ public class RestaurantPageActivity extends AppCompatActivity {
 //        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
 
         FloatingActionButton fab = binding.fab;
+
+        String uid = mAuth.getUid();
+        DocumentReference docRef = db.collection("user").document(uid);
+        checkIsCollected(fab, docRef);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uid = mAuth.getUid();
-                DocumentReference docRef = db.collection("user").document(uid);
+
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            DocumentReference userRef = db.collection("user").document(uid);
                             if (document.exists()) {
-                                Log.d(TAG, "data" + document.getData());
-                                Object list = document.get("collected_restaurant");
 
+                                User user = document.toObject(User.class);
+                                List<String> collectedList = user.getCollected_restaurant();
 
+                                Log.d(TAG, "current collectedList" + collectedList.size());
 
-                                    List<String> collectedList = new LinkedList<>();
                                     Intent intent = getIntent();
                                     String id = intent.getStringExtra("id");
-                                    collectedList.add(id);
-                                    Map<String, Object> data = new HashMap<>();
-                                    data.put("collected_restaurant", collectedList);
+                                    if(!collectedList.contains(id)){
+                                        collectedList.add(id);
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put("collected_restaurant", collectedList);
+                                        fab.setImageResource (R.drawable.collected_36);
+                                    }else {
+                                        collectedList.remove(id);
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put("collected_restaurant", collectedList);
+                                        fab.setImageResource (R.drawable.not_collect_36);
+                                    }
 
-                                userRef
+
+                                docRef
                                         .update("collected_restaurant", collectedList)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d(TAG, "DocumentSnapshot successfully updated!");
+
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -123,11 +140,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
 
 
-                            } else {
-                                Log.d(TAG, "No such document");
                             }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
                         }
                     }
                 });
@@ -201,6 +214,30 @@ public class RestaurantPageActivity extends AppCompatActivity {
         });
     }
 
+    public void checkIsCollected(FloatingActionButton fab, DocumentReference docRef) {
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
 
+                        User user = document.toObject(User.class);
+                        List<String> collectedList = user.getCollected_restaurant();
 
+                        Intent intent = getIntent();
+                        String id = intent.getStringExtra("id");
+
+                            if(collectedList.contains(id)) {
+                                isCollected = true;
+                                fab.setImageResource (R.drawable.collected_36);
+                            }else {
+                                fab.setImageResource (R.drawable.not_collect_36);
+                            }
+                        }
+                    }
+                }
+            });
+
+    }
 }

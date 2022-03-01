@@ -23,6 +23,10 @@ public class User implements Serializable {
         this.liked_post = liked_post;
     }
 
+    public User() {
+
+    }
+
     public String getUid() {
         return uid;
     }
