@@ -14,23 +14,23 @@
     tools:context=".activity.MyMapActivity"/>
 
     <EditText
-        android:layout_marginStart="20dp"
-        android:layout_width="350dp"
+        android:id="@+id/search_location"
+        android:layout_width="300dp"
         android:layout_height="65dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/rounded_corner"
-        android:paddingLeft="20dp"
         android:gravity="center_vertical"
         android:hint="Location"
+        android:paddingLeft="20dp"
         android:textSize="18dp"
-        android:id="@+id/search_location"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/confirm_location"
+        android:id="@+id/my_location"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginBottom="50dp"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 
