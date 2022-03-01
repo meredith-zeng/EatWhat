@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -123,9 +124,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         });
 
 
-
-
-
         change = (Button) findViewById(R.id.changepassword);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,8 +147,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
-            return true;
         }
 
         return super.onOptionsItemSelected(menuItem);
