@@ -153,6 +153,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 myDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_search:
+                Intent searchIntent = new Intent(this, SearchActivity.class);
+                startActivity(searchIntent);
+                return true;
+            case R.id.action_map:
+                Intent mapIntent = new Intent(this, MyMapActivity.class);
+                startActivity(mapIntent);
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 return true;

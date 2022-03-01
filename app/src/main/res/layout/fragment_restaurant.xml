@@ -23,17 +23,19 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Category"
-
+                android:textSize="15sp"
                 />
             <TextView
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/selectCategoryView"
                 android:hint="Select Category"
+                android:textSize="15sp"
                 android:padding="5dp"
+                android:gravity="center"
                 android:drawableEnd="@drawable/drop_down_arrow"
+                android:background="@drawable/round_rectangular"
                 android:layout_marginLeft="10dp"
-                android:background="@android:drawable/editbox_background"
                 />
 
         </LinearLayout>
@@ -45,8 +47,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -54,18 +56,48 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Sort By    "
-                    />
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sort_by"
-                    android:hint="Select a filter  "
-                    android:padding="5dp"
-                    android:drawableEnd="@drawable/drop_down_arrow"
+
+                <CheckedTextView
+                    android:id="@+id/sort_by_rating"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="fill_vertical|fill_horizontal"
                     android:layout_marginLeft="10dp"
-                    android:background="@android:drawable/editbox_background"
-                    />
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_rectangular"
+                    android:checked="false"
+                    android:clickable="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:minHeight="48dp"
+                    android:text="Rating"
+                    android:textAlignment="gravity"
+                    android:textColor="#978C8C"
+                    android:textSize="20sp" />
+
+
+                <CheckedTextView
+                    android:id="@+id/sort_by_review_count"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:layout_row="0"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="fill_vertical|fill_horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_rectangular"
+                    android:checked="false"
+                    android:clickable="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:minHeight="48dp"
+                    android:text="Review count"
+                    android:textAlignment="gravity"
+                    android:textColor="#978C8C"
+                    android:textSize="20sp" />
+
 
             </LinearLayout>
 
