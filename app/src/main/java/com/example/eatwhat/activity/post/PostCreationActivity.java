@@ -163,8 +163,6 @@ public class PostCreationActivity extends AppCompatActivity {
 
                     Log.d(TAG, "Size: " + listofImages.size());
 
-                    Intent intent = new Intent(PostCreationActivity.this, MainActivity.class);
-                    startActivity(intent);
                     finish();
                 }
             }
@@ -178,8 +176,6 @@ public class PostCreationActivity extends AppCompatActivity {
         mCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PostCreationActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });

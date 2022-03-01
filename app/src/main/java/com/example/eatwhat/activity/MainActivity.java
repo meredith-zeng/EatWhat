@@ -159,8 +159,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.action_map:
                 Intent mapIntent = new Intent(this, MyMapActivity.class);
                 startActivity(mapIntent);
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
                 return true;
         }
 
@@ -184,13 +182,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_history:
                 Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);
                 startActivity(toReviewHistory);
-                finish();
                 return true;
             case R.id.drawer_preference:
                 Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
                 toSetPreference.putExtra("source", "home");
                 startActivity(toSetPreference);
-                finish();
                 return true;
             case R.id.drawer_logout:
                 return true;

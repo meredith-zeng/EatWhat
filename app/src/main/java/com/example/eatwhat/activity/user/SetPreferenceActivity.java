@@ -99,19 +99,13 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
                     User curUser = (User) intent.getSerializableExtra("currentUser");
                     curUser.setPreference(personalPreference);
                     saveUserInfoToFireStore(curUser);
-                    jumpToMainActivity();
+                    finish();
                 }
                 else if (source.equals("home")) {
-                    jumpToMainActivity();
                     finish();
                 }
             }
         });
-    }
-
-    private void jumpToMainActivity(){
-        System.out.println(Arrays.toString(personalPreference.toArray()));
-        finish();
     }
 
     public void saveUserInfoToFireStore(User curUser){
