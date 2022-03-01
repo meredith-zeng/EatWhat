@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
+import com.example.eatwhat.activity.user.SignInActivity;
 import com.example.eatwhat.adapter.RestaurantAdapter;
 import com.example.eatwhat.cardview.RestaurantCard;
 import com.example.eatwhat.service.RestaurantService;
@@ -43,7 +45,7 @@ import retrofit2.Response;
 
 public class RestaurantFragment extends Fragment  {
 
-    int offset = 10, limit = 10, totalNum;
+    int offset = 0, limit = 5, totalNum = 20;
     private ArrayList<String> categoryList;
     private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
@@ -51,6 +53,7 @@ public class RestaurantFragment extends Fragment  {
     private String selectedCategory = null;
     private String selectedSortCondition = null;
     private RecyclerView recyclerView;
+    private ProgressBar loadingPB;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -69,7 +72,7 @@ public class RestaurantFragment extends Fragment  {
 
     private void pullUpToRefresh(View rootView) {
         NestedScrollView nestedSV = (NestedScrollView) rootView.findViewById(R.id.swipe_container);
-        ProgressBar loadingPB = (ProgressBar)rootView.findViewById(R.id.pb_loading);
+        loadingPB = (ProgressBar)rootView.findViewById(R.id.pb_loading);
         nestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -80,9 +83,11 @@ public class RestaurantFragment extends Fragment  {
                     offset += limit;
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
-                    if (offset + limit < totalNum) {
-                        // on below line we are again calling
-                        // a method to load data in our array list.
+                    if (offset +limit > 30) {
+                        Toast.makeText(getContext(), "Reach to bottom", Toast.LENGTH_SHORT).show();
+                        loadingPB.setVisibility(View.GONE);
+                    }
+                    else if (offset + limit < totalNum) {
                         initData();
                     }else {
                         limit = totalNum - offset;
@@ -164,6 +169,9 @@ public class RestaurantFragment extends Fragment  {
                                 Log.e("choose category", selectedCategory);
 
                                 if (selectedCategory != null) {
+                                    offset = 0;
+                                    limit = 5;
+                                    totalNum = 20;
                                     restaurantCardArrayList.clear();
                                     initData();
                                 }
@@ -195,15 +203,24 @@ public class RestaurantFragment extends Fragment  {
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                System.out.println(response);
                 if (response.code() == 200){
                     System.out.println("Network " + response.code());
+                    totalNum = response.body().getTotal();
                     for (Business business: response.body().getBusinesses()){
                         RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), false, business.getId());
                         restaurantCardArrayList.add(restaurantCard);
                     }
+
+                    if (response.body().getBusinesses().size() == 0) {
+                        loadingPB.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Reach to bottom", Toast.LENGTH_SHORT).show();
+                    }
                     initRecycleView(restaurantCardArrayList);
                 }
                 else {
+                    loadingPB.setVisibility(View.GONE);
+                    //Toast.makeText(getContext(), "Network Error", Toast.LENGTH_LONG).show();
                     System.out.println("Network " + response.code());
                 }
 
@@ -235,5 +252,4 @@ public class RestaurantFragment extends Fragment  {
 
             recyclerView.setAdapter(restaurantAdapter);
     }
-
 }
