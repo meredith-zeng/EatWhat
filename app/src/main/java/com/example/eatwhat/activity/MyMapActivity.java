@@ -132,6 +132,8 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                 myMarker = googleMap.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title("Marker"));
+
+                System.out.println(myLong + "     " + myLat + "FROM change location");
             }
         });
     }
@@ -143,6 +145,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
         backMain.putExtra("Longitude", myLong);
         backMain.putExtra("Latitude", myLat);
         setResult(Activity.RESULT_OK, backMain);
+        System.out.println(myLong + "     " + myLat + "FROM  on back pressed");
         super.onBackPressed();
     }
 }

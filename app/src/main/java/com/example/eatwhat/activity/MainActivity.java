@@ -11,10 +11,7 @@ import com.example.eatwhat.activity.user.ReviewHistoryActivity;
 import com.example.eatwhat.activity.user.SetPreferenceActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
 import com.example.eatwhat.activity.user.ProfileActivity;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.example.eatwhat.mainActivityFragments.RestaurantFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -25,16 +22,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private TabLayout tabLayout;
@@ -122,12 +115,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == MAP_LOCATION_CODE) {
+        if (requestCode == MAP_LOCATION_CODE && data != null) {
             if(resultCode == Activity.RESULT_OK){
+                super.onActivityResult(requestCode, resultCode, data);
                 lng = data.getDoubleExtra("Longitude", 0);
                 lat = data.getDoubleExtra("Latitude", 0);
+                System.out.println("regertgertgerger");
+                Bundle args = new Bundle();
+                args.putDouble("Longitude", lng);
+                args.putDouble("Latitude", lat);
+                RestaurantFragment fragment = (RestaurantFragment) getSupportFragmentManager().getFragments().get(1);
+                fragment.putArguments(args);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result

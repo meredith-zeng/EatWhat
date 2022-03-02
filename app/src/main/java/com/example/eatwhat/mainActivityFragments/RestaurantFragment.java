@@ -108,6 +108,7 @@ public class RestaurantFragment extends Fragment  {
                 if (location != null) {
                     longitude = location.getLongitude();
                     latitude = location.getLatitude();
+
                     Geocoder gc = new Geocoder(getContext(), Locale.getDefault());
                     try {
                         List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
@@ -119,6 +120,26 @@ public class RestaurantFragment extends Fragment  {
             }
         });
     }
+
+    public void putArguments(Bundle args) {
+        longitude = args.getDouble("Longitude");
+        latitude = args.getDouble("Latitude");
+        System.out.println("receive" + longitude + "   " + latitude);
+        Geocoder gc = new Geocoder(getContext(), Locale.getDefault());
+        try {
+            List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
+            selectedCity = addresses.get(0).getLocality().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        offset = 0;
+        limit = 5;
+        totalNum = 20;
+        restaurantCardArrayList.clear();
+        System.out.println(selectedCity + "  ewfwefwefewf");
+        initData();
+    }
+
 
     private void pullUpToRefresh(View rootView) {
         NestedScrollView nestedSV = (NestedScrollView) rootView.findViewById(R.id.swipe_container);
