@@ -125,13 +125,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Bundle args = new Bundle();
                 args.putDouble("Longitude", lng);
                 args.putDouble("Latitude", lat);
-                RestaurantFragment fragment = (RestaurantFragment) getSupportFragmentManager().getFragments().get(1);
-                fragment.putArguments(args);
+                try {
+                    RestaurantFragment fragment = (RestaurantFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewPager, 1));
+                    fragment.putArguments(args);
+                } catch(ClassCastException e) {
+                    System.out.println(e);
+                }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result
             }
         }
+    }
+
+
+    private String getFragmentTag(int viewPagerId, int fragmentPosition) {
+        return "android:switcher:" + viewPagerId + ":" + fragmentPosition;
     }
 
     @Override
