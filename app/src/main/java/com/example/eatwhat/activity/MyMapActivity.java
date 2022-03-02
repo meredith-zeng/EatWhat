@@ -46,22 +46,11 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
     GoogleMap myGoogleMap = null;
 
 
-    private void resetToMyCurrentLocation() {
-        Button myLocation = (Button) findViewById(R.id.my_location);
-        myLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_map);
+        resetToMyCurrentLocation();
         myLong = getIntent().getDoubleExtra("Longitude", 0);
         myLat = getIntent().getDoubleExtra("Latitude", 0);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -70,12 +59,39 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
-    // Get a handle to the GoogleMap object and display marker.
+
+    private void resetToMyCurrentLocation() {
+        Button myLocation = (Button) findViewById(R.id.my_location);
+        myLocation.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onClick(View view) {
+                fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            myLong = location.getLongitude();
+                            myLat = location.getLatitude() ;
+                            LatLng latLng = new LatLng(myLat, myLong);
+
+                            if (myMarker != null) {
+                                myMarker.remove();
+                            }
+                            myMarker = myGoogleMap.addMarker(new MarkerOptions()
+                                    .position(latLng)
+                                    .title("Marker"));
+                            myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
+
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(@NonNull com.google.android.gms.maps.GoogleMap googleMap) {
-        //updateLocationUI();
-        //getDeviceLocation();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             System.out.println("do not have permission");
