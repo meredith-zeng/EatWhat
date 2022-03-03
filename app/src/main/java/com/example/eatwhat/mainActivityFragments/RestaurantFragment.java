@@ -129,7 +129,7 @@ public class RestaurantFragment extends Fragment  {
         try {
             List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
             selectedCity = addresses.get(0).getLocality().toString();
-        } catch (IOException e) {
+        } catch (Exception e ) {
             e.printStackTrace();
         }
         offset = 0;

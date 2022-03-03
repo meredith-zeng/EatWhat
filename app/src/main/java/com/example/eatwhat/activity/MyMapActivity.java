@@ -14,10 +14,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.eatwhat.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,6 +55,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_map);
+        initSearchLocation();
         resetToMyCurrentLocation();
         myLong = getIntent().getDoubleExtra("Longitude", 0);
         myLat = getIntent().getDoubleExtra("Latitude", 0);
@@ -57,6 +63,48 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+    }
+
+    private void initSearchLocation() {
+        EditText inputLocation = (EditText) findViewById(R.id.input_location);
+        inputLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int ActionId, KeyEvent keyEvent) {
+                if (ActionId == EditorInfo.IME_ACTION_DONE
+                        || ActionId == EditorInfo.IME_ACTION_SEARCH
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENVELOPE) {
+                    goToInputLocation(inputLocation);
+                }
+                return false;
+            }
+        });
+    }
+
+    private void goToInputLocation(EditText input) {
+        String inputLocation = input.getText().toString();
+        System.out.println("get location   " + inputLocation);
+        Geocoder myGeocoder = new Geocoder(this);
+        List<Address> myAddressList = new ArrayList<>();
+        try {
+            myAddressList = myGeocoder.getFromLocationName(inputLocation, 1);
+            if (myAddressList != null && myAddressList.size() >= 1) {
+                Address address = myAddressList.get(0);
+                myLong = address.getLongitude();
+                myLat = address.getLatitude();
+                LatLng latLng = new LatLng(myLat, myLong);
+
+                if (myMarker != null) {
+                    myMarker.remove();
+                }
+                myMarker = myGoogleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Marker"));
+                myGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.0f));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
