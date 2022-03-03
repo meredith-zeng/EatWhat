@@ -9,12 +9,15 @@ import com.example.eatwhat.activity.user.MyNotesActivity;
 import com.example.eatwhat.activity.post.PostCreationActivity;
 import com.example.eatwhat.activity.user.ReviewHistoryActivity;
 import com.example.eatwhat.activity.user.SetPreferenceActivity;
+import com.example.eatwhat.activity.user.SignInActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
 import com.example.eatwhat.activity.user.ProfileActivity;
 import com.example.eatwhat.mainActivityFragments.RestaurantFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 
 import androidx.core.view.GravityCompat;
@@ -194,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(toSetPreference);
                 return true;
             case R.id.drawer_logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent logoutIntent = new Intent(this, SignInActivity.class);
+                startActivity(logoutIntent);
                 return true;
         }
         return false;

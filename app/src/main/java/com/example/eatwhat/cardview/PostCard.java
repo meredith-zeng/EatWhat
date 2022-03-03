@@ -22,7 +22,9 @@ public class PostCard implements Serializable{
     public void setImageIds(List<String> imageIds) {
         this.imageIds = imageIds;
     }
+    public PostCard(){
 
+    }
 
     public PostCard(String uid, String postId, String post_title, String post_content, int number_of_likes, String restuarant_name, float star, List<String> imageIds){
         this.uid = uid;

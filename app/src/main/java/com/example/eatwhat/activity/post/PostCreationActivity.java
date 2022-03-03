@@ -147,7 +147,7 @@ public class PostCreationActivity extends AppCompatActivity {
                             comment_str, number_of_likes, name_str, ratings, imageIds);
 
 
-                    mDatabase.child(uid).child(postId).setValue(postCard)
+                    mDatabase.push().setValue(postCard)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -243,7 +243,6 @@ public class PostCreationActivity extends AppCompatActivity {
                                 //do what do you want to do
                                 try {
                                     Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-
                                     // add all images into list
                                     listofImages.add(bitmap2);
                                 } catch (IOException e) {

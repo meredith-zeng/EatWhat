@@ -31,7 +31,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     @NonNull
     @Override
     public PostAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = View.inflate(context, R.layout.using_post_card,null);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.using_post_card, parent, false);
         return new Viewholder(view);
     }
@@ -46,12 +45,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
 
         holder.numberOfLikeV.setText(String.valueOf(model.getNumber_of_likes()));
-
-//        GlideUrl glideUrl = new GlideUrl(model.getPost_image_url(), new LazyHeaders.Builder()
-//                .addHeader("Authorization", " Bearer " + TOKEN)
-//                .build());
-//
-//        Glide.with(this.context).load(glideUrl).into(holder.postImageV);
 
     }
 

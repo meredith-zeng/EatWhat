@@ -144,6 +144,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                         }
                     }
                 });
+
             }
         });
 
@@ -234,6 +235,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                             }else {
                                 fab.setImageResource (R.drawable.not_collect_36);
                             }
+
                         }
                     }
                 }
