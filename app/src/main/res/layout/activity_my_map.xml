@@ -5,14 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:id="@+id/map"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.MyMapActivity"/>
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.MyMapActivity"
+        tools:layout_editor_absoluteX="-55dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <EditText
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/map_search"
+        android:gravity="fill"
+        android:hint="   Enter City name"
+        android:id="@+id/input_location"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/map" />
 
     <Button
         android:id="@+id/my_location"
