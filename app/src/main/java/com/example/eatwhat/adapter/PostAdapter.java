@@ -10,17 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eatwhat.activity.post.PostDetailActivity;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  implements View.OnClickListener{
 
     private Context context;
     private ArrayList<PostCard> postCardArrayList;
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
+    private RecyclerViewOnItemClickListener onItemClickListener;
 
     // Constructor
     public PostAdapter(Context context, ArrayList<PostCard> postCardArrayList) {
@@ -31,8 +31,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
     @NonNull
     @Override
     public PostAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.using_post_card, parent, false);
-        return new Viewholder(view);
+        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.using_post_card, parent, false);
+        PostAdapter.Viewholder vh = new PostAdapter.Viewholder(root);
+        root.setOnClickListener(this);
+        return new PostAdapter.Viewholder(root);
     }
 
 
@@ -44,7 +46,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
 
-        holder.numberOfLikeV.setText(String.valueOf(model.getNumber_of_likes()));
+        holder.root.setTag(position);
 
     }
 
@@ -54,27 +56,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder> {
         return postCardArrayList.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    public void onClick(View view) {
+        if (onItemClickListener != null) {
+            // Use getTag() to get data
+            onItemClickListener.onItemClickListener(view, (Integer) view.getTag());
+        }
+    }
+    public void setRecyclerViewOnItemClickListener(PostAdapter.RecyclerViewOnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface RecyclerViewOnItemClickListener {
+
+        void onItemClickListener(View view, int position);
+
+    }
+    public class Viewholder extends RecyclerView.ViewHolder{
         private ImageView postImageV;
-        private TextView postTitleV, postContentV,numberOfLikeV;
+        private TextView postTitleV, postContentV, numberOfLikeV;
+        private View root;
 
-        public Viewholder(@NonNull View itemView) {
-            super(itemView);
-            postImageV = itemView.findViewById(R.id.idPostImage);
-            postTitleV = itemView.findViewById(R.id.idPostTitle);
-            postContentV = itemView.findViewById(R.id.idPostContent);
-            numberOfLikeV = itemView.findViewById(R.id.numberOfLike);
+        public Viewholder(@NonNull View root) {
+            super(root);
+            this.root = root;
+            postImageV = root.findViewById(R.id.idPostImage);
+            postTitleV = root.findViewById(R.id.idPostTitle);
+            postContentV = root.findViewById(R.id.idPostContent);
+            numberOfLikeV = root.findViewById(R.id.numberOfLike);
 
-            itemView.setOnClickListener(this);
         }
 
-
-        @Override
-        public void onClick(View view) {
-            PostCard model = postCardArrayList.get(getLayoutPosition());
-            Intent profilePageIntent = new Intent(context, PostDetailActivity.class);
-            profilePageIntent.putExtra("card", model);
-            context.startActivity(profilePageIntent);
-        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.eatwhat.mainActivityFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,12 +9,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.activity.post.PostDetailActivity;
+import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
 import com.example.eatwhat.adapter.PostAdapter;
+import com.example.eatwhat.adapter.RestaurantAdapter;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.databinding.ActivityMainBinding;
 import com.example.eatwhat.service.RestaurantService;
@@ -56,16 +61,8 @@ public class NotesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notes, container, false);
         postCardArrayList = new ArrayList<>();
-
-
         // 1. get a reference to recyclerView
         recyclerView = (RecyclerView) rootView.findViewById(R.id.note_recyclerview);
-        // 2. set layoutManger
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        // this is data from recycler view
-//        initData();
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
@@ -107,12 +104,27 @@ public class NotesFragment extends Fragment {
 
     private void initRecyclerView(DataSnapshot dataSnapshot){
 
+        // 2. set layoutManger
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
             PostCard postCard = singleSnapshot.getValue(PostCard.class);
             postCardArrayList.add(postCard);
         }
         // 3. create an adapter
-        PostAdapter postAdapter = new PostAdapter(getContext(), postCardArrayList);
+        PostAdapter postAdapter = new PostAdapter(getActivity(), postCardArrayList);
+        postAdapter.setRecyclerViewOnItemClickListener(new PostAdapter.RecyclerViewOnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                Log.e(TAG, "click one post");
+                Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+                intent.putExtra("postId", postCardArrayList.get(position).getPostId());
+                intent.putExtra("imageUrl", postCardArrayList.get(position).getPost_image_url());
+                getContext().startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(postAdapter);
     }
 

@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,8 +31,11 @@ import com.example.eatwhat.R;
 import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.mainActivityFragments.NotesFragment;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -51,12 +55,13 @@ public class PostCreationActivity extends AppCompatActivity {
 
     private ImageButton mCancelBtn;
     Button post;
-    ImageView add_btn, imageShow;
+    ImageView add_btn, imageView;
     RatingBar ratingBar;
     EditText res_title, res_name, res_comment;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     Bitmap bitmap;
+    String image_url;
     private final static int PICK_IMAGE_MULTIPLE = 1;
     private final static String TAG = "PostCreationActivity";
     List<Bitmap> listofImages = new ArrayList<>();
@@ -78,10 +83,13 @@ public class PostCreationActivity extends AppCompatActivity {
         res_name = findViewById(R.id.post_creation_restaurant);
         res_comment = findViewById(R.id.post_creation_body);
         add_btn = findViewById(R.id.post_creation_add_btn);
-        imageShow = findViewById(R.id.post_creation_thumbnail);
+        imageView = (ImageView) findViewById(R.id.post_creation_thumbnail);
         mCancelBtn = findViewById(R.id.post_creation_cancel_btn);
 
-        imageShow.setOnClickListener(new View.OnClickListener() {
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(listofImages.size() <= LIMIT){
@@ -108,12 +116,12 @@ public class PostCreationActivity extends AppCompatActivity {
                 else if(ratingBar.getRating() == 0.0f){
                     Toast.makeText(PostCreationActivity.this, "Please rate the restaurant!", Toast.LENGTH_SHORT).show();
                 }
-                else if(imageShow.getDrawable() == null){
+                else if(imageView.getDrawable() == null){
                     Toast.makeText(PostCreationActivity.this, "Please upload an image!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     float ratings = ratingBar.getRating();
-                    int number_of_likes = ratingBar.getNumStars();
+//                    int number_of_likes = ratingBar.getNumStars();
                     String title_str = res_title.getText().toString();
                     String name_str = res_name.getText().toString();
                     String comment_str = res_comment.getText().toString();
@@ -123,29 +131,60 @@ public class PostCreationActivity extends AppCompatActivity {
 
 
                     //store image into Storage
-                    for(int i = 0; i < listofImages.size(); i++){
-                        imageIds.add(postId + i);
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        listofImages.get(i).compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        StorageReference reference = FirebaseStorage.getInstance().getReference()
-                                .child("postImages").child(postId).child(postId + "_" + i + ".jpeg");
-                        reference.putBytes(baos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Log.d(TAG, "Upload Successfully!");
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d(TAG, "onFailure: " + e.getCause());
-                            }
-                        });
-                    }
+//                    for(int i = 0; i < listofImages.size(); i++){
+//                        imageIds.add(postId + i);
+//                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                        listofImages.get(i).compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                        StorageReference reference = FirebaseStorage.getInstance().getReference()
+//                                .child("postImages").child(postId).child(postId + "_" + i + ".jpeg");
+//                        reference.putBytes(baos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                            @Override
+//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                Log.d(TAG, "Upload Successfully!");
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.d(TAG, "onFailure: " + e.getCause());
+//                            }
+//                        });
+//                    }
 
+
+                    StorageReference reference = FirebaseStorage.getInstance().getReference()
+                                .child("postImages").child(postId).child(postId + ".jpeg");
+
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] data = baos.toByteArray();
+                    UploadTask uploadTask = reference.putBytes(data);
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return reference.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                image_url = String.valueOf(downloadUri);
+                            } else {
+                                // Handle failures
+                                // ...
+                            }
+                        }
+                    });
                     //Store postCard into realtime database
-                    PostCard postCard = new PostCard(uid, postId, title_str,
-                            comment_str, number_of_likes, name_str, ratings, imageIds);
-
+//                    PostCard postCard = new PostCard(uid, postId, title_str,
+//                            comment_str, number_of_likes, name_str, ratings, imageIds);
+                    PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings);
 
                     mDatabase.push().setValue(postCard)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -226,12 +265,12 @@ public class PostCreationActivity extends AppCompatActivity {
                         bitmap = (Bitmap) data.getExtras().get("data");
 
                         Matrix mMatrix = new Matrix();
-                        Matrix mat=imageShow.getImageMatrix();
+                        Matrix mat = imageView.getImageMatrix();
                         mMatrix.set(mat);
                         mMatrix.setRotate(90);
                         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
                                 bitmap.getHeight(), mMatrix, false);
-                        imageShow.setImageBitmap(bitmap);
+                        imageView.setImageBitmap(bitmap);
                     }
                     break;// Choose from Gallery
                 case 1:
@@ -249,7 +288,7 @@ public class PostCreationActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            imageShow.setImageBitmap(listofImages.get(0));
+                            imageView.setImageBitmap(listofImages.get(0));
 
                         }
                         else if(data.getData() != null) {
@@ -257,7 +296,7 @@ public class PostCreationActivity extends AppCompatActivity {
 
                             try {
                                 Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                                imageShow.setImageBitmap(bitmap2);
+                                imageView.setImageBitmap(bitmap2);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
