@@ -13,36 +13,21 @@
     android:layout_height="match_parent"
     tools:context=".activity.MyMapActivity"/>
 
-    <EditText
-        android:layout_marginStart="20dp"
-        android:layout_width="350dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rounded_corner"
-        android:paddingLeft="20dp"
-        android:gravity="center_vertical"
-        android:hint="Location"
-        android:textSize="18dp"
-        android:id="@+id/search_location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/confirm_location"
+        android:id="@+id/my_location"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginBottom="50dp"
         android:clickable="true"
         android:layout_marginTop="15dp"
-        android:text="Comfirm Location"
+        android:text="Go to current location"
         android:textSize="18sp"
         android:background="@drawable/profile_button"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 

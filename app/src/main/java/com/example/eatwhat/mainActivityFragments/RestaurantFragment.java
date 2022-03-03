@@ -1,9 +1,15 @@
 package com.example.eatwhat.mainActivityFragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -36,8 +43,14 @@ import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
 import com.example.eatwhat.service.RestaurantPojo.Business;
 import com.example.eatwhat.service.RestaurantPojo.Restaurant;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 //import butterknife.BindView;
 //import butterknife.ButterKnife;
@@ -52,11 +65,17 @@ public class RestaurantFragment extends Fragment  {
     private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
 
-    private String selectedCategory = null;
-    private String selectedSortCondition = null;
     private RecyclerView recyclerView;
     private ProgressBar loadingPB;
+
+    private String selectedCategory = null;
+    private String selectedCity = "San Jose";
     private String sortBy = "default";
+
+    //location realted variable
+    private FusedLocationProviderClient fusedLocationClient;
+    private double longitude = 0;
+    private double latitude = 0;
 
     public RestaurantFragment() {
         // Required empty public constructor
@@ -66,12 +85,61 @@ public class RestaurantFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
-        createSpinners(view, container);
         recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
+        getLocation();
+        createSpinners(view, container);
         initData();
         pullUpToRefresh(view);
         return view;
     }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    System.out.println("do not have permission");
+                    return;
+                }
+
+                if (location != null) {
+                    longitude = location.getLongitude();
+                    latitude = location.getLatitude();
+
+                    Geocoder gc = new Geocoder(getContext(), Locale.getDefault());
+                    try {
+                        List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
+                        selectedCity = addresses.get(0).getLocality().toString();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    public void putArguments(Bundle args) {
+        longitude = args.getDouble("Longitude");
+        latitude = args.getDouble("Latitude");
+        System.out.println("receive" + longitude + "   " + latitude);
+        Geocoder gc = new Geocoder(getContext(), Locale.getDefault());
+        try {
+            List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
+            selectedCity = addresses.get(0).getLocality().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        offset = 0;
+        limit = 5;
+        totalNum = 20;
+        restaurantCardArrayList.clear();
+        System.out.println(selectedCity + "  ewfwefwefewf");
+        initData();
+    }
+
 
     private void pullUpToRefresh(View rootView) {
         NestedScrollView nestedSV = (NestedScrollView) rootView.findViewById(R.id.swipe_container);
@@ -123,7 +191,6 @@ public class RestaurantFragment extends Fragment  {
 
         TextView categoryView = view.findViewById(R.id.selectCategoryView);
         createSpinnerDialog(categoryView, categoryList, "category");
-
     }
 
     private void createSpinnerDialog(TextView textview, ArrayList<String> list, String type) {
@@ -179,16 +246,7 @@ public class RestaurantFragment extends Fragment  {
                                     initData();
                                 }
                                 break;
-                            case "sort":
-                                selectedSortCondition = adapter.getItem(position);
-                                Log.e("choose location", selectedSortCondition);
-                                if (selectedCategory != null && selectedSortCondition != null) {
-                                    restaurantCardArrayList.clear();
-                                    initData();
-                                }
-                                break;
                         }
-
                         dialog.dismiss();
                     }
                 });
@@ -202,7 +260,7 @@ public class RestaurantFragment extends Fragment  {
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
-        Call<Restaurant> call = methods.queryRestaurantByCategory("Santa Clara", selectedCategory,  limit, offset);
+        Call<Restaurant> call = methods.queryRestaurantByCategory(selectedCity, selectedCategory,  limit, offset);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {

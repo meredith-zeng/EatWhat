@@ -1,5 +1,6 @@
 package com.example.eatwhat.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,9 +11,7 @@ import com.example.eatwhat.activity.user.ReviewHistoryActivity;
 import com.example.eatwhat.activity.user.SetPreferenceActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
 import com.example.eatwhat.activity.user.ProfileActivity;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.widget.Autocomplete;
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.example.eatwhat.mainActivityFragments.RestaurantFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -23,24 +22,23 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.Arrays;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private ViewPager viewPager;
 
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
-    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private static int MAP_LOCATION_CODE = 1;
+    private double lng = 0;
+    private double lat = 0;
 
     private static final String TAG = "MainActivity";
 
@@ -54,31 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createTabsFragment();
 
     }
-/**
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause");
-    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
-**/
     private void createFloatingButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +114,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == MAP_LOCATION_CODE && data != null) {
+            if(resultCode == Activity.RESULT_OK){
+                super.onActivityResult(requestCode, resultCode, data);
+                lng = data.getDoubleExtra("Longitude", 0);
+                lat = data.getDoubleExtra("Latitude", 0);
+                System.out.println("regertgertgerger");
+                Bundle args = new Bundle();
+                args.putDouble("Longitude", lng);
+                args.putDouble("Latitude", lat);
+                try {
+                    RestaurantFragment fragment = (RestaurantFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewPager, 1));
+                    fragment.putArguments(args);
+                } catch(ClassCastException e) {
+                    System.out.println(e);
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
+    }
+
+
+    private String getFragmentTag(int viewPagerId, int fragmentPosition) {
+        return "android:switcher:" + viewPagerId + ":" + fragmentPosition;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -158,7 +162,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.action_map:
                 Intent mapIntent = new Intent(this, MyMapActivity.class);
-                startActivity(mapIntent);
+                mapIntent.putExtra("Longitude", lng);
+                mapIntent.putExtra("Latitude", lat);
+                startActivityForResult(mapIntent, MAP_LOCATION_CODE);
                 return true;
         }
 
@@ -193,8 +199,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
-
-
-
-
 }
