@@ -159,31 +159,11 @@ public class PostCreationActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] data = baos.toByteArray();
                     UploadTask uploadTask = reference.putBytes(data);
-                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                throw task.getException();
-                            }
 
-                            // Continue with the task to get the download URL
-                            return reference.getDownloadUrl();
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadUri = task.getResult();
-                                image_url = String.valueOf(downloadUri);
-                            } else {
-                                // Handle failures
-                                // ...
-                            }
-                        }
-                    });
                     //Store postCard into realtime database
 //                    PostCard postCard = new PostCard(uid, postId, title_str,
 //                            comment_str, number_of_likes, name_str, ratings, imageIds);
+                    image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + postId + ".jpeg";
                     PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings);
 
                     mDatabase.push().setValue(postCard)

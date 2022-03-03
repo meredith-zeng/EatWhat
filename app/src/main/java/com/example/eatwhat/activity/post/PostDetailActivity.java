@@ -1,5 +1,6 @@
 package com.example.eatwhat.activity.post;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -8,11 +9,20 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,7 +39,11 @@ public class PostDetailActivity extends AppCompatActivity {
     private TextView comment;
     private ConstraintLayout piclayout;
     private ImageView postDetailImage;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
+
+    public static final String TAG = "PostDetailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +81,28 @@ public class PostDetailActivity extends AppCompatActivity {
     private void initData(Intent intent){
         String postId = String.valueOf(intent.getExtras().get("postId"));
         String imageUrl = String.valueOf(intent.getExtras().get("imageUrl"));
-
-        GlideUrl glideUrl = new GlideUrl(imageUrl, new LazyHeaders.Builder()
-                .build());
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
         Glide.with(this)
-                .load(glideUrl)
+                .load(gsReference)
                 .into(postDetailImage);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uid = user.getUid();
+        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    DataSnapshot dataSnapshot = task.getResult();
 
+                }
+            }
+        });
         restaurant_name.setText("PostId" + postId);
         comment.setText("Comment" + postId);
     }

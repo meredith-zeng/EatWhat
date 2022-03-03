@@ -50,7 +50,7 @@ public class NotesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-    public static final String TAG = "ProfileActivity";
+    public static final String TAG = "NotesFragments";
 
     public NotesFragment() {
         // Required empty public constructor
