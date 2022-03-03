@@ -179,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
-                finish();
                 return true;
             case R.id.drawer_postes:
                 Intent toMyNotes = new Intent(this, MyNotesActivity.class);
