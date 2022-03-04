@@ -70,6 +70,8 @@ public class RestaurantFragment extends Fragment  {
     private String selectedCategory = null;
     private String selectedCity = "Santa Clara";
     private String sortBy = null;
+    private boolean ifRating = false;
+    private boolean ifReviewCount = false;
 
     //location realted variable
     private FusedLocationProviderClient fusedLocationClient;
@@ -140,17 +142,26 @@ public class RestaurantFragment extends Fragment  {
                 if (ratingCheckedTextView.getCurrentTextColor() == Color.parseColor("#978C8C")) {
                     ratingCheckedTextView.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
                     ratingCheckedTextView.setTextColor(Color.parseColor("#FFFFFF"));
+                    ifRating = true;
                 }
                 else {
                     ratingCheckedTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
                     ratingCheckedTextView.setTextColor(Color.parseColor("#978C8C"));
+                    ifRating = false;
                 }
 
                 if (reviewCountTextView.getCurrentTextColor() == Color.parseColor("#FFFFFF")) {
                     reviewCountTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
                     reviewCountTextView.setTextColor(Color.parseColor("#978C8C"));
+                    ifReviewCount = false;
                 }
-                sortBy = "rating";
+
+                if (!(ifReviewCount || ifRating)) {
+                    sortBy = null;
+                }
+                else {
+                    sortBy = "rating";
+                }
                 reset();
             }
         });
@@ -161,17 +172,26 @@ public class RestaurantFragment extends Fragment  {
                 if (reviewCountTextView.getCurrentTextColor() == Color.parseColor("#978C8C")) {
                     reviewCountTextView.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
                     reviewCountTextView.setTextColor(Color.parseColor("#FFFFFF"));
+                    ifReviewCount = true;
                 }
                 else {
                     reviewCountTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
                     reviewCountTextView.setTextColor(Color.parseColor("#978C8C"));
+                    ifReviewCount = false;
                 }
 
                 if (ratingCheckedTextView.getCurrentTextColor() == Color.parseColor("#FFFFFF")) {
                     ratingCheckedTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
                     ratingCheckedTextView.setTextColor(Color.parseColor("#978C8C"));
+                    ifRating = false;
                 }
-                sortBy = "review_count";
+
+                if (!(ifReviewCount || ifRating)) {
+                    sortBy = null;
+                }
+                else {
+                    sortBy = "rating";
+                }
                 reset();
             }
         });
@@ -188,11 +208,8 @@ public class RestaurantFragment extends Fragment  {
         } catch (Exception e ) {
             e.printStackTrace();
         }
-        offset = 0;
-        limit = 5;
-        totalNum = 20;
-        restaurantCardArrayList.clear();
-        initData();
+
+       reset();
     }
 
 
@@ -289,10 +306,7 @@ public class RestaurantFragment extends Fragment  {
                                 Log.e("choose category", selectedCategory);
 
                                 if (selectedCategory != null) {
-                                    offset = 0;
-                                    limit = 5;
-                                    totalNum = 20;
-                                    restaurantCardArrayList.clear();
+                                    reset();
                                     initData();
                                 }
                                 break;
