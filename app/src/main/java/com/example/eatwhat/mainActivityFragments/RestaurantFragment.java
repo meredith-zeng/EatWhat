@@ -62,15 +62,14 @@ public class RestaurantFragment extends Fragment  {
 
     int offset = 0, limit = 5, totalNum = 20;
     private ArrayList<String> categoryList;
-    private ArrayList<String> sortConditionList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private ProgressBar loadingPB;
 
     private String selectedCategory = null;
-    private String selectedCity = "San Jose";
-    private String sortBy = "default";
+    private String selectedCity = "Santa Clara";
+    private String sortBy = null;
 
     //location realted variable
     private FusedLocationProviderClient fusedLocationClient;
@@ -87,6 +86,7 @@ public class RestaurantFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.restaurant_recyclerview);
         getLocation();
+        setSortBy(view);
         createSpinners(view, container);
         initData();
         pullUpToRefresh(view);
@@ -121,6 +121,62 @@ public class RestaurantFragment extends Fragment  {
         });
     }
 
+
+    private void reset() {
+        offset = 0;
+        limit = 5;
+        totalNum = 20;
+        restaurantCardArrayList.clear();
+        initData();
+    }
+
+
+    private void setSortBy(View view) {
+        CheckedTextView ratingCheckedTextView = view.findViewById(R.id.sort_by_rating);
+        CheckedTextView reviewCountTextView = view.findViewById(R.id.sort_by_review_count);
+        ratingCheckedTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ratingCheckedTextView.getCurrentTextColor() == Color.parseColor("#978C8C")) {
+                    ratingCheckedTextView.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
+                    ratingCheckedTextView.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+                else {
+                    ratingCheckedTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                    ratingCheckedTextView.setTextColor(Color.parseColor("#978C8C"));
+                }
+
+                if (reviewCountTextView.getCurrentTextColor() == Color.parseColor("#FFFFFF")) {
+                    reviewCountTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                    reviewCountTextView.setTextColor(Color.parseColor("#978C8C"));
+                }
+                sortBy = "rating";
+                reset();
+            }
+        });
+
+        reviewCountTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (reviewCountTextView.getCurrentTextColor() == Color.parseColor("#978C8C")) {
+                    reviewCountTextView.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
+                    reviewCountTextView.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+                else {
+                    reviewCountTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                    reviewCountTextView.setTextColor(Color.parseColor("#978C8C"));
+                }
+
+                if (ratingCheckedTextView.getCurrentTextColor() == Color.parseColor("#FFFFFF")) {
+                    ratingCheckedTextView.setBackground(getResources().getDrawable(R.drawable.round_rectangular));
+                    ratingCheckedTextView.setTextColor(Color.parseColor("#978C8C"));
+                }
+                sortBy = "review_count";
+                reset();
+            }
+        });
+    }
+
     public void putArguments(Bundle args) {
         longitude = args.getDouble("Longitude");
         latitude = args.getDouble("Latitude");
@@ -136,7 +192,6 @@ public class RestaurantFragment extends Fragment  {
         limit = 5;
         totalNum = 20;
         restaurantCardArrayList.clear();
-        System.out.println(selectedCity + "  ewfwefwefewf");
         initData();
     }
 
@@ -183,11 +238,6 @@ public class RestaurantFragment extends Fragment  {
             categoryList.add(categoryArray[i]);
         }
 
-        String [] sortConditionArray = { "Rating", "$-$$", "$-$$$", "$$ - $$$", "$$ - $$$$", "$$$ - $$$$$"};
-        sortConditionList = new ArrayList<>();
-        for (int i = 0; i < sortConditionArray.length; i++) {
-            sortConditionList.add(sortConditionArray[i]);
-        }
 
         TextView categoryView = view.findViewById(R.id.selectCategoryView);
         createSpinnerDialog(categoryView, categoryList, "category");
@@ -260,7 +310,7 @@ public class RestaurantFragment extends Fragment  {
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
-        Call<Restaurant> call = methods.queryRestaurantByCategory(selectedCity, selectedCategory,  limit, offset);
+        Call<Restaurant> call = methods.queryRestaurantByCategory(selectedCity, selectedCategory, sortBy, limit, offset);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
