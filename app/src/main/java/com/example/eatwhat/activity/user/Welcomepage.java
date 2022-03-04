@@ -54,7 +54,7 @@ public class Welcomepage extends AppCompatActivity {
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpringAnimationY(view, 1200f);
+                SpringAnimationY(view, 1100f);
 
                 SpringAnimationY(view, 0f);
             }

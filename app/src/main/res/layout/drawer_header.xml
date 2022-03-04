@@ -11,8 +11,8 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_gravity="center"
-        android:src="@drawable/avatar"
         android:layout_marginTop="20sp"
+        android:src="@mipmap/eatwhat_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

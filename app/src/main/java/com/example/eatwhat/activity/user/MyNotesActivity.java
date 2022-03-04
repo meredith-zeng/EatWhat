@@ -48,7 +48,6 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_my_notes);
         setToolBar();
         initData();
-        initRecyclerView();
     }
 
 
@@ -82,19 +81,37 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
     private void initData(){
         String uid = mAuth.getCurrentUser().getUid();
         Query q = mDatabase.orderByChild("uid").equalTo(uid);
-        q.addValueEventListener(new ValueEventListener() {
+//        q.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.i(TAG, snapshot.getChildren().getClass() + " ");
+//                for(DataSnapshot singleSnapshot : snapshot.getChildren()) {
+//                    PostCard postCard = singleSnapshot.getValue(PostCard.class);
+//                    postCardArrayList.add(postCard);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        q.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.i(TAG, snapshot.getChildren().getClass() + " ");
-                for(DataSnapshot singleSnapshot : snapshot.getChildren()) {
-                    PostCard postCard = singleSnapshot.getValue(PostCard.class);
-                    postCardArrayList.add(postCard);
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+
                 }
-            }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    for(DataSnapshot singleSnapshot : task.getResult().getChildren()) {
+                        PostCard postCard = singleSnapshot.getValue(PostCard.class);
+                        postCardArrayList.add(postCard);
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                    initRecyclerView();
+                }
             }
         });
     }

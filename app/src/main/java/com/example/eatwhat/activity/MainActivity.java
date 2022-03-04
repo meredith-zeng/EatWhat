@@ -2,6 +2,7 @@ package com.example.eatwhat.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.eatwhat.R;
@@ -17,6 +18,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 
@@ -31,17 +35,23 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private ViewPager viewPager;
+    private CircleImageView circleImageView;
 
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
     private static int MAP_LOCATION_CODE = 1;
     private double lng = 0;
     private double lat = 0;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     private static final String TAG = "MainActivity";
 
@@ -68,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void createDrawer() {
         setContentView(R.layout.drawer_layout);
+        circleImageView = (CircleImageView) findViewById(R.id.drawer_avatar);
+
+
         myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         myNavigationView = (NavigationView) findViewById(R.id.drawer_view);
         myNavigationView.setNavigationItemSelectedListener(this);
