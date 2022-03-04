@@ -24,6 +24,7 @@ public interface RestaurantService {
     @GET("businesses/search")
     Call<Restaurant> queryRestaurantByCategory(@Query("location") String location,
                                                @Query("categories") String categories,
+                                               @Query("sort_by")  String sortBy,
                                                @Query("limit") int limit,
                                                @Query("offset") int offset);
 
