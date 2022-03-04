@@ -86,6 +86,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.181" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21673003802281368" />
         <entry key="app/src/main/res/layout/activity_my_map.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/activity_my_notes.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.33897435897435896" />
         <entry key="app/src/main/res/layout/cardview_test.xml" value="0.335" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.25" />

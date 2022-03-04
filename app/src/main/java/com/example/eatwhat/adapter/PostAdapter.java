@@ -10,8 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -21,7 +28,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
     private ArrayList<PostCard> postCardArrayList;
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
     private RecyclerViewOnItemClickListener onItemClickListener;
-
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     // Constructor
     public PostAdapter(Context context, ArrayList<PostCard> postCardArrayList) {
         this.context = context;
@@ -45,6 +53,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
+
+        String imageUrl = model.getPost_image_url();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
+        Glide.with(this.context)
+                .load(gsReference)
+                .into(holder.postImageV);
 
         holder.root.setTag(position);
 

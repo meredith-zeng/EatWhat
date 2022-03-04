@@ -66,22 +66,6 @@ public class NotesFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
-        FirebaseUser user = mAuth.getCurrentUser();
-        String uid = user.getUid();
-
-//        mDatabase.child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting data", task.getException());
-//                }
-//                else {
-//                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                    DataSnapshot dataSnapshot = task.getResult();
-//                    initRecyclerView(dataSnapshot);
-//                }
-//            }
-//        });
 
         mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
