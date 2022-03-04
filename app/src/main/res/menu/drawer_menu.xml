@@ -4,11 +4,11 @@
         android:id="@+id/drawer_menu_top"
         android:checkableBehavior="none">
 
-        <item android:id="@+id/drawer_home"
-            android:checkable="true"
-            android:title="Home"
-            android:icon="@drawable/drawer_home_24"
-            />
+<!--        <item android:id="@+id/drawer_home"-->
+<!--            android:checkable="true"-->
+<!--            android:title="Home"-->
+<!--            android:icon="@drawable/drawer_home_24"-->
+<!--            />-->
         <item android:id="@+id/drawer_profile"
             android:checkable="true"
             android:title="My Profile"
@@ -21,11 +21,11 @@
             android:icon="@drawable/drawer_myposts_24"
             />
 
-        <item android:id="@+id/drawer_preference"
-            android:checkable="true"
-            android:title="My Preference"
-            android:icon="@drawable/drawer_mypreference_24"
-            />
+<!--        <item android:id="@+id/drawer_preference"-->
+<!--            android:checkable="true"-->
+<!--            android:title="My Preference"-->
+<!--            android:icon="@drawable/drawer_mypreference_24"-->
+<!--            />-->
 
         <item android:id="@+id/drawer_history"
             android:checkable="true"

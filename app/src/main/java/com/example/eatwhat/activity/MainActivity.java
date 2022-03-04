@@ -190,8 +190,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.drawer_home:
-                return true;
+//            case R.id.drawer_home:
+//                return true;
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
@@ -204,11 +204,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);
                 startActivity(toReviewHistory);
                 return true;
-            case R.id.drawer_preference:
-                Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
-                toSetPreference.putExtra("source", "home");
-                startActivity(toSetPreference);
-                return true;
+//            case R.id.drawer_preference:
+//                Intent toSetPreference = new Intent(this, SetPreferenceActivity.class);
+//                toSetPreference.putExtra("source", "home");
+//                startActivity(toSetPreference);
+//                return true;
             case R.id.drawer_logout:
                 FirebaseAuth.getInstance().signOut();
                 Intent logoutIntent = new Intent(this, SignInActivity.class);
