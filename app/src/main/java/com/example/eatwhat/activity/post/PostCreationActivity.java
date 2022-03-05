@@ -66,7 +66,7 @@ public class PostCreationActivity extends AppCompatActivity {
     private final static String TAG = "PostCreationActivity";
     List<Bitmap> listofImages = new ArrayList<>();
     private final static int LIMIT = 6;
-
+    private DatabaseReference likereference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -75,6 +75,7 @@ public class PostCreationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
+        likereference = FirebaseDatabase.getInstance().getReference("likes");
         FirebaseUser user = mAuth.getCurrentUser();
 
         post = findViewById(R.id.post_creation_post_textView);
@@ -179,8 +180,17 @@ public class PostCreationActivity extends AppCompatActivity {
                         }
                     });
 
-
-                    Log.d(TAG, "Size: " + listofImages.size());
+                    likereference.push().setValue(postId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "Successfully upload into real time database");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Upload into real time database failed");
+                        }
+                    });
 
                     finish();
                 }

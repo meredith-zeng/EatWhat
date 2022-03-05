@@ -26,10 +26,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
 
     private Context context;
     private ArrayList<PostCard> postCardArrayList;
-    private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
     private RecyclerViewOnItemClickListener onItemClickListener;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+
     // Constructor
     public PostAdapter(Context context, ArrayList<PostCard> postCardArrayList) {
         this.context = context;
@@ -53,6 +53,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
         holder.numberOfLikeV.setText("" + model.getNumber_of_likes());
+
+
+        holder.isLikedV.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+
 
         String imageUrl = model.getPost_image_url();
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -88,7 +92,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
 
     }
     public class Viewholder extends RecyclerView.ViewHolder{
-        private ImageView postImageV;
+        private ImageView postImageV, isLikedV;
         private TextView postTitleV, postContentV, numberOfLikeV;
         private View root;
 
@@ -99,7 +103,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
             postTitleV = root.findViewById(R.id.idPostTitle);
             postContentV = root.findViewById(R.id.idPostContent);
             numberOfLikeV = root.findViewById(R.id.numberOfLike);
-
+            isLikedV = root.findViewById(R.id.is_liked);
         }
 
     }

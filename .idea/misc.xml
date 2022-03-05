@@ -85,6 +85,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/transparent_rectangular.xml" value="0.1945" />
+        <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.18981481481481483" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21673003802281368" />
         <entry key="app/src/main/res/layout/activity_my_map.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/activity_my_notes.xml" value="0.21203703703703702" />
@@ -108,7 +109,7 @@
         <entry key="app/src/main/res/layout/post_creation.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/restaurant_cardview_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/unused_cardview_item_post.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/using_post_card.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/using_post_card.xml" value="0.30632911392405066" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_scrolling.xml" value="0.19166666666666668" />
