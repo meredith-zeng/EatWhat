@@ -15,7 +15,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/myNotesImage"
@@ -49,7 +50,7 @@
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@id/myNotesImage"
             android:drawablePadding="2dp"
-            android:text="This is the content"/>
+            android:text="This is the content" />
 
         <TextView
             android:id="@+id/myNotesNumberOfLike"
@@ -65,6 +66,7 @@
             app:drawableStartCompat="@drawable/ic_baseline_favorite_border_24" />
 
         <Button
+            android:id="@+id/edit_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit"
@@ -72,6 +74,7 @@
             android:layout_toEndOf="@id/myNotesNumberOfLike"
             android:layout_below="@id/myNotesContent"
             android:layout_marginLeft="50dp"
+            android:focusable="false"
             style="?attr/materialButtonOutlinedStyle"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
