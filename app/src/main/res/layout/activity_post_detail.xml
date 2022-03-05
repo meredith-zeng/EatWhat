@@ -133,7 +133,16 @@
                     android:background="@null"
                     android:hint="Detail comment about the restuarant"
                     android:textAppearance="?attr/textAppearanceBody2" />
+
+                <ImageView
+                    android:id="@+id/is_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+
+
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
