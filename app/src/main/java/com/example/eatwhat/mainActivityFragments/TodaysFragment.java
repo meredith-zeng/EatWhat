@@ -125,14 +125,14 @@ public class TodaysFragment extends Fragment {
 
                 String location = "Santa Clara";
                 int offset = RandomUtil.getRandomNumber(0, 30);
-                Call<Restaurant> call = methods.queryRestaurantByLocation(location, 1, offset);
+                Call<Restaurant> call = methods.queryRestaurantByCategory(location, null, null, 1, offset);
                 Log.d(TAG, "run: " + call.toString());
                 call.enqueue(new Callback<Restaurant>() {
                     @Override
                     public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                         if (response.code() == 200){
                             Business business = response.body().getBusinesses().get(0);
-                            restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), false, business.getId());
+                            restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
                             restaurantId = business.getId();
                             Log.e("Shake res" , restaurantCard.getRestaurantImageUrl());
                         }
@@ -183,7 +183,7 @@ public class TodaysFragment extends Fragment {
             String url = "https://s3-media3.fl.yelpcdn.com/bphoto/rebiw-Xttu2iHPDNaBliLA/o.jpg";
             String title = "Smoking Pig BBQ";
             String content ="It's the best one!";
-            restaurantCard = new RestaurantCard(url, title, content, false, restaurantId);
+            restaurantCard = new RestaurantCard(url, title, content, 0, restaurantId);
         }
 
 

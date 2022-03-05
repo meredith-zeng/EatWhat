@@ -37,11 +37,21 @@
         <entry key="..\:/Github/EatWhat/app/src/main/res/menu/menu_main.xml" value="0.1296875" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/border.xml" value="0.221875" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.221875" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.38333333333333336" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2328125" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.38333333333333336" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/map_search.xml" value="0.2760416666666667" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/profile_button.xml" value="0.3374358974358974" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/round_rectangular.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/rounded_corner.xml" value="0.2630208333333333" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/searchframe.xml" value="0.2942708333333333" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/sort_by_button.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/spinner_dialog.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/drawable/transparent_rectangular.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_advanced_set_preference.xml" value="0.3671875" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_change_password.xml" value="0.203125" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_main.xml" value="0.10462962962962963" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_my_map.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_my_notes.xml" value="0.2545289855072464" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_post_detail.xml" value="0.24322916666666666" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/activity_profile.xml" value="0.22864583333333333" />
@@ -62,14 +72,17 @@
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/fragment_shake__1.xml" value="0.25815217391304346" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/fragment_shake__2.xml" value="0.25815217391304346" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/fragment_todays.xml" value="0.223731884057971" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/location_search_rounded_corner.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/map.xml" value="0.2608695652173913" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/my_account_item.xml" value="0.15881458966565348" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/my_account_list_view.xml" value="0.15881458966565348" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/my_map.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/my_notes_card_item.xml" value="0.2545289855072464" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/post_creation.xml" value="0.13541666666666666" />
-        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/restaurant_cardview_item.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/restaurant_cardview_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/restaurant_category_search.xml" value="0.25815217391304346" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/restaurant_spinner_search.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/review_card_itm.xml" value="0.259375" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/review_history_card_item.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/review_history_item.xml" value="0.25815217391304346" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/unused_cardview_item_post.xml" value="0.25677083333333334" />
@@ -77,33 +90,12 @@
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/layout/welcomepage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/49058/AndroidStudioProjects/EatWhat/app/src/main/res/menu/drawer_menu.xml" value="0.3671875" />
         <entry key="..\:/Users/49058/AppData/Local/Android/Sdk/platforms/android-32/data/res/drawable/editbox_background.xml" value="0.29010416666666666" />
-        <entry key="app/src/main/res/drawable/afterclickbox.xml" value="0.223" />
-        <entry key="app/src/main/res/drawable/border.xml" value="0.223" />
-        <entry key="app/src/main/res/drawable/cancel_icon_of_searchpage.xml" value="0.223" />
-        <entry key="app/src/main/res/drawable/collected_36.xml" value="0.223" />
-        <entry key="app/src/main/res/drawable/drawer_home_24.xml" value="0.223" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.181" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21673003802281368" />
-        <entry key="app/src/main/res/layout/activity_my_map.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.33897435897435896" />
         <entry key="app/src/main/res/layout/cardview_test.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.17037037037037037" />
-        <entry key="app/src/main/res/layout/fragment_notes.xml" value="0.11481481481481481" />
-        <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_shake__1.xml" value="0.17864583333333334" />
-        <entry key="app/src/main/res/layout/fragment_shake__2.xml" value="0.17864583333333334" />
-        <entry key="app/src/main/res/layout/fragment_todays.xml" value="0.17864583333333334" />
-        <entry key="app/src/main/res/layout/layout_dialog.xml" value="0.625" />
-        <entry key="app/src/main/res/layout/my_account_item.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/my_notes_card_item.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/post_creation.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/restaurant_cardview_item.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/unused_cardview_item_post.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/using_post_card.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu_scrolling.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.287" />
       </map>
     </option>

@@ -63,7 +63,7 @@ public class RestaurantFragment extends Fragment  {
     int offset = 0, limit = 5, totalNum = 20;
     private ArrayList<String> categoryList;
     ArrayList<RestaurantCard> restaurantCardArrayList = new ArrayList<>();
-
+    private String TAG = "RestaurantFragment: ";
     private RecyclerView recyclerView;
     private ProgressBar loadingPB;
 
@@ -103,7 +103,7 @@ public class RestaurantFragment extends Fragment  {
             public void onSuccess(Location location) {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    System.out.println("do not have permission");
+                    Log.d(TAG + "From getLocation", "no permission");
                     return;
                 }
 
@@ -227,12 +227,15 @@ public class RestaurantFragment extends Fragment  {
                     // on below line we are making our progress bar visible.
                     loadingPB.setVisibility(View.VISIBLE);
                     if (offset +limit > 30) {
+                        Log.d(TAG + "From pullUpToRefresh", "offset +limit > 30");
                         Toast.makeText(getContext(), "Reach to bottom", Toast.LENGTH_SHORT).show();
                         loadingPB.setVisibility(View.GONE);
                     }
                     else if (offset + limit < totalNum) {
+                        Log.d(TAG + "From pullUpToRefresh", "offset + limit < totalNum");
                         initData();
                     }else {
+                        Log.d(TAG + "From pullUpToRefresh", "limit = totalNum - offset");
                         limit = totalNum - offset;
                         initData();
                     }
@@ -242,8 +245,8 @@ public class RestaurantFragment extends Fragment  {
     }
 
     private void createSpinners(View view, ViewGroup container) {
-        String [] categoryArray  = new String[]{"tradamerican", "arabic", "asianfusion", "brazilian",
-                "barbeque", "breakfast_brunch", "british", "buffets", "burgers", "cafes",
+        String [] categoryArray  = new String[]{"tradamerican", "asianfusion", "brazilian",
+                "barbeque", "breakfast_brunch",  "buffets", "burgers", "cafes",
                 "cheesesteaks", "chinese", "chicken_wings", "creperies", "dimsum", "diners",
                 "hotdogs", "foodstands", "french", "german", "gluten_free", "greek", "indpak",
                 "irish", "italian", "japanese", "korean", "latin", "raw_food", "mediterranean",
@@ -303,7 +306,7 @@ public class RestaurantFragment extends Fragment  {
                         switch (type) {
                             case "category":
                                 selectedCategory = adapter.getItem(position);
-                                Log.e("choose category", selectedCategory);
+                                Log.e(TAG+ "choose category", selectedCategory);
 
                                 if (selectedCategory != null) {
                                     reset();
@@ -330,10 +333,10 @@ public class RestaurantFragment extends Fragment  {
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                 System.out.println(response);
                 if (response.code() == 200){
-                    System.out.println("Network " + response.code());
+                    Log.d(TAG + "From onReponse", "code 200");
                     totalNum = response.body().getTotal();
                     for (Business business: response.body().getBusinesses()){
-                        RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), false, business.getId());
+                        RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
                         restaurantCardArrayList.add(restaurantCard);
                     }
 
@@ -342,11 +345,12 @@ public class RestaurantFragment extends Fragment  {
                         Toast.makeText(getContext(), "Reach to bottom", Toast.LENGTH_SHORT).show();
                     }
                     initRecycleView(restaurantCardArrayList);
+                    Log.d(TAG + "From onReponse", "Finished");
                 }
                 else {
                     loadingPB.setVisibility(View.GONE);
                     //Toast.makeText(getContext(), "Network Error", Toast.LENGTH_LONG).show();
-                    System.out.println("Network " + response.code());
+                    Log.d(TAG+ "From onReponse", "code not 200");
                 }
 
             }
