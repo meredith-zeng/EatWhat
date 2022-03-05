@@ -5,7 +5,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <com.skyfishjy.library.RippleBackground
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="300dp"
+        android:id="@+id/content"
+        app:rb_color="#F98426"
+        app:rb_radius="32dp"
+        app:rb_rippleAmount="4"
+        app:rb_duration="3000"
+        app:rb_scale="6">
 
+<!--        <ImageView-->
+<!--            android:id="@+id/centerImage"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:src="@drawable/eatwhat_logo_transparent" />-->
+    </com.skyfishjy.library.RippleBackground>
+<!--    <androidx.constraintlayout.motion.widget.MotionLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp">-->
+<!--    <KeyFrameSet>-->
+<!--        <KeyTimeCycle-->
+<!--            motion:motionTarget="@+id/droidImageView"-->
+<!--            motion:wavePeriod="1"-->
+<!--            motion:waveOffset="1"-->
+<!--            motion:waveShape="sin"-->
+<!--            android:scaleX="1"-->
+<!--            android:scaleY="1"/>-->
+<!--    </KeyFrameSet>-->
+<!--    </androidx.constraintlayout.motion.widget.MotionLayout>-->
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+    </androidx.viewpager.widget.ViewPager>
     <ImageView
         android:id="@+id/icon"
         android:layout_width="100dp"
@@ -13,7 +50,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:clickable="true"
-        app:srcCompat="@drawable/eatwhat_logo" />
+        app:srcCompat="@drawable/eatwhat_logo_transparent" />
 
     <TextView
         android:id="@+id/welcome"
