@@ -90,20 +90,18 @@ public class PostDetailActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
-        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child(postId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     DataSnapshot dataSnapshot = task.getResult();
-
+                    PostCard card = dataSnapshot.getValue(PostCard.class);
                 }
             }
         });
-        restaurant_name.setText("PostId" + postId);
-        comment.setText("Comment" + postId);
+
     }
 }

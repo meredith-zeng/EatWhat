@@ -147,7 +147,8 @@ public class PostCreationActivity extends AppCompatActivity {
                     likedList.add(uid);
                     PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings, likedList);
 
-                    mDatabase.push().setValue(postCard)
+
+                    mDatabase.child(postId).setValue(postCard)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
