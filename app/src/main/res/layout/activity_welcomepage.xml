@@ -25,42 +25,59 @@
 <!--            android:layout_centerInParent="true"-->
 <!--            android:src="@drawable/eatwhat_logo_transparent" />-->
     </com.skyfishjy.library.RippleBackground>
-<!--    <androidx.constraintlayout.motion.widget.MotionLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp">-->
-<!--    <KeyFrameSet>-->
-<!--        <KeyTimeCycle-->
-<!--            motion:motionTarget="@+id/droidImageView"-->
-<!--            motion:wavePeriod="1"-->
-<!--            motion:waveOffset="1"-->
-<!--            motion:waveShape="sin"-->
-<!--            android:scaleX="1"-->
-<!--            android:scaleY="1"/>-->
-<!--    </KeyFrameSet>-->
-<!--    </androidx.constraintlayout.motion.widget.MotionLayout>-->
-    <androidx.viewpager.widget.ViewPager
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layoutDescription="@xml/activity_animation_scene"
+        tools:context=".activity.user.animation">
 
-    </androidx.viewpager.widget.ViewPager>
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/eatwhat_logo_transparent" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/eatwhat_logo_transparent" />
 
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="150dp"
-        android:clickable="true"
-        android:gravity="center_horizontal"
-        android:text="Tap here to enter"
-        android:textSize="25sp" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/eatwhat_logo_transparent" />
 
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/eatwhat_logo_transparent" />
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="150dp"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:text="Tap here to enter"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </RelativeLayout>
