@@ -98,6 +98,7 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <EditText
+                    android:inputType="text"
                     android:maxLines="1"
                     android:imeOptions="actionDone"
                     android:id="@+id/post_creation_restaurant"
@@ -119,7 +120,8 @@
                     android:layout_marginTop="8dp"/>
 
                 <EditText
-                    android:imeOptions="actionDone"
+                    android:maxLines="10"
+                    android:inputType="text"
                     android:id="@+id/post_creation_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -147,10 +147,9 @@ public class PostCreationActivity extends AppCompatActivity {
                     likedList.add(uid);
                     PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings, likedList);
 
-                    mDatabase.push().setValue(postCard)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    mDatabase.child(postId).setValue(postCard).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onSuccess(Void unused) {
+                        public void onComplete(@NonNull Task<Void> task) {
                             Log.d(TAG, "Successfully upload into real time database");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -159,8 +158,6 @@ public class PostCreationActivity extends AppCompatActivity {
                             Log.d(TAG, "Upload into real time database failed");
                         }
                     });
-
-
                     Log.d(TAG, "Size: " + listofImages.size());
 
                     finish();

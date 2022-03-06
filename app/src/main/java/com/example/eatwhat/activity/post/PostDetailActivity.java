@@ -90,7 +90,7 @@ public class PostDetailActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
         FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
-        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child(postId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -99,11 +99,21 @@ public class PostDetailActivity extends AppCompatActivity {
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     DataSnapshot dataSnapshot = task.getResult();
+                    PostCard card = dataSnapshot.getValue(PostCard.class);
+                    String restaurant_name_str = card.getRestuarant_name();
+                    String title_str = card.getPost_title();
+                    float ratings = card.getStar();
+                    String content_str = card.getPost_content();
 
+                    title.setText(title_str);
+                    restaurant_name.setText(restaurant_name_str);
+                    comment.setText(content_str);
+                    star.setRating(ratings);
                 }
             }
         });
-        restaurant_name.setText("PostId" + postId);
-        comment.setText("Comment" + postId);
+
+
+
     }
 }

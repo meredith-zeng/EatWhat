@@ -213,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FirebaseAuth.getInstance().signOut();
                 Intent logoutIntent = new Intent(this, SignInActivity.class);
                 startActivity(logoutIntent);
+                finish();
                 return true;
         }
         return false;

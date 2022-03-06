@@ -43,15 +43,16 @@
             android:layout_below="@id/post_detail_bar"
             android:scrollbars="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:id="@+id/post_detail_add_image"
                     android:layout_width="match_parent"
                     android:layout_height="260sp"
@@ -65,31 +66,15 @@
                         tools:ignore="UnusedAttribute"
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="0dp" />
-
-                    <ImageView
-                        android:id="@+id/post_detail_add_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_image_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/post_detail_add_pic_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="picture preview"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/post_detail_add_btn" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <TextView
+                    android:layout_margin="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/post_detail_add_image"
                     android:id="@+id/post_detail_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,44 +86,65 @@
                     android:maxLines="1"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
-
-                    <TextView
-                        android:id="@+id/post_detail_restaurant"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16sp"
-                        android:layout_marginTop="8sp"
-                        android:background="@null"
-                        android:hint="restuarant name"
-                        android:maxLines="1"
-                        android:textAppearance="?attr/textAppearanceBody2" />
-
-                    <RatingBar
-                        android:id="@+id/ratingBar1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:layout_marginHorizontal="16sp"
-                        android:rating="3.5"
-                        style="?android:attr/ratingBarStyleSmall" />
+                <ImageView
+                    android:layout_below="@id/post_detail_add_image"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/is_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_baseline_star_24" />
 
                 <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3sp"
+                    android:layout_below="@id/post_detail_title"
+                    android:id="@+id/restaurant_name_label"
+                    android:text="Restaurant: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:layout_below="@id/post_detail_title"
+                    android:layout_toRightOf="@id/restaurant_name_label"
+                    android:id="@+id/post_detail_restaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16sp"
+                    android:layout_marginTop="3sp"
+                    android:background="@null"
+                    android:hint="restuarant name"
+                    android:maxLines="1"
+                    android:textAppearance="?attr/textAppearanceBody2" />
+
+                <RatingBar
+                    android:layout_marginBottom="8dp"
+                    android:layout_below="@id/restaurant_name_label"
+                    android:id="@+id/ratingBar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:layout_marginHorizontal="16sp"
+                    android:rating="3.5"
+                    style="?android:attr/ratingBarStyleSmall"/>
+
+
+
+                <TextView
+
+                    android:layout_below="@id/ratingBar1"
                     android:id="@+id/post_detail_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16sp"
-                    android:layout_marginTop="8sp"
-                    android:background="@null"
+                    android:layout_marginTop="3sp"
+                    android:background="@drawable/topborder"
                     android:hint="Detail comment about the restuarant"
                     android:textAppearance="?attr/textAppearanceBody2" />
 
-                <ImageView
-                    android:id="@+id/is_like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
 
