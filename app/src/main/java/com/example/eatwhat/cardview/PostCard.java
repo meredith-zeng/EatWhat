@@ -16,7 +16,7 @@ public class PostCard implements Serializable{
     private float star;
     private List<String> likedUidList;
 
-    public PostCard(String uid, String postId, String post_title, String post_content, long number_of_likes, String post_image_url, String restuarant_name, float star, List<String> likedUidList) {
+    public PostCard(String uid, String postId, String post_title, String post_content, long number_of_likes, String post_image_url, String restuarant_name, float star) {
         this.uid = uid;
         this.postId = postId;
         this.post_title = post_title;
@@ -25,7 +25,7 @@ public class PostCard implements Serializable{
         this.post_image_url = post_image_url;
         this.restuarant_name = restuarant_name;
         this.star = star;
-        this.likedUidList = likedUidList;
+        this.likedUidList = new ArrayList<>();
     }
 
     public String getUid() {
