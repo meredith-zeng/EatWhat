@@ -5,14 +5,14 @@ public class RestaurantCard {
     private String restaurantImageUrl;
     private String title;
     private String content;
-    private boolean isCollect;
+    private float rating;
     private String id;
 
-    public RestaurantCard(String restaurantImageUrl, String title, String content, boolean isCollect, String id) {
+    public RestaurantCard(String restaurantImageUrl, String title, String content, float rating, String id) {
         this.restaurantImageUrl = restaurantImageUrl;
         this.title = title;
         this.content = content;
-        this.isCollect = isCollect;
+        this.rating = rating;
         this.id = id;
     }
 
@@ -40,12 +40,12 @@ public class RestaurantCard {
         this.content = content;
     }
 
-    public boolean isCollect() {
-        return isCollect;
+    public float getRating() {
+        return rating;
     }
 
-    public void setCollect(boolean collect) {
-        isCollect = collect;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getId() {

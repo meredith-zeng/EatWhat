@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.MyMapActivity"
-        tools:layout_editor_absoluteX="-55dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-77dp" />
 
     <EditText
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/map_search"
-        android:gravity="fill"
+        android:gravity="center"
         android:hint="   Enter City name"
         android:id="@+id/input_location"
         android:imeOptions="actionSearch"
@@ -33,18 +33,17 @@
     <Button
         android:id="@+id/my_location"
         android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="50dp"
-        android:clickable="true"
-        android:layout_marginTop="15dp"
-        android:text="Go to current location"
-        android:textSize="18sp"
+        android:layout_height="50dp"
+        android:layout_marginTop="652dp"
         android:background="@drawable/profile_button"
+        android:clickable="true"
+        android:text="Current Location"
         android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintTop_toTopOf="@+id/map" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

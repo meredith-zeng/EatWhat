@@ -32,37 +32,58 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
-                    <TableRow>
-                        <ImageView
-                            android:id="@+id/is_collect"
+                    <TableRow android:layout_height="90dp">
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="25dp"
-                            android:src="@drawable/ic_baseline_star_24" />
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/star"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/ic_baseline_star_24" />
+
+                            <TextView
+                                android:id="@+id/rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="50dp"
+                                android:text="3.4"
+                                android:textColor="@color/white"
+                                android:textSize="17sp" />
+
+                        </RelativeLayout>
+
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
+
                             <TextView
                                 android:id="@+id/restaurant_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="7dp"
-                                android:layout_marginTop="12dp"
-                                android:text="A Guide To Rocky Mountain Vacations "
+                                android:layout_marginLeft="40dp"
+                                android:layout_marginTop="15dp"
+                                android:text="Mountain Vacations "
                                 android:textColor="@color/white"
                                 android:textSize="17sp" />
 
-                        <TextView
-                            android:id="@+id/restaurant_content"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/restaurant_title"
-                            android:layout_marginLeft="7dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/logout"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/restaurant_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/restaurant_title"
+                                android:layout_marginLeft="40dp"
+                                android:layout_marginTop="7dp"
+                                android:layout_marginBottom="10dp"
+                                android:text="@string/logout"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
                         </RelativeLayout>
 
 
