@@ -145,7 +145,9 @@ public class PostCreationActivity extends AppCompatActivity {
                     image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + postId + ".jpeg";
                     List<String> likedList = new ArrayList<>();
                     likedList.add(uid);
-                    PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings, likedList);
+
+                    PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings);
+                    postCard.setLikedUidList(likedList);
 
 
                     mDatabase.child(postId).setValue(postCard)
