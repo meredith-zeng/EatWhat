@@ -47,6 +47,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -127,29 +129,6 @@ public class PostCreationActivity extends AppCompatActivity {
                     String comment_str = res_comment.getText().toString();
                     String uid = user.getUid();
                     String postId = UUID.randomUUID().toString();
-                    List<String> imageIds = new ArrayList<>();
-
-
-                    //store image into Storage
-//                    for(int i = 0; i < listofImages.size(); i++){
-//                        imageIds.add(postId + i);
-//                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                        listofImages.get(i).compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//                        StorageReference reference = FirebaseStorage.getInstance().getReference()
-//                                .child("postImages").child(postId).child(postId + "_" + i + ".jpeg");
-//                        reference.putBytes(baos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                Log.d(TAG, "Upload Successfully!");
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Log.d(TAG, "onFailure: " + e.getCause());
-//                            }
-//                        });
-//                    }
-
 
                     StorageReference reference = FirebaseStorage.getInstance().getReference()
                                 .child("postImages").child(postId).child(postId + ".jpeg");
@@ -164,7 +143,9 @@ public class PostCreationActivity extends AppCompatActivity {
 //                    PostCard postCard = new PostCard(uid, postId, title_str,
 //                            comment_str, number_of_likes, name_str, ratings, imageIds);
                     image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + postId + ".jpeg";
-                    PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings);
+                    List<String> likedList = new ArrayList<>();
+                    likedList.add(uid);
+                    PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings, likedList);
 
                     mDatabase.push().setValue(postCard)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

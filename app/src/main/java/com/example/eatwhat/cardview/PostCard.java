@@ -2,6 +2,7 @@ package com.example.eatwhat.cardview;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PostCard implements Serializable{
 
@@ -13,24 +14,9 @@ public class PostCard implements Serializable{
     private String post_image_url;
     private String restuarant_name;
     private float star;
-//    private List<String> imageIds;
-//
-//    public List<String> getImageIds() {
-//        return imageIds;
-//    }
-//
-//    public void setImageIds(List<String> imageIds) {
-//        this.imageIds = imageIds;
-//    }
-//    public PostCard(){
-//
-//    }
+    private List<String> likedUidList;
 
-
-    public PostCard() {
-    }
-
-    public PostCard(String uid, String postId, String post_title, String post_content, int number_of_likes, String post_image_url, String restuarant_name, float star) {
+    public PostCard(String uid, String postId, String post_title, String post_content, long number_of_likes, String post_image_url, String restuarant_name, float star, List<String> likedUidList) {
         this.uid = uid;
         this.postId = postId;
         this.post_title = post_title;
@@ -39,6 +25,7 @@ public class PostCard implements Serializable{
         this.post_image_url = post_image_url;
         this.restuarant_name = restuarant_name;
         this.star = star;
+        this.likedUidList = likedUidList;
     }
 
     public String getUid() {
@@ -77,7 +64,7 @@ public class PostCard implements Serializable{
         return number_of_likes;
     }
 
-    public void setNumber_of_likes(int number_of_likes) {
+    public void setNumber_of_likes(long number_of_likes) {
         this.number_of_likes = number_of_likes;
     }
 
@@ -104,4 +91,17 @@ public class PostCard implements Serializable{
     public void setStar(float star) {
         this.star = star;
     }
+
+    public List<String> getLikedUidList() {
+        return likedUidList;
+    }
+
+    public void setLikedUidList(List<String> likedUidList) {
+        this.likedUidList = likedUidList;
+    }
+
+    public PostCard() {
+    }
+
+
 }

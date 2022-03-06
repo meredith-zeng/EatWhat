@@ -99,8 +99,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
         FloatingActionButton fab = binding.fab;
 
-        String uid = mAuth.getUid();
-        DocumentReference docRef = db.collection("user").document(uid);
+        String uid = FirebaseAuth.getInstance().getUid();
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
         checkIsCollected(fab, docRef);
 
 
