@@ -52,7 +52,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
         PostCard model = postCardArrayList.get(position);
         holder.postTitleV.setText(model.getPost_title());
         holder.postContentV.setText(model.getPost_content());
-        holder.numberOfLikeV.setText("" + model.getLikedUidList().size());
+        if (model.getLikedUidList() == null){
+            holder.numberOfLikeV.setText("0");
+        }else {
+            holder.numberOfLikeV.setText("" + model.getLikedUidList().size());
+        }
+
 
         String imageUrl = model.getPost_image_url();
         FirebaseStorage storage = FirebaseStorage.getInstance();

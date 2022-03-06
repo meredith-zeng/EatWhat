@@ -58,12 +58,6 @@ public class PostDetailActivity extends AppCompatActivity {
         postDetailImage = (ImageView) findViewById(R.id.post_detail_thumbnail);
 
         initData(getIntent());
-        /**
-         title.setText(content.getPost_title());
-         star.setRating((float) content.getstar());
-         restaurant_name.setText(content.getRestuarant_name());
-         comment.setText(content.getPost_content());
-         **/
 
         cancel_button_init();
     }

@@ -139,12 +139,9 @@ public class PostCreationActivity extends AppCompatActivity {
                     byte[] data = baos.toByteArray();
                     UploadTask uploadTask = reference.putBytes(data);
 
-                    //Store postCard into realtime database
-//                    PostCard postCard = new PostCard(uid, postId, title_str,
-//                            comment_str, number_of_likes, name_str, ratings, imageIds);
                     image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + postId + ".jpeg";
                     List<String> likedList = new ArrayList<>();
-                    likedList.add(uid);
+                    likedList.add("0");
                     PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings, likedList);
 
                     mDatabase.child(postId).setValue(postCard).addOnCompleteListener(new OnCompleteListener<Void>() {
