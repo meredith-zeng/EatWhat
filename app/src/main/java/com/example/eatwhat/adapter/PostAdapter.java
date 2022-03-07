@@ -64,7 +64,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
         StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
         Glide.with(this.context)
                 .load(gsReference)
+//                .bitmapTransform(new RoundedCornersTransformation(this, 100, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(holder.postImageV);
+
 
         holder.root.setTag(position);
 
