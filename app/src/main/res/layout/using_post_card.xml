@@ -64,6 +64,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_toEndOf="@id/idPostImage"
             android:drawablePadding="2dp"
             android:text="@string/number_of_liked" />

@@ -62,6 +62,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     public void onBindViewHolder(@NonNull RestaurantAdapter.Viewholder holder, int position) {
         RestaurantCard model = restaurantCardArrayList.get(position);
         holder.restaurantContent.setText(model.getContent());
+        if (model.getTitle().length() > 24){
+            model.setTitle(model.getTitle().substring(0, 24) + "...");
+        }
         holder.restaurantTitle.setText(model.getTitle());
         holder.starSymbol.setImageResource(R.drawable.ic_baseline_star_24);
         holder.restaurantRating.setText(Float.toString(model.getRating()));

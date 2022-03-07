@@ -42,7 +42,7 @@ import java.util.Map;
 
 public class PostDetailActivity extends AppCompatActivity {
 
-    private ImageButton mCancelBtn;
+//    private ImageButton mCancelBtn;
     private TextView title;
     private TextView restaurant_name;
     private RatingBar star;
@@ -87,18 +87,18 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
 
-        cancel_button_init();
+//        cancel_button_init();
     }
 
-    private void cancel_button_init() {
-        mCancelBtn = findViewById(R.id.post_detail_cancel_btn);
-        mCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
+//    private void cancel_button_init() {
+//        mCancelBtn = findViewById(R.id.post_detail_cancel_btn);
+//        mCancelBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//    }
 
     private void initData(Intent intent){
         String postId = String.valueOf(intent.getExtras().get("postId"));
