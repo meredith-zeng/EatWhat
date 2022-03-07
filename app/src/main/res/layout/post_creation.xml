@@ -128,6 +128,8 @@
                     android:layout_marginHorizontal="16sp"
                     android:layout_marginTop="8sp"
                     android:background="@null"
+                    android:ellipsize="none"
+                    android:scrollHorizontally="false"
                     android:hint="Your comment about the restuarant"
                     android:textAppearance="?attr/textAppearanceBody2" />
             </LinearLayout>
