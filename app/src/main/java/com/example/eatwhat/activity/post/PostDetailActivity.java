@@ -71,12 +71,101 @@ public class PostDetailActivity extends AppCompatActivity {
         postDetailImage = (ImageView) findViewById(R.id.post_detail_thumbnail);
         isLikedIV = (ImageView) findViewById(R.id.is_liked);
 
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
 
         initData(getIntent());
 
         String uid = FirebaseAuth.getInstance().getUid();
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
+
         checkIsLiked(docRef);
+        setLikedListener(docRef);
+
+
+
+
+        cancel_button_init();
+    }
+
+    private void cancel_button_init() {
+        mCancelBtn = findViewById(R.id.post_detail_cancel_btn);
+        mCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void initData(Intent intent){
+        String postId = String.valueOf(intent.getExtras().get("postId"));
+        String imageUrl = String.valueOf(intent.getExtras().get("imageUrl"));
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
+        Glide.with(this)
+                .load(gsReference)
+                .into(postDetailImage);
+
+        mDatabase.child(postId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    DataSnapshot dataSnapshot = task.getResult();
+                    PostCard card = dataSnapshot.getValue(PostCard.class);
+                    String restaurant_name_str = card.getRestuarant_name();
+                    String title_str = card.getPost_title();
+                    float ratings = card.getStar();
+                    String content_str = card.getPost_content();
+
+                    title.setText(title_str);
+                    restaurant_name.setText(restaurant_name_str);
+                    comment.setText(content_str);
+                    star.setRating(ratings);
+                }
+            }
+        });
+
+
+
+    }
+
+    public void checkIsLiked(DocumentReference docRef) {
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        User user = document.toObject(User.class);
+                        List<String> likedList = user.getLiked_post();
+
+                        Intent intent = getIntent();
+                        String postId = intent.getStringExtra("postId");
+
+                        if(likedList.contains(postId)) {
+                            isLiked = true;
+                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
+                        }else {
+                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_24);
+                        }
+
+                    }
+                }
+            }
+        });
+    }
+
+    public void setLikedListener(DocumentReference docRef){
+        Intent intent = getIntent();
+        String postId = intent.getStringExtra("postId");
+
+        // ToDo: Update liked list in Realtime database
 
         isLikedIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,82 +222,6 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
-        cancel_button_init();
-    }
 
-    private void cancel_button_init() {
-        mCancelBtn = findViewById(R.id.post_detail_cancel_btn);
-        mCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    private void initData(Intent intent){
-        String postId = String.valueOf(intent.getExtras().get("postId"));
-        String imageUrl = String.valueOf(intent.getExtras().get("imageUrl"));
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
-        Glide.with(this)
-                .load(gsReference)
-                .into(postDetailImage);
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
-        FirebaseUser user = mAuth.getCurrentUser();
-        String uid = user.getUid();
-        mDatabase.child(postId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    DataSnapshot dataSnapshot = task.getResult();
-                    PostCard card = dataSnapshot.getValue(PostCard.class);
-                    String restaurant_name_str = card.getRestuarant_name();
-                    String title_str = card.getPost_title();
-                    float ratings = card.getStar();
-                    String content_str = card.getPost_content();
-
-                    title.setText(title_str);
-                    restaurant_name.setText(restaurant_name_str);
-                    comment.setText(content_str);
-                    star.setRating(ratings);
-                }
-            }
-        });
-
-
-
-    }
-
-    public void checkIsLiked(DocumentReference docRef) {
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-
-                        User user = document.toObject(User.class);
-                        List<String> likedList = user.getLiked_post();
-
-                        Intent intent = getIntent();
-                        String postId = intent.getStringExtra("postId");
-
-                        if(likedList.contains(postId)) {
-                            isLiked = true;
-                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
-                        }else {
-                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_24);
-                        }
-
-                    }
-                }
-            }
-        });
     }
 }
