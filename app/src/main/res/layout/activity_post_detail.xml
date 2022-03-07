@@ -68,28 +68,28 @@
                         tools:layout_editor_absoluteY="0dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <TextView
-                    android:id="@+id/post_detail_title"
+                <LinearLayout
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
-                    android:width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/post_detail_add_image"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginHorizontal="16sp"
-                    android:layout_marginVertical="8sp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@null"
-                    android:ellipsize="none"
-                    android:fontFamily="@font/robotoserif_lightitalic"
-                    android:hint="title"
-                    android:inputType="text"
-                    android:lineSpacingExtra="8sp"
-                    android:scrollHorizontally="false"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    >
+
+                    <TextView
+                        android:id="@+id/post_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:lineSpacingExtra="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/robotoserif_lightitalic"
+                        android:hint="title"
+                        android:inputType="text|textMultiLine"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/is_liked"
@@ -107,18 +107,18 @@
                     android:id="@+id/restaurant_name_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/post_detail_title"
+                    android:layout_below="@id/title"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5sp"
                     android:text="Restaurant: "
-                    android:textStyle="bold"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/post_detail_restaurant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/post_detail_title"
+                    android:layout_below="@id/title"
                     android:layout_marginHorizontal="16sp"
                     android:layout_toRightOf="@id/restaurant_name_label"
                     android:background="@null"
