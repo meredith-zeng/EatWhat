@@ -29,7 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView noAccount, forgotPassword;
     Button signIn;
     boolean accepted = false;
-    ImageButton rememberMe;
+//    ImageButton rememberMe;
     private FirebaseAuth mAuth;
     private static final String TAG = "SignInActivity";
     String email_str, password_str;
@@ -39,26 +39,27 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        
         password = findViewById(R.id.password_in_signIn);
         email_addr = findViewById(R.id.email_addr_in_signIn);
         noAccount = findViewById(R.id.dont_have_account);
-        forgotPassword = findViewById(R.id.forgotPassword);
-        rememberMe = findViewById(R.id.rememberMe_In_signIn);
+//        forgotPassword = findViewById(R.id.forgotPassword);
+//        rememberMe = findViewById(R.id.rememberMe_In_signIn);
         signIn = findViewById(R.id.btn_signIn);
         mAuth = FirebaseAuth.getInstance();
-        rememberMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!accepted){
-                    rememberMe.setBackgroundResource(R.drawable.ic_baseline_check_24);
-                    accepted = true;
-                }
-                else{
-                    accepted = false;
-                    rememberMe.setBackgroundResource(0);
-                }
-            }
-        });
+//        rememberMe.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(!accepted){
+//                    rememberMe.setBackgroundResource(R.drawable.ic_baseline_check_24);
+//                    accepted = true;
+//                }
+//                else{
+//                    accepted = false;
+//                    rememberMe.setBackgroundResource(0);
+//                }
+//            }
+//        });
 
         noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,12 +69,12 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent  = new Intent();
-            }
-        });
+//        forgotPassword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent  = new Intent();
+//            }
+//        });
 
 
         signIn.setOnClickListener(new View.OnClickListener() {

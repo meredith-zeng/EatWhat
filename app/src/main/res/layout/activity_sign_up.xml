@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/sign_in_background"
     tools:context=".activity.user.SignUpActivity"
+    android:theme="@style/Theme.EatWhat.NoActionBar"
     android:orientation="vertical">
 
 
@@ -67,7 +69,6 @@
             android:id="@+id/email_addr_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/rounded_corner"
             android:hint="Email Address"
             android:paddingLeft="20dp"
             android:layout_width="match_parent"
@@ -99,7 +100,6 @@
             android:id="@+id/user_name_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/rounded_corner"
             android:hint="Username"
             android:paddingLeft="20dp"
             android:layout_width="match_parent"
@@ -128,7 +128,6 @@
             android:id="@+id/password_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/rounded_corner"
             android:hint="Password"
             android:paddingLeft="20dp"
             android:layout_width="match_parent"
@@ -157,7 +156,6 @@
             android:id="@+id/repassword_in_signUp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/rounded_corner"
             android:hint="Re-Password"
             android:paddingLeft="20dp"
             android:layout_width="match_parent"
@@ -197,22 +195,14 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/rounded_corner"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/next_step_in_signUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Next Step"
-            android:textColor="@color/white"
-            >
-        </Button>
-    </LinearLayout>
+    <Button
+        android:id="@+id/next_step_in_signUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
+        android:text="Next Step"
+        android:textColor="@color/white"
+        >
+    </Button>
 
 </LinearLayout>
