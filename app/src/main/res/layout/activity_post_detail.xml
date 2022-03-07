@@ -72,6 +72,7 @@
                 <TextView
                     android:id="@+id/post_detail_title"
                     android:layout_width="match_parent"
+                    android:width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/post_detail_add_image"
                     android:layout_alignParentLeft="true"
@@ -84,6 +85,7 @@
                     android:fontFamily="@font/robotoserif_lightitalic"
                     android:hint="title"
                     android:inputType="text"
+                    android:lineSpacingExtra="8sp"
                     android:scrollHorizontally="false"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textSize="25sp"
