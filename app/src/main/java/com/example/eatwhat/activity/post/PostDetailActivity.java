@@ -9,13 +9,20 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
+import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -29,6 +36,10 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class PostDetailActivity extends AppCompatActivity {
 
     private ImageButton mCancelBtn;
@@ -41,6 +52,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private ImageView postDetailImage;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private ImageView isLikedIV;
+    private boolean isLiked;
 
 
     public static final String TAG = "PostDetailActivity";
@@ -56,8 +69,69 @@ public class PostDetailActivity extends AppCompatActivity {
         star = findViewById(R.id.ratingBar1);
         comment = findViewById(R.id.post_detail_body);
         postDetailImage = (ImageView) findViewById(R.id.post_detail_thumbnail);
+        isLikedIV = (ImageView) findViewById(R.id.is_liked);
+
 
         initData(getIntent());
+
+        String uid = FirebaseAuth.getInstance().getUid();
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
+        checkIsLiked(docRef);
+
+        isLikedIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+
+                                User user = document.toObject(User.class);
+                                List<String> likedList = user.getLiked_post();
+                                Log.d(TAG, "current liked_post" + likedList.size());
+
+                                Intent intent = getIntent();
+                                String id = intent.getStringExtra("postId");
+                                if(!likedList.contains(id)){
+                                    likedList.add(id);
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("liked_post", likedList);
+                                    isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_24);
+                                }else {
+                                    likedList.remove(id);
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("liked_post", likedList);
+                                    isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
+                                }
+
+                                docRef
+                                        .update("liked_post", likedList)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
+
+
+                            }
+                        }
+                    }
+                });
+
+            }
+        });
 
         cancel_button_init();
     }
@@ -109,5 +183,32 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void checkIsLiked(DocumentReference docRef) {
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        User user = document.toObject(User.class);
+                        List<String> likedList = user.getLiked_post();
+
+                        Intent intent = getIntent();
+                        String postId = intent.getStringExtra("postId");
+
+                        if(likedList.contains(postId)) {
+                            isLiked = true;
+                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
+                        }else {
+                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_24);
+                        }
+
+                    }
+                }
+            }
+        });
     }
 }

@@ -87,12 +87,15 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <ImageView
-                    android:layout_below="@id/post_detail_add_image"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/is_collect"
+                    android:id="@+id/is_liked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:layout_below="@id/post_detail_add_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
                     android:src="@drawable/ic_baseline_star_24" />
 
                 <TextView

@@ -57,11 +57,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idPostContent"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_toEndOf="@id/idPostImage"
             android:drawablePadding="2dp"
-            android:text="@string/number_of_liked"
-            app:drawableStartCompat="@drawable/ic_baseline_favorite_border_24" />
+            android:text="@string/number_of_liked" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
