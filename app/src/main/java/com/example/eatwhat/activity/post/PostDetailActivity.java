@@ -54,6 +54,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ImageView isLikedIV;
     private boolean isLiked;
+    private String uid;
 
 
     public static final String TAG = "PostDetailActivity";
@@ -70,13 +71,14 @@ public class PostDetailActivity extends AppCompatActivity {
         comment = findViewById(R.id.post_detail_body);
         postDetailImage = (ImageView) findViewById(R.id.post_detail_thumbnail);
         isLikedIV = (ImageView) findViewById(R.id.is_liked);
+//        isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
 
         initData(getIntent());
 
-        String uid = FirebaseAuth.getInstance().getUid();
+        uid = FirebaseAuth.getInstance().getUid();
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
 
         checkIsLiked(docRef);
@@ -150,9 +152,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         if(likedList.contains(postId)) {
                             isLiked = true;
-                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
-                        }else {
                             isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_24);
+                        }else {
+                            isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
                         }
 
                     }
@@ -166,6 +168,9 @@ public class PostDetailActivity extends AppCompatActivity {
         String postId = intent.getStringExtra("postId");
 
         // ToDo: Update liked list in Realtime database
+
+
+
 
         isLikedIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,17 +216,52 @@ public class PostDetailActivity extends AppCompatActivity {
                                                 Log.w(TAG, "Error updating document", e);
                                             }
                                         });
-
-
-
                             }
                         }
                     }
                 });
 
+
+                updatePostLike(postId);
             }
         });
 
 
     }
+
+    public void updatePostLike(String postId){
+        String curUserId = mAuth.getCurrentUser().getUid();
+        Log.d(TAG, "uid: " + curUserId);
+        mDatabase.child(postId).get().addOnCompleteListener(
+                new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        DataSnapshot dataSnapshot = task.getResult();
+                        PostCard post = dataSnapshot.getValue(PostCard.class);
+                        List<String> likeUidList = post.getLikedUidList();
+                        if(!likeUidList.contains(curUserId)){
+                            likeUidList.add(curUserId);
+                        }
+                        else{
+                            likeUidList.remove(curUserId);
+                        }
+
+                        mDatabase.child(postId).child("likedUidList").setValue(likeUidList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d(TAG, "likeUidList is updated!");
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Something wrongs about likeUidList updates!");
+            }
+        });
+
+    }
+
+
+
 }
