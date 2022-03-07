@@ -3,11 +3,17 @@ package com.example.eatwhat.activity.user;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,8 +43,14 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_sign_in);
 
+        Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
+        Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide);
+        getWindow().setExitTransition(explode);
+        getWindow().setEnterTransition(slide);
+        getWindow().setReenterTransition(explode);
         
         password = findViewById(R.id.password_in_signIn);
         email_addr = findViewById(R.id.email_addr_in_signIn);
@@ -65,7 +77,9 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SignInActivity.this).toBundle());
+
+                overridePendingTransition(R.transition.explode, R.anim.nav_default_exit_anim);
             }
         });
 
@@ -76,7 +90,9 @@ public class SignInActivity extends AppCompatActivity {
 //            }
 //        });
 
-
+        if (!email_addr.getText().toString().equals("")){
+            signIn.setBackgroundColor(Color.parseColor("#F98426"));
+        }
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +124,7 @@ public class SignInActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_exit_anim);
                             finish();
 
                         } else {

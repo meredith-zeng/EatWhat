@@ -119,7 +119,7 @@
                 android:id="@+id/dont_have_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_account"></TextView>
+                android:text="@string/no_account"/>
 
 
         </LinearLayout>
@@ -140,5 +140,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout2"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

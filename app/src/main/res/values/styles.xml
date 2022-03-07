@@ -4,4 +4,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+<!--    <item name="android:windowExitTransition">@transition/explode</item>-->
+<!--    <item name="android:windowEnterAnimation">@transition/explode</item>-->
+<!--    <item name="android:windowReenterTransition">@transition/explode</item>-->
 </resources>

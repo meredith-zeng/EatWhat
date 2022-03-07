@@ -29,10 +29,11 @@ public class SlpashActivity extends AppCompatActivity {
         slpashImg = findViewById(R.id.slpash_img);
         logoText = findViewById(R.id.eatwhat_logo_text);
 
-        slpashImg.animate().translationY(-1600).setDuration(1000).setStartDelay(1500);
-        logoImg.animate().translationY(1400).setDuration(1000).setStartDelay(1500);
+        slpashImg.animate().translationY(1600).setDuration(1000).setStartDelay(1500);
+        logoImg.animate().translationY(-1400).setDuration(1000).setStartDelay(1500);
 
         animatText("EatWhat");
+        logoText.animate().translationY(-1400).setDuration(1000).setStartDelay(1500);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
