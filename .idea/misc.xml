@@ -66,6 +66,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/drawable/searchframe.xml" value="0.23" />
+        <entry key="app/src/main/res/layout/activity_collected_restaurant.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21673003802281368" />
         <entry key="app/src/main/res/layout/activity_my_notes.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.43682664054848186" />
