@@ -26,6 +26,7 @@ import com.example.eatwhat.service.ReviewsPojo.SingleReview;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -50,6 +51,10 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
     private RetrofitClient retrofitClient;
     private RestaurantService restaurantService;
     private boolean getDataFlag = false;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,17 +62,22 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
 
         restaurantService = retrofitClient.getRetrofit().create(RestaurantService.class);
         retrofitClient = new RetrofitClient();
+        recyclerView = (RecyclerView) findViewById(R.id.collected_restaurant_recyclerview);
         userCollectedRestaurantList = new ArrayList<>();
+        restaurantCardsList = new ArrayList<>();
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         getCollectedIdFromFirebase();
-        getRestaurantByIdFromYelp();
+
 
 
     }
 
     private void getCollectedIdFromFirebase(){
         // get current user's collected list
-        String uid = FirebaseAuth.getInstance().getUid();
+        String uid = mAuth.getUid();
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -80,7 +90,7 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
                         List<String> collectedList = user.getCollected_restaurant();
 
                         userCollectedRestaurantList =  collectedList;
-
+                        getRestaurantByIdFromYelp();
                     }
                 }
             }
@@ -88,9 +98,10 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
     }
 
     private void getRestaurantByIdFromYelp(){
-        final int[] dataSize = {userCollectedRestaurantList.size()};
-        if (dataSize[0] == 0){
+        int dataSize = userCollectedRestaurantList.size();
+        if (dataSize == 0){
             getDataFlag = true;
+            initRecyclerView();
             return;
         }
         for(String businessID: userCollectedRestaurantList){
@@ -103,7 +114,9 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
                         Float rating = ((Double) business.getRating()).floatValue();
                         RestaurantCard restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), rating, business.getId());
                         restaurantCardsList.add(restaurantCard);
-                        dataSize[0]--;
+                        if(restaurantCardsList.size() == dataSize){
+                            initRecyclerView();
+                        }
                     }
                 }
 
@@ -113,19 +126,13 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
                 }
             });
         }
-        if (dataSize[0] == 0){
-            getDataFlag = true;
-        }
-        initRecyclerView();
+
     }
 
     private void initRecyclerView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if (restaurantCardsList == null || restaurantCardsList.size() == 0){
-            return;
-        }
 
         RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this, restaurantCardsList);
         restaurantAdapter.setRecyclerViewOnItemClickListener(new RestaurantAdapter.RecyclerViewOnItemClickListener() {
