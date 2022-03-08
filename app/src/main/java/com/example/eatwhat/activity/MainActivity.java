@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.addTab(tabLayout.newTab().setText("Notes"));
         tabLayout.addTab(tabLayout.newTab().setText("Today's"));
 
-
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final MainTabAdapter adapter = new MainTabAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
