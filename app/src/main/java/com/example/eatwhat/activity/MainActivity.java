@@ -2,6 +2,7 @@ package com.example.eatwhat.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.eatwhat.R;
@@ -13,11 +14,18 @@ import com.example.eatwhat.activity.user.SignInActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
 import com.example.eatwhat.activity.user.ProfileActivity;
 import com.example.eatwhat.mainActivityFragments.RestaurantFragment;
+import com.example.eatwhat.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 
@@ -29,6 +37,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -40,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private ViewPager viewPager;
     private CircleImageView circleImageView;
-
+    private TextView username;
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
     private static int MAP_LOCATION_CODE = 1;
@@ -85,6 +94,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         myNavigationView = (NavigationView) findViewById(R.id.drawer_view);
         myNavigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = myNavigationView.getHeaderView(0);
+        username = (TextView) headerView.findViewById(R.id.drawer_username);
+        circleImageView = headerView.findViewById(R.id.drawer_avatar);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        String uid = user.getUid();
+        DocumentReference docRef = db.collection("user").document(uid);
+        Uri imageUri = user.getPhotoUrl();
+        circleImageView.setImageURI(imageUri);
+        Picasso.get().load(imageUri).into(circleImageView);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    User curUser = document.toObject(User.class);
+                    username.setText(curUser.getUsername());
+                }
+            }
+        });
     }
 
     private void createTabsFragment() {
