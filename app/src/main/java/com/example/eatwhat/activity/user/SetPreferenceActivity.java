@@ -110,12 +110,16 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
                                 @Override
                                 public void onComplete(@NonNull Task<String> task) {
                                     if (!task.isSuccessful()) {
-                                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                        Log.d(TAG, "Fetching FCM registration token failed", task.getException());
                                         return;
+                                    }
+                                    else{
+                                        Log.d(TAG, "Fetching FCM registration token successes", task.getException());
                                     }
 
                                     // Get new FCM registration token
                                     String token = task.getResult();
+                                    Log.d(TAG, token);
                                     saveToken(token);
                                 }
                             });

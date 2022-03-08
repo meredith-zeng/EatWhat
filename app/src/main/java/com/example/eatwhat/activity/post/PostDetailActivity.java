@@ -289,12 +289,12 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         User user = document.toObject(User.class);
                         String user_name = user.getUsername();
-
-                        FirebaseFirestore.getInstance().collection("Token").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        Log.d(TAG, user_name + " + " + userId);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child("Tokens").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
-                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                assert value != null;
-                                String postOwnerToken = value.toString();
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                String postOwnerToken = String.valueOf(task.getResult().getValue());
                                 Log.d(TAG, "Token: " + postOwnerToken);
                                 Sender sender = new Sender(postOwnerToken, new NotificationData(userId, user_name + " likes your post!"));
                                 apiservice.sendNotification(sender).enqueue(new Callback<Response>() {
@@ -317,6 +317,36 @@ public class PostDetailActivity extends AppCompatActivity {
                                 });
                             }
                         });
+
+/**
+                        FirebaseFirestore.getInstance().collection("Token").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                assert value != null;
+                                String postOwnerToken = value.getString("Token");
+                                Log.d(TAG, "Token: " + postOwnerToken);
+                                Sender sender = new Sender(postOwnerToken, new NotificationData(userId, user_name + " likes your post!"));
+                                apiservice.sendNotification(sender).enqueue(new Callback<Response>() {
+
+
+                                    @Override
+                                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                        if(response.code() == 200){
+                                            Log.d(TAG, response.body().toString());
+                                            if(response.body().getSuccess() != 1){
+                                                Log.d(TAG, "Failed ");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Response> call, Throwable t) {
+                                        Log.d(TAG, t.getMessage());
+                                    }
+                                });
+                            }
+                        });
+                        **/
                     }
                 }
             }
