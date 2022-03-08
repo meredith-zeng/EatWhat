@@ -125,7 +125,7 @@ public class TodaysFragment extends Fragment {
 
                 String location = "Santa Clara";
                 int offset = RandomUtil.getRandomNumber(0, 30);
-                Call<Restaurant> call = methods.queryRestaurantByCategory(location, null, null, 1, offset);
+                Call<Restaurant> call = methods.queryRestaurantByCategory(null, location, null, null, 1, offset);
                 Log.d(TAG, "run: " + call.toString());
                 call.enqueue(new Callback<Restaurant>() {
                     @Override
