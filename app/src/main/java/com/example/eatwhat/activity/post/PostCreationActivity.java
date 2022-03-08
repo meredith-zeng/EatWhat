@@ -26,9 +26,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.eatwhat.R;
 
 import com.example.eatwhat.activity.MainActivity;
+import com.example.eatwhat.activity.user.MyNotesActivity;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.mainActivityFragments.NotesFragment;
 import com.google.android.gms.tasks.Continuation;
@@ -38,8 +40,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,9 +51,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -75,6 +81,13 @@ public class PostCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_creation);
 
+        final String[] exist_postId = {null};
+        String imageUrl = null;
+        final String[] exist_pid = {null};
+        if(getIntent().hasExtra("postId")) {
+            exist_postId[0] = String.valueOf(getIntent().getExtras().get("postId"));
+            imageUrl = String.valueOf(getIntent().getExtras().get("imageUrl"));
+        }
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
         FirebaseUser user = mAuth.getCurrentUser();
@@ -87,6 +100,35 @@ public class PostCreationActivity extends AppCompatActivity {
         add_btn = findViewById(R.id.post_creation_add_btn);
         imageView = (ImageView) findViewById(R.id.post_creation_thumbnail);
         mCancelBtn = findViewById(R.id.post_creation_cancel_btn);
+
+        // if it is access from edit
+        if(exist_postId[0] != null){
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
+            Glide.with(this)
+                    .load(gsReference)
+                    .into(imageView);
+            Query q = mDatabase.orderByChild("postId").equalTo(exist_postId[0]);
+            q.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else {
+                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                        for(DataSnapshot singleSnapshot : task.getResult().getChildren()) {
+                            PostCard postCard = singleSnapshot.getValue(PostCard.class);
+                            exist_pid[0] = singleSnapshot.getKey();
+                            res_title.setText(postCard.getPost_title());
+                            res_name.setText(postCard.getRestuarant_name());
+                            res_comment.setText(postCard.getPost_content());
+                            ratingBar.setRating(postCard.getStar());
+                        }
+                    }
+                }
+            });
+        }
 
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
@@ -129,7 +171,9 @@ public class PostCreationActivity extends AppCompatActivity {
                     String comment_str = res_comment.getText().toString();
                     String uid = user.getUid();
                     String postId = UUID.randomUUID().toString();
-
+                    if(exist_postId[0] != null) {
+                        postId = exist_postId[0];
+                    }
                     StorageReference reference = FirebaseStorage.getInstance().getReference()
                                 .child("postImages").child(postId).child(postId + ".jpeg");
 
@@ -140,25 +184,39 @@ public class PostCreationActivity extends AppCompatActivity {
                     UploadTask uploadTask = reference.putBytes(data);
 
                     image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + postId + ".jpeg";
-                    List<String> likedList = new ArrayList<>();
-                    likedList.add("0");
-                    PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url,name_str, ratings, likedList);
+                    if(exist_postId[0] != null) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Posts").child(exist_pid[0]);
+                        Map<String, Object> updates = new HashMap<String,Object>();
+                        updates.put("post_content", comment_str);
+                        updates.put("star", ratings);
+                        updates.put("restuarant_name", name_str);
+                        updates.put("post_image_url", image_url);
+                        updates.put("post_title", title_str);
+                        Log.d("Update database", exist_postId[0]);
+                        ref.updateChildren(updates);
+                    }else {
+                        List<String> likedList = new ArrayList<>();
+                        likedList.add("0");
+                        PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url, name_str, ratings, likedList);
 
-                    mDatabase.child(postId).setValue(postCard).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d(TAG, "Successfully upload into real time database");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Upload into real time database failed");
-                        }
-                    });
+                        mDatabase.child(postId).setValue(postCard).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d(TAG, "Successfully upload into real time database");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Upload into real time database failed");
+                            }
+                        });
+                    }
                     Log.d(TAG, "Size: " + listofImages.size());
 
-                    finish();
                 }
+                Intent intent = new Intent(PostCreationActivity.this, MyNotesActivity.class);
+                startActivity(intent);
+                finish();
             }
 
 

@@ -74,9 +74,20 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.Viewhold
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         PostCard model = myNotesArrayList.get(position);
-        holder.myNotesTitle.setText(model.getPost_title());
-        holder.myNotesContent.setText(model.getPost_content());
-        holder.myNotesNumberOfLike.setText("" + model.getNumber_of_likes());
+        String subContent = model.getPost_content();
+        if (subContent.length() >= 70){
+            subContent = subContent.substring(0, 70)  + "...";
+        }
+        String subtitle = model.getPost_title();
+        if (subtitle.length() >= 40){
+            subtitle = subtitle.substring(0, 40) + "...";
+        }
+        holder.myNotesTitle.setText(subtitle);
+        holder.myNotesContent.setText(subContent);
+//        holder.myNotesTitle.setText(model.getPost_title());
+//        holder.myNotesContent.setText(model.getPost_content());
+        holder.myNotesNumberOfLike.setText(" " + model.getLikedUidList().size() +  "  People liked");
+
         String imageUrl = model.getPost_image_url();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference gsReference = storage.getReferenceFromUrl(imageUrl);
