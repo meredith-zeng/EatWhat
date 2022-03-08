@@ -1,17 +1,14 @@
 package com.example.eatwhat.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.activity.user.CollectedRestaurantActivity;
 import com.example.eatwhat.activity.user.MyNotesActivity;
 import com.example.eatwhat.activity.post.PostCreationActivity;
 import com.example.eatwhat.activity.user.ReviewHistoryActivity;
-import com.example.eatwhat.activity.user.SetPreferenceActivity;
 import com.example.eatwhat.activity.user.SignInActivity;
 import com.example.eatwhat.adapter.MainTabAdapter;
 import com.example.eatwhat.activity.user.ProfileActivity;
@@ -20,14 +17,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -36,12 +29,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -223,6 +212,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(logoutIntent);
                 finish();
                 return true;
+            case R.id.drawer_collected_restaurant:
+                Intent toCollected = new Intent(this, CollectedRestaurantActivity.class);
+                startActivity(toCollected);
+                return true;
+
         }
         return false;
     }

@@ -26,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.example.eatwhat.R;
 import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -311,7 +313,6 @@ public class SignUpActivity extends AppCompatActivity {
                         Matrix mMatrix = new Matrix();
                         Matrix mat=imageView.getImageMatrix();
                         mMatrix.set(mat);
-                        mMatrix.setRotate(90);
                         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
                                 bitmap.getHeight(), mMatrix, false);
                         imageView.setImageBitmap(bitmap);
