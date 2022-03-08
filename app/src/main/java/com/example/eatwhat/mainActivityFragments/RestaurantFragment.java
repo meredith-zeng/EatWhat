@@ -387,12 +387,12 @@ public class RestaurantFragment extends Fragment  {
         inputName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int ActionId, KeyEvent keyEvent) {
-                if (ActionId == EditorInfo.IME_ACTION_DONE
-                        || ActionId == EditorInfo.IME_ACTION_SEARCH
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENVELOPE) {
+//                if (ActionId == EditorInfo.IME_ACTION_DONE
+//                        || ActionId == EditorInfo.IME_ACTION_SEARCH
+//                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+//                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENVELOPE) {
                     inputRestaurantName = inputName.getText().toString();
-                }
+               // }
                 return false;
             }
         });
