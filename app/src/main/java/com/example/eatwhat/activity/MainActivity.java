@@ -98,9 +98,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         //add tab names
-        tabLayout.addTab(tabLayout.newTab().setText("Today's"));
         tabLayout.addTab(tabLayout.newTab().setText("Restaurants"));
         tabLayout.addTab(tabLayout.newTab().setText("Notes"));
+        tabLayout.addTab(tabLayout.newTab().setText("Today's"));
+
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
