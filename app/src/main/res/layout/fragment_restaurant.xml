@@ -11,54 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="5dp">
 
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Category"
-                android:textSize="15sp"
-                />
-            <TextView
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/selectCategoryView"
-                android:hint="Select Category"
-                android:textSize="15sp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:drawableEnd="@drawable/drop_down_arrow"
-                android:background="@drawable/round_rectangular"
-                android:layout_marginLeft="10dp"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Sort By    "
-                    android:textSize="16sp" />
+                    android:text="Category"
+                    android:textSize="15sp"
+                    />
 
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectCategoryView"
+                    android:hint="Select Category"
+                    android:textSize="15sp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:drawableEnd="@drawable/drop_down_arrow"
+                    android:background="@drawable/round_rectangular"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:padding="5dp"
+                    android:text="Sort By  "
+                    android:textSize="16sp" />
 
                 <CheckedTextView
                     android:id="@+id/sort_by_rating"
@@ -67,7 +60,7 @@
                     android:layout_row="0"
                     android:layout_rowWeight="1"
                     android:layout_gravity="fill_vertical|fill_horizontal"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/round_rectangular"
                     android:checked="false"
@@ -79,7 +72,6 @@
                     android:textColor="#978C8C"
                     android:textSize="20sp" />
 
-
                 <CheckedTextView
                     android:id="@+id/sort_by_review_count"
                     android:layout_width="150dp"
@@ -87,7 +79,8 @@
                     android:layout_row="0"
                     android:layout_rowWeight="1"
                     android:layout_gravity="fill_vertical|fill_horizontal"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/round_rectangular"
                     android:checked="false"
@@ -102,8 +95,38 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </HorizontalScrollView>
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:layout_width="270dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/map_search"
+                android:gravity="center"
+                android:hint="Or search by restaurant name"
+                android:id="@+id/search_restaurant_name"
+                android:imeOptions="actionDone"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/profile_button"
+                android:clickable="true"
+                android:text="search"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -139,6 +162,7 @@
             </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>

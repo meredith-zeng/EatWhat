@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 args.putDouble("Longitude", lng);
                 args.putDouble("Latitude", lat);
                 try {
-                    RestaurantFragment fragment = (RestaurantFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewPager, 1));
+                    RestaurantFragment fragment = (RestaurantFragment) getSupportFragmentManager().findFragmentByTag(getFragmentTag(R.id.viewPager, 0));
                     fragment.putArguments(args);
                 } catch(ClassCastException e) {
                     System.out.println(e);

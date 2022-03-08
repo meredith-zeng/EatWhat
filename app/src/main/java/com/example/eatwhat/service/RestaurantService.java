@@ -16,7 +16,8 @@ public interface RestaurantService {
     Call<DetailedBusiness> getRestaurantById(@Path("id") String id);
 
     @GET("businesses/search")
-    Call<Restaurant> queryRestaurantByCategory(@Query("location") String location,
+    Call<Restaurant> queryRestaurantByCategory(@Query("term") String restaurant,
+                                               @Query("location") String location,
                                                @Query("categories") String categories,
                                                @Query("sort_by")  String sortBy,
                                                @Query("limit") int limit,
