@@ -78,6 +78,17 @@ public class NotesFragment extends Fragment {
 
         for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
             PostCard postCard = singleSnapshot.getValue(PostCard.class);
+
+            String subContent = postCard.getPost_content();
+            if (subContent.length() >= 70){
+                subContent = subContent.substring(0, 70)  + "...";
+            }
+            String subtitle = postCard.getPost_title();
+            if (subtitle.length() >= 40){
+                subtitle = subtitle.substring(0, 40) + "...";
+            }
+            postCard.setPost_title(subtitle);
+            postCard.setPost_content(subContent);
             postCardArrayList.add(postCard);
         }
         // 3. create an adapter

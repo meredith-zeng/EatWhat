@@ -3,6 +3,8 @@ package com.example.eatwhat.activity.restaurant;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Build;
@@ -18,12 +20,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
+import com.example.eatwhat.activity.user.ReviewHistoryActivity;
+import com.example.eatwhat.adapter.ReviewAdapter;
+import com.example.eatwhat.adapter.ReviewHistoryAdapter;
+import com.example.eatwhat.cardview.RestaurantCard;
+import com.example.eatwhat.cardview.ReviewCard;
+import com.example.eatwhat.cardview.ReviewHistoryCard;
 import com.example.eatwhat.databinding.ActivityScrollingBinding;
 import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.BusinessesPojo.Category;
 import com.example.eatwhat.service.BusinessesPojo.DetailedBusiness;
+import com.example.eatwhat.service.RestaurantPojo.Business;
+import com.example.eatwhat.service.RestaurantPojo.Restaurant;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
+import com.example.eatwhat.service.ReviewsPojo.Reviews;
+import com.example.eatwhat.service.ReviewsPojo.SingleReview;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +53,7 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.io.IOException;
 import java.io.ObjectStreamException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,7 +64,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RestaurantPageActivity extends AppCompatActivity {
-    private TextView nameTv, categoryTv, restaurant_address, price_level, ratingText, phoneText;
+    private TextView nameTv, restaurant_address, price_level, ratingText, phoneText;
     private ImageView resImage;
 
     private FloatingActionButton floatingActionButton;
@@ -69,6 +82,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
     private boolean isCollected;
 
+    private ArrayList<ReviewCard> ReviewCardArrayList = new ArrayList<>();
+    private String businessID = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +96,6 @@ public class RestaurantPageActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         binding = ActivityScrollingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-//        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
 
         FloatingActionButton fab = binding.fab;
 
@@ -149,7 +162,6 @@ public class RestaurantPageActivity extends AppCompatActivity {
         });
 
         nameTv = (TextView) findViewById(R.id.restaurant_detail_name);
-        categoryTv = (TextView) findViewById(R.id.restaurant_category);
         resImage = (ImageView) findViewById(R.id.restaurant_detail_image);
         price_level = (TextView) findViewById(R.id.price_level);
         restaurant_address = (TextView) findViewById(R.id.restaurant_address);
@@ -166,8 +178,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                             .into(resImage);
 
         getRestaurantData();
-
-
+        getReviewData();
     }
 
 
@@ -175,10 +186,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        Call<DetailedBusiness> call = methods.getRestaurantById(id);
-//        business = call.execute().body();
-//        Log.e("getAlias(): ", business.getAlias());
+        businessID = intent.getStringExtra("id");
+        Call<DetailedBusiness> call = methods.getRestaurantById(businessID);
         call.enqueue(new Callback<DetailedBusiness>() {
             @Override
             public void onResponse(Call<DetailedBusiness> call, Response<DetailedBusiness> response) {
@@ -187,7 +196,6 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     business = response.body();
                     String name = business.getName();
                     String phone = business.getDisplayPhone();
-                    List<Category> categoryList = business.getCategories();
                     String address = business.getLocation().getAddress1() + " "
                             + business.getLocation().getCity() + ", "
                             + business.getLocation().getState() + " "
@@ -195,10 +203,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     String priceLevel = business.getPrice();
                     String rating = String.valueOf(business.getRating());
 
-
-
                     nameTv.setText(name);
-                    categoryTv.setText(categoryList.get(0).getTitle());
                     price_level.setText(priceLevel);
                     restaurant_address.setText(address);
                     ratingText.setText(rating);
@@ -240,6 +245,44 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     }
                 }
             });
+    }
 
+    private void setRecyclerViewForReviews() {
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.review_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RestaurantPageActivity.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        ReviewAdapter myAdapter = new ReviewAdapter(RestaurantPageActivity.this, ReviewCardArrayList);
+        recyclerView.setAdapter(myAdapter);
+    }
+
+    private void getReviewData() {
+        RetrofitClient retrofitClient = new RetrofitClient();
+        RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
+        System.out.println(businessID);
+        Call<Reviews> call = methods.queryReviewByBusinessID(businessID);
+        call.enqueue(new Callback<Reviews>() {
+            @Override
+            public void onResponse(Call<Reviews> call, Response<Reviews> response) {
+                if (response.code() == 200) {
+                    Log.d(TAG, " response 200");
+
+                    for (int i = 0; i < 50 && i < response.body().getReviews().size(); i++) {
+                        SingleReview review = response.body().getReviews().get(i);
+                        ReviewCard reviewCard = new ReviewCard(review.getText(), review.getReviewUser().getName(), review.getTimeCreated());
+                        ReviewCardArrayList.add(reviewCard);
+                    }
+                    setRecyclerViewForReviews();
+                    Log.d(TAG, " load review finished");
+                }
+                else {
+                    Log.d(TAG, " response not 200");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Reviews> call, Throwable t) {
+                Log.e("e res" ,t.toString());
+            }
+        });
     }
 }

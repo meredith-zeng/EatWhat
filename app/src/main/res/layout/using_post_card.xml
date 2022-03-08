@@ -7,8 +7,8 @@
     android:layout_margin="1dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="3dp"
-    app:cardElevation="3dp"
-    app:cardMaxElevation="2dp"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="1dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
@@ -19,11 +19,16 @@
 
         <ImageView
             android:id="@+id/idPostImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            tools:srcCompat = "@tools:sample/avatars"/>
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerCrop"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="3dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <!--Text View to display post_title-->
         <TextView
@@ -49,7 +54,7 @@
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@id/idPostImage"
             android:drawablePadding="2dp"
-            android:text="@string/post_content"/>
+            android:text="@string/post_content" />
 
         <TextView
             android:id="@+id/numberOfLike"
@@ -57,11 +62,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idPostContent"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_toEndOf="@id/idPostImage"
             android:drawablePadding="2dp"
-            android:text="@string/number_of_liked"
-            app:drawableStartCompat="@drawable/ic_baseline_favorite_border_24" />
+            android:text="@string/number_of_liked" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

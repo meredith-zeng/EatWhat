@@ -1,6 +1,7 @@
 package com.example.eatwhat.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     private RecyclerViewOnItemClickListener onItemClickListener;
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        private ImageView restaurantImage, isCollect;
-        private TextView restaurantTitle, restaurantContent;
+        private ImageView restaurantImage, starSymbol;
+        private TextView restaurantTitle, restaurantContent, restaurantRating;
         private View root;
 
         public Viewholder(@NonNull View root) {
@@ -37,7 +38,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             restaurantImage = root.findViewById(R.id.restaurant_image);
             restaurantTitle = root.findViewById(R.id.restaurant_title);
             restaurantContent = root.findViewById(R.id.restaurant_content);
-            isCollect = root.findViewById(R.id.is_collect);
+            restaurantRating = root.findViewById(R.id.rating);
+            starSymbol = root.findViewById(R.id.star);
         }
     }
 
@@ -60,15 +62,23 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     public void onBindViewHolder(@NonNull RestaurantAdapter.Viewholder holder, int position) {
         RestaurantCard model = restaurantCardArrayList.get(position);
         holder.restaurantContent.setText(model.getContent());
+        if (model.getTitle().length() > 24){
+            model.setTitle(model.getTitle().substring(0, 24) + "...");
+        }
         holder.restaurantTitle.setText(model.getTitle());
-        holder.isCollect.setImageResource(R.drawable.ic_baseline_favorite_24);
+        holder.starSymbol.setImageResource(R.drawable.ic_baseline_star_24);
+        holder.restaurantRating.setText(Float.toString(model.getRating()));
 
-        GlideUrl glideUrl = new GlideUrl(model.getRestaurantImageUrl(), new LazyHeaders.Builder()
-                .addHeader("Authorization", " Bearer " + TOKEN)
-                .build());
-
-        Glide.with(this.context).load(glideUrl).into(holder.restaurantImage);
-
+        Log.d("From RestaurentAdapter onBindViewHolder", "glide next");
+        if (model.getRestaurantImageUrl().toString().length() != 0) {
+            GlideUrl glideUrl = new GlideUrl(model.getRestaurantImageUrl(), new LazyHeaders.Builder()
+                    .addHeader("Authorization", " Bearer " + TOKEN)
+                    .build());
+            Glide.with(this.context).load(glideUrl).into(holder.restaurantImage);
+        }
+        else {
+            Log.d("From RestaurentAdapter onBindViewHolder", "getRestaurantImageUrl() is empty");
+        }
         holder.root.setTag(position);
     }
 

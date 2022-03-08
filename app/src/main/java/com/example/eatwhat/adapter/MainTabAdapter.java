@@ -27,7 +27,7 @@ public class MainTabAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
+            case 2:
                 NotesFragment notesFragment = new NotesFragment();
                 //myManager.beginTransaction().add(notesFragment, "notesFragment").commit();
                 return notesFragment;
@@ -35,7 +35,7 @@ public class MainTabAdapter extends FragmentPagerAdapter {
                 RestaurantFragment restaurantFragment = new RestaurantFragment();
                 //myManager.beginTransaction().add(restaurantFragment, "restaurantFragment").commit();
                 return restaurantFragment;
-            case 2:
+            case 0:
                 TodaysFragment todaysFragment = new TodaysFragment();
                 //myManager.beginTransaction().add(todaysFragment, "todaysFragment").commit();
                 return todaysFragment;

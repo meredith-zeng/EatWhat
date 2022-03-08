@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eatwhat.R;
+import com.skyfishjy.library.RippleBackground;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,16 +52,23 @@ public class Welcomepage extends AppCompatActivity {
             }
         });
 
-        icon.setOnClickListener(new View.OnClickListener() {
+//        icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SpringAnimationY(view, 1100f);
+//
+//                SpringAnimationY(view, 0f);
+//            }
+//        });
+
+        final RippleBackground rippleBackground=(RippleBackground)findViewById(R.id.content);
+        ImageView imageView=(ImageView)findViewById(R.id.icon);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpringAnimationY(view, 1100f);
-
-                SpringAnimationY(view, 0f);
+                rippleBackground.startRippleAnimation();
             }
         });
-
-
 
 //        icon.setOnDragListener(new View.OnDragListener() {
 //            @Override
