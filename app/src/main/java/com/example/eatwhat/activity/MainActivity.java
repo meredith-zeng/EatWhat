@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.user.CollectedRestaurantActivity;
+import com.example.eatwhat.activity.user.LikedNotesActivity;
 import com.example.eatwhat.activity.user.MyNotesActivity;
 import com.example.eatwhat.activity.post.PostCreationActivity;
 import com.example.eatwhat.activity.user.ReviewHistoryActivity;
@@ -248,7 +249,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent toCollected = new Intent(this, CollectedRestaurantActivity.class);
                 startActivity(toCollected);
                 return true;
-
+            case R.id.drawer_liked_Post:
+                Intent toLikedNotes = new Intent(this, LikedNotesActivity.class);
+                startActivity(toLikedNotes);
+                return true;
         }
         return false;
     }
