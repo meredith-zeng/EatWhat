@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.post.PostDetailActivity;
+import com.example.eatwhat.adapter.MyNotesAdapter;
 import com.example.eatwhat.adapter.PostAdapter;
 import com.example.eatwhat.cardview.PostCard;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,8 +66,8 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_notes_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyNotesActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        PostAdapter postAdapter = new PostAdapter(this, postCardArrayList);
-        postAdapter.setRecyclerViewOnItemClickListener(new PostAdapter.RecyclerViewOnItemClickListener() {
+        MyNotesAdapter postAdapter = new MyNotesAdapter(this, postCardArrayList);
+        postAdapter.setRecyclerViewOnItemClickListener(new MyNotesAdapter.RecyclerViewOnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
                 Intent intent = new Intent(view.getContext(), PostDetailActivity.class);
@@ -81,27 +82,11 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
     private void initData(){
         String uid = mAuth.getCurrentUser().getUid();
         Query q = mDatabase.orderByChild("uid").equalTo(uid);
-//        q.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Log.i(TAG, snapshot.getChildren().getClass() + " ");
-//                for(DataSnapshot singleSnapshot : snapshot.getChildren()) {
-//                    PostCard postCard = singleSnapshot.getValue(PostCard.class);
-//                    postCardArrayList.add(postCard);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
         q.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-
                 }
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
@@ -109,7 +94,6 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
                         PostCard postCard = singleSnapshot.getValue(PostCard.class);
                         postCardArrayList.add(postCard);
                     }
-
                     initRecyclerView();
                 }
             }
