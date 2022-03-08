@@ -111,8 +111,8 @@
                 android:background="@drawable/map_search"
                 android:gravity="center"
                 android:hint="Or search by restaurant name"
-                android:id="@+id/search_name"
-                android:imeOptions="actionSearch"
+                android:id="@+id/search_restaurant_name"
+                android:imeOptions="actionDone"
                 android:inputType="text" />
 
             <Button

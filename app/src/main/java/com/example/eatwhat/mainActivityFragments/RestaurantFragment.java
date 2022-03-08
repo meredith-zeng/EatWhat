@@ -14,9 +14,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -72,6 +74,7 @@ public class RestaurantFragment extends Fragment  {
     private String sortBy = null;
     private boolean ifRating = false;
     private boolean ifReviewCount = false;
+    private String inputRestaurantName = null;
 
     //location realted variable
     private FusedLocationProviderClient fusedLocationClient;
@@ -92,6 +95,8 @@ public class RestaurantFragment extends Fragment  {
         createSpinners(view, container);
         initData();
         pullUpToRefresh(view);
+        initSearchRestaurantEditText(view);
+        confirmInputRestaurant(view);
         return view;
     }
 
@@ -123,7 +128,6 @@ public class RestaurantFragment extends Fragment  {
         });
     }
 
-
     private void reset() {
         offset = 0;
         limit = 5;
@@ -131,7 +135,6 @@ public class RestaurantFragment extends Fragment  {
         restaurantCardArrayList.clear();
         initData();
     }
-
 
     private void setSortBy(View view) {
         CheckedTextView ratingCheckedTextView = view.findViewById(R.id.sort_by_rating);
@@ -211,7 +214,6 @@ public class RestaurantFragment extends Fragment  {
 
        reset();
     }
-
 
     private void pullUpToRefresh(View rootView) {
         NestedScrollView nestedSV = (NestedScrollView) rootView.findViewById(R.id.swipe_container);
@@ -321,13 +323,11 @@ public class RestaurantFragment extends Fragment  {
         });
     }
 
-
-
     private void initData(){
         RetrofitClient retrofitClient = new RetrofitClient();
         RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
-        Call<Restaurant> call = methods.queryRestaurantByCategory(selectedCity, selectedCategory, sortBy, limit, offset);
+        Call<Restaurant> call = methods.queryRestaurantByCategory(inputRestaurantName, selectedCity, selectedCategory, sortBy, limit, offset);
         call.enqueue(new Callback<Restaurant>() {
             @Override
             public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
@@ -380,5 +380,33 @@ public class RestaurantFragment extends Fragment  {
             });
 
             recyclerView.setAdapter(restaurantAdapter);
+    }
+
+    private void initSearchRestaurantEditText(View view) {
+        EditText inputName = (EditText) view.findViewById(R.id.search_restaurant_name);
+        inputName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int ActionId, KeyEvent keyEvent) {
+                if (ActionId == EditorInfo.IME_ACTION_DONE
+                        || ActionId == EditorInfo.IME_ACTION_SEARCH
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENVELOPE) {
+                    inputRestaurantName = inputName.getText().toString();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void confirmInputRestaurant(View view) {
+        Button search = (Button) view.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println(inputRestaurantName);
+                reset();
+                initData();
+            }
+        });
     }
 }
