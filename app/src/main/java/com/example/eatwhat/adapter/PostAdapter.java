@@ -57,7 +57,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  i
         if (model.getLikedUidList() == null){
             holder.numberOfLikeV.setText("0");
         }else {
-            holder.numberOfLikeV.setText(" " + model.getLikedUidList().size() +  "  People liked");
+            int numberOfLike = model.getLikedUidList().size() - 1;
+            holder.numberOfLikeV.setText(" " + numberOfLike +  "  People liked");
         }
 
 

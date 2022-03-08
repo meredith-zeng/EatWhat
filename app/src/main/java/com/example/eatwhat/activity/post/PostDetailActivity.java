@@ -1,15 +1,18 @@
 package com.example.eatwhat.activity.post;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.model.User;
+import com.example.eatwhat.notification.APISERVICE;
+import com.example.eatwhat.notification.Client;
+import com.example.eatwhat.notification.NotificationData;
+import com.example.eatwhat.notification.Sender;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,9 +25,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -35,14 +41,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import com.example.eatwhat.notification.Response;
+
+
 public class PostDetailActivity extends AppCompatActivity {
 
-//    private ImageButton mCancelBtn;
     private TextView title;
     private TextView restaurant_name;
     private RatingBar star;
@@ -55,6 +67,13 @@ public class PostDetailActivity extends AppCompatActivity {
     private ImageView isLikedIV;
     private boolean isLiked;
     private String uid;
+    DocumentReference docRef;
+
+
+    APISERVICE apiservice;
+
+
+
 
 
     public static final String TAG = "PostDetailActivity";
@@ -71,34 +90,28 @@ public class PostDetailActivity extends AppCompatActivity {
         comment = findViewById(R.id.post_detail_body);
         postDetailImage = (ImageView) findViewById(R.id.post_detail_thumbnail);
         isLikedIV = (ImageView) findViewById(R.id.is_liked);
-//        isLikedIV.setImageResource (R.drawable.ic_baseline_favorite_border_24);
 
+        //Initialization
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
+
+        apiservice = Client.getRetrofit("https://fcm.googleapis.com/").create(APISERVICE.class);
+
 
         initData(getIntent());
 
         uid = FirebaseAuth.getInstance().getUid();
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
+
+        docRef = FirebaseFirestore.getInstance().collection("user").document(uid);
 
         checkIsLiked(docRef);
         setLikedListener(docRef);
 
-
-
-
-//        cancel_button_init();
     }
 
-//    private void cancel_button_init() {
-//        mCancelBtn = findViewById(R.id.post_detail_cancel_btn);
-//        mCancelBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//    }
+
+
+
 
     private void initData(Intent intent){
         String postId = String.valueOf(intent.getExtras().get("postId"));
@@ -163,13 +176,12 @@ public class PostDetailActivity extends AppCompatActivity {
         });
     }
 
+    // If current user like a post, add post id into list of post ids in user database
     public void setLikedListener(DocumentReference docRef){
         Intent intent = getIntent();
         String postId = intent.getStringExtra("postId");
 
         // ToDo: Update liked list in Realtime database
-
-
 
 
         isLikedIV.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +197,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                                 User user = document.toObject(User.class);
                                 List<String> likedList = user.getLiked_post();
-                                Log.d(TAG, "current liked_post" + likedList.size());
+                                //Log.d(TAG, "current liked_post" + likedList.size());
 
                                 Intent intent = getIntent();
                                 String id = intent.getStringExtra("postId");
@@ -206,7 +218,7 @@ public class PostDetailActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                //Log.d(TAG, "DocumentSnapshot successfully updated!");
 
                                             }
                                         })
@@ -222,16 +234,17 @@ public class PostDetailActivity extends AppCompatActivity {
                 });
 
 
-                updatePostLike(postId);
+                updatePostLike(postId, docRef);
             }
         });
 
 
     }
 
-    public void updatePostLike(String postId){
+
+    public void updatePostLike(String postId, DocumentReference docRef){
         String curUserId = mAuth.getCurrentUser().getUid();
-        Log.d(TAG, "uid: " + curUserId);
+        //Log.d(TAG, "uid: " + curUserId);
         mDatabase.child(postId).get().addOnCompleteListener(
                 new OnCompleteListener<DataSnapshot>() {
                     @Override
@@ -241,6 +254,8 @@ public class PostDetailActivity extends AppCompatActivity {
                         List<String> likeUidList = post.getLikedUidList();
                         if(!likeUidList.contains(curUserId)){
                             likeUidList.add(curUserId);
+
+                            sendNotification(post.getUid());
                         }
                         else{
                             likeUidList.remove(curUserId);
@@ -249,7 +264,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         mDatabase.child(postId).child("likedUidList").setValue(likeUidList).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Log.d(TAG, "likeUidList is updated!");
+                                //Log.d(TAG, "likeUidList is updated!");
                             }
                         });
                     }
@@ -262,6 +277,50 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
+    //Id is post owner id;
+    public void sendNotification(String userId){
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("user").document(uid);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        User user = document.toObject(User.class);
+                        String user_name = user.getUsername();
+                        //Log.d(TAG, user_name + " + " + userId);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child("Tokens").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                String postOwnerToken = String.valueOf(task.getResult().getValue());
+                                Log.d(TAG, "Token: " + postOwnerToken);
+                                Sender sender = new Sender(postOwnerToken, new NotificationData(userId, user_name + " likes your post!"));
+                                apiservice.sendNotification(sender).enqueue(new Callback<Response>() {
 
 
+                                    @Override
+                                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                        if(response.code() == 200){
+                                            if(response.body().getSuccess() != 1){
+                                                Log.d(TAG, "Failed ");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Response> call, Throwable t) {
+                                        Log.d(TAG, t.getMessage());
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+
+    }
 }

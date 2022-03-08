@@ -71,7 +71,7 @@ dependencies {
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-
+    implementation "com.google.firebase:firebase-messaging"
 
     dependencies {
         def dynamicanimation_version = '1.0.0'
