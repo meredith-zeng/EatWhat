@@ -95,9 +95,9 @@
             android:theme="@style/Theme.EatWhat.NoActionBar"/>
 
         <service
-            android:name=".notification.FirebaseMessagings"
+            android:name=".notification.PushNotificationService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

@@ -11,6 +11,7 @@ import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.model.User;
 import com.example.eatwhat.notification.APISERVICE;
 import com.example.eatwhat.notification.Client;
+import com.example.eatwhat.notification.NotificationData;
 import com.example.eatwhat.notification.Sender;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -70,6 +71,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
     APISERVICE apiservice;
+
 
 
 
@@ -288,24 +290,35 @@ public class PostDetailActivity extends AppCompatActivity {
                         User user = document.toObject(User.class);
                         String user_name = user.getUsername();
 
-                        String currUserToken = "";
                         FirebaseFirestore.getInstance().collection("Token").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                 assert value != null;
                                 String postOwnerToken = value.toString();
                                 Log.d(TAG, "Token: " + postOwnerToken);
-                                Sender sender = new Sender(user_name, postOwnerToken);
+                                Sender sender = new Sender(postOwnerToken, new NotificationData(userId, user_name + " likes your post!"));
                                 apiservice.sendNotification(sender).enqueue(new Callback<Response>() {
 
+
+                                    @Override
+                                    public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                        if(response.code() == 200){
+                                            Log.d(TAG, response.body().toString());
+                                            if(response.body().getSuccess() != 1){
+                                                Log.d(TAG, "Failed ");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Response> call, Throwable t) {
+                                        Log.d(TAG, t.getMessage());
+                                    }
                                 });
-
-
                             }
                         });
                     }
                 }
-
             }
         });
 
