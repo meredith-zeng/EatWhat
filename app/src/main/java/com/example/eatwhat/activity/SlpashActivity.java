@@ -30,7 +30,7 @@ public class SlpashActivity extends AppCompatActivity {
         logoText = findViewById(R.id.eatwhat_logo_text);
 
         slpashImg.animate().translationY(1600).setDuration(1000).setStartDelay(1500);
-        logoImg.animate().translationY(-1400).setDuration(1000).setStartDelay(1500);
+        logoImg.animate().translationY(-1000).setDuration(1000).setStartDelay(1500);
 
         animatText("EatWhat");
         logoText.animate().translationY(-1400).setDuration(1000).setStartDelay(1500);
