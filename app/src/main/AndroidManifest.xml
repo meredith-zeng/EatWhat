@@ -21,6 +21,9 @@
         android:roundIcon="@mipmap/eatwhat_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.EatWhat">
+        <activity
+            android:name=".activity.user.CollectedRestaurantActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -28,17 +31,17 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".activity.SlpashActivity"
             android:exported="true"
-            android:theme="@style/Theme.EatWhat.NoActionBar" >
+            android:theme="@style/Theme.EatWhat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.MyMapActivity"
             android:exported="false"
@@ -75,7 +78,7 @@
         <activity
             android:name=".activity.user.Welcomepage"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.restaurant.RestaurantPageActivity"
             android:exported="true" />

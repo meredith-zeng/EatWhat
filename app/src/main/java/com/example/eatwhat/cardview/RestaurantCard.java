@@ -16,6 +16,9 @@ public class RestaurantCard {
         this.id = id;
     }
 
+    public RestaurantCard() {
+    }
+
     public String getRestaurantImageUrl() {
         return restaurantImageUrl;
     }
