@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -168,6 +169,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
         ratingText = (TextView) findViewById(R.id.rating);
         phoneText = (TextView) findViewById(R.id.restaurant_phone);
 
+
+
         Intent intent = getIntent();
         String imageUrl = intent.getStringExtra("imageUrl");
         GlideUrl glideUrl = new GlideUrl(imageUrl, new LazyHeaders.Builder()
@@ -203,12 +206,31 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     String priceLevel = business.getPrice();
                     String rating = String.valueOf(business.getRating());
 
+                    Double latitude = business.getCoordinates().getLatitude();
+                    Double longitude = business.getCoordinates().getLongitude();
+
                     nameTv.setText(name);
                     price_level.setText(priceLevel);
                     restaurant_address.setText(address);
                     ratingText.setText(rating);
                     phoneText.setText(phone);
 
+                    restaurant_address.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view){
+                            // Create a Uri from an intent string. Use the result to create an Intent.
+                            Uri gmmIntentUri = Uri.parse("geo:0,0" + "?q=" + address);
+                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                            mapIntent.setPackage("com.google.android.apps.maps");
+                            startActivity(mapIntent);
+                        }
+                    });
+                    phoneText.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            callPhone(phone);
+                        }
+                    });
                     Log.e("getAlias(): ", response.body().getAlias());
                 }
             }
@@ -284,5 +306,12 @@ public class RestaurantPageActivity extends AppCompatActivity {
                 Log.e("e res" ,t.toString());
             }
         });
+    }
+
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
     }
 }

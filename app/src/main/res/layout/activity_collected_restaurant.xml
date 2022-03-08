@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.user.CollectedRestaurantActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,3 +36,5 @@
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

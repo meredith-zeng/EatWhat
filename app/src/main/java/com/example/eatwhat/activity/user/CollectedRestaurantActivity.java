@@ -1,7 +1,9 @@
 package com.example.eatwhat.activity.user;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,7 +67,6 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.collected_restaurant_recyclerview);
         userCollectedRestaurantList = new ArrayList<>();
         restaurantCardsList = new ArrayList<>();
-
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -139,14 +140,16 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
             @Override
             public void onItemClickListener(View view, int position) {
                 Intent intent = new Intent(CollectedRestaurantActivity.this, RestaurantPageActivity.class);
-                intent.putExtra("title", restaurantCardArrayList.get(position).getTitle());
-                intent.putExtra("content", restaurantCardArrayList.get(position).getContent());
-                intent.putExtra("imageUrl", restaurantCardArrayList.get(position).getRestaurantImageUrl());
-                intent.putExtra("id", restaurantCardArrayList.get(position).getId());
+                intent.putExtra("title", restaurantCardsList.get(position).getTitle());
+                intent.putExtra("content", restaurantCardsList.get(position).getContent());
+                intent.putExtra("imageUrl", restaurantCardsList.get(position).getRestaurantImageUrl());
+                intent.putExtra("id", restaurantCardsList.get(position).getId());
                 startActivity(intent);
             }
         });
 
         recyclerView.setAdapter(restaurantAdapter);
     }
+
+
 }
