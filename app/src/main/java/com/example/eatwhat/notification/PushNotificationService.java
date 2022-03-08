@@ -38,8 +38,9 @@ public class PushNotificationService extends FirebaseMessagingService {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        String uid = firebaseUser.getUid();
         if(firebaseUser != null){
-            if(sented.equals(firebaseUser.getUid())){
+            if(sented.equals(uid)){
                 showNotification(sented, remoteMessage.getNotification().getBody());
                 //sendNotification(remoteMessage);
             }
@@ -48,6 +49,7 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     }
 
+    /**
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void sendNotification(RemoteMessage remoteMessage){
         String title = "EatWhat";
@@ -65,14 +67,14 @@ public class PushNotificationService extends FirebaseMessagingService {
 
     }
 
-
+**/
     public void showNotification(String title,
                                  String message) {
         Log.d(TAG, "show Notification");
 
         // Pass the intent to switch to the MainActivity
         Intent intent
-                = new Intent(this, MainActivity.class);
+                = new Intent(PushNotificationService.this, MainActivity.class);
         // Assign channel ID
         String channel_id = "notification_channel";
         // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
@@ -82,9 +84,7 @@ public class PushNotificationService extends FirebaseMessagingService {
         // Pass the intent to PendingIntent to start the
         // next Activity
         PendingIntent pendingIntent
-                = PendingIntent.getActivity(
-                this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+                =  PendingIntent.getActivity(getApplicationContext(), 0, intent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder
                 = new NotificationCompat
