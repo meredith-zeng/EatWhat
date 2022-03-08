@@ -69,6 +69,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21673003802281368" />
         <entry key="app/src/main/res/layout/activity_my_notes.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_post_detail.xml" value="0.43682664054848186" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_restaurant_detail.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/activity_restaurant_page.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.34427083333333336" />
@@ -76,14 +77,16 @@
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.11203703703703703" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/layout/cardview_test.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/drawer_header.xml" value="0.257708740234375" />
+        <entry key="app/src/main/res/layout/drawer_layout.xml" value="0.2890625" />
         <entry key="app/src/main/res/layout/fragment_daily_shake.xml" value="0.240625" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.17037037037037037" />
         <entry key="app/src/main/res/layout/fragment_notes.xml" value="0.11481481481481481" />
         <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_todays.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/layout_dialog.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/layout_dialog.xml" value="0.12398921832884097" />
         <entry key="app/src/main/res/layout/my_notes_card_item.xml" value="0.20643363728470113" />
-        <entry key="app/src/main/res/layout/post_creation.xml" value="0.2443721130202954" />
+        <entry key="app/src/main/res/layout/post_creation.xml" value="0.17424242424242425" />
         <entry key="app/src/main/res/layout/restaurant_cardview_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/restaurant_spinner_search.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/review_history_card_item.xml" value="0.20643363728470113" />
