@@ -18,7 +18,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_height="300dp"
         android:layout_width="300dp"
-        
+
         android:id="@+id/img_launcher_icon"
         app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
         app:srcCompat="@drawable/eatwhat_logo"
@@ -65,49 +65,49 @@
             android:hint="Password"
             android:textSize="19sp"/>
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:orientation="horizontal">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-<!--            <LinearLayout-->
-<!--                android:background="@drawable/border"-->
-<!--                android:id="@+id/btn_linearlayout"-->
-<!--                android:layout_alignParentLeft="true"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                >-->
+            <LinearLayout
+                android:background="@drawable/border"
+                android:id="@+id/btn_linearlayout"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                >
 
-<!--                <ImageButton-->
-<!--                    android:id="@+id/rememberMe_In_signIn"-->
-<!--                    android:layout_width="40dp"-->
-<!--                    android:layout_height="40dp"-->
-<!--                    >-->
-<!--                </ImageButton>-->
+                <ImageButton
+                    android:id="@+id/rememberMe_In_signIn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    >
+                </ImageButton>
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_toEndOf="@id/btn_linearlayout"-->
-<!--                android:text="Remember me"-->
-<!--                android:textSize="15dp"/>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/forgotPassword"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:layout_gravity="right"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:text="Forgot Password"-->
-<!--                android:textSize="15dp" />-->
-<!--        </RelativeLayout>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toEndOf="@id/btn_linearlayout"
+                android:text="Remember me"
+                android:textSize="15dp"/>
+<!--
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:text="Forgot Password"
+                android:textSize="15dp" />-->
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

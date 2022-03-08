@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -44,7 +46,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView noAccount, forgotPassword;
     Button signIn;
     boolean accepted = false;
-//    ImageButton rememberMe;
+    ImageButton rememberMe;
     private FirebaseAuth mAuth;
     private static final String TAG = "SignInActivity";
     String email_str, password_str;
@@ -56,6 +58,12 @@ public class SignInActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
+    boolean isRemember = false;
+    boolean firstTimeSignIn = true;
+
+    SharedPreferences sharedPreferences;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,34 +72,40 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         checkPermission();
 
+        sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
         Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
         Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide);
         getWindow().setExitTransition(explode);
         getWindow().setEnterTransition(slide);
         getWindow().setReenterTransition(explode);
+
+        SharedPreferences sh2 = getApplicationContext().getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        firstTimeSignIn = sh2.getBoolean("firstTimeSignIn", true);
+
+
         
         password = findViewById(R.id.password_in_signIn);
         email_addr = findViewById(R.id.email_addr_in_signIn);
         noAccount = findViewById(R.id.dont_have_account);
 //        forgotPassword = findViewById(R.id.forgotPassword);
-//        rememberMe = findViewById(R.id.rememberMe_In_signIn);
+        rememberMe = findViewById(R.id.rememberMe_In_signIn);
         signIn = findViewById(R.id.btn_signIn);
         mAuth = FirebaseAuth.getInstance();
-//        rememberMe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(!accepted){
-//                    rememberMe.setBackgroundResource(R.drawable.ic_baseline_check_24);
-//                    accepted = true;
-//                }
-//                else{
-//                    accepted = false;
-//                    rememberMe.setBackgroundResource(0);
-//                }
-//            }
-//        });
 
+        rememberMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isRemember){
+                    rememberMe.setBackgroundResource(R.drawable.ic_baseline_check_24);
+                    isRemember = true;
+                }
+                else{
+                    isRemember = false;
+                    rememberMe.setBackgroundResource(0);
+                }
+            }
+        });
         noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +126,18 @@ public class SignInActivity extends AppCompatActivity {
         if (!email_addr.getText().toString().equals("")){
             signIn.setBackgroundColor(Color.parseColor("#F98426"));
         }
+
+        if(!firstTimeSignIn){
+            String email_address_sh = sh2.getString("email_address", "-1");
+            String password_sh = sh2.getString("password", "-1");
+
+            if(!email_address_sh.equals("-1") && !password_sh.equals("-1")){
+                email_addr.setText(email_address_sh);
+                password.setText(password_sh);
+            }
+        }
+
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,12 +153,8 @@ public class SignInActivity extends AppCompatActivity {
                 else{
                     signIn(email_str, password_str);
                 }
-
             }
         });
-
-
-
     }
 
     private void signIn(String email, String password) {
@@ -142,6 +164,18 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+
+                            // If its first time to sign in, and click remember me, put info into SH.
+                            if(firstTimeSignIn){
+                                if(isRemember){
+                                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                    myEdit.putString("email_address", email_str);
+                                    myEdit.putString("password", password_str);
+                                    myEdit.putBoolean("firstTimeSignIn", false);
+                                    myEdit.commit();
+                                }
+                            }
+
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
@@ -151,7 +185,6 @@ public class SignInActivity extends AppCompatActivity {
 
                         } else {
 
-                            Log.d(TAG, "" + task.getException());
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
