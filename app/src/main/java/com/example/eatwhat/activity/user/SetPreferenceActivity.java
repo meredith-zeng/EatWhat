@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.Toast;
 
 
 import com.example.eatwhat.activity.MainActivity;
@@ -59,8 +60,9 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
 
         List<CheckedTextView> itemList = new ArrayList<>();
         personalPreference = new ArrayList<>();
+        //startToExplore = findViewById(R.id.setPreferenceButton);
         itemList.add((CheckedTextView)findViewById(R.id.Chinese));
-        itemList.add((CheckedTextView)findViewById(R.id.Japanese));
+        itemList.add((CheckedTextView)findViewById(R.id.japanese));
         itemList.add((CheckedTextView)findViewById(R.id.Tai));
         itemList.add((CheckedTextView)findViewById(R.id.French));
         itemList.add((CheckedTextView)findViewById(R.id.Italian));
@@ -68,7 +70,26 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
         itemList.add((CheckedTextView)findViewById(R.id.Korean));
         itemList.add((CheckedTextView)findViewById(R.id.Mexican));
         itemList.add((CheckedTextView)findViewById(R.id.Indian));
-        //startToExplore = findViewById(R.id.setPreferenceButton);
+        itemList.add((CheckedTextView) findViewById(R.id.tradamerican));
+        itemList.add((CheckedTextView)findViewById(R.id.asianfusion));
+        itemList.add((CheckedTextView)findViewById(R.id.brazilian));
+        itemList.add((CheckedTextView)findViewById(R.id.barbeque));
+        itemList.add((CheckedTextView)findViewById(R.id.creperies));
+        itemList.add((CheckedTextView)findViewById(R.id.buffets));
+        itemList.add((CheckedTextView)findViewById(R.id.burgers));
+        itemList.add((CheckedTextView)findViewById(R.id.cafes));
+        itemList.add((CheckedTextView)findViewById(R.id.cheesesteaks));
+        itemList.add((CheckedTextView)findViewById(R.id.dimsum));
+        itemList.add((CheckedTextView)findViewById(R.id.hotdogs));
+        itemList.add((CheckedTextView)findViewById(R.id.diners));
+
+        String [] categoryArray  = new String[]{"tradamerican", "asianfusion", "brazilian",
+                "barbeque", "breakfast_brunch",  "buffets", "burgers", "cafes",
+                "cheesesteaks", "chinese", "chicken_wings", "creperies", "dimsum", "diners",
+                "hotdogs", "foodstands", "french", "german", "gluten_free", "greek", "indpak",
+                "irish", "italian", "japanese", "korean", "latin", "raw_food", "mediterranean",
+                "mexican", "russian", "salad", "pizza", "steak", "thai",
+                "seafood", "spanish", "vegetarian", "vietnamese"};
 
         for (int i = 0; i < itemList.size(); i++) {
             CheckedTextView item = itemList.get(i);
@@ -77,9 +98,13 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
                 @Override
                 public void onClick(View view) {
                     if (item.getCurrentTextColor() == Color.parseColor("#978C8C")){
-                        item.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
-                        item.setTextColor(Color.parseColor("#FFFFFF"));
-                        personalPreference.add(name);
+                        if (personalPreference.size() < 3) {
+                            item.setBackground(getResources().getDrawable(R.drawable.afterclickbox));
+                            item.setTextColor(Color.parseColor("#FFFFFF"));
+                            personalPreference.add(name);
+                        } else {
+                            Toast.makeText(SetPreferenceActivity.this,"preference cannot over 3 items", Toast.LENGTH_SHORT).show();
+                        }
                         //Log.d(TAG, "onClick: +++++++++++++++++++++++++++");
                     } else{
                         item.setBackground(getResources().getDrawable(R.drawable.round_rectangular));

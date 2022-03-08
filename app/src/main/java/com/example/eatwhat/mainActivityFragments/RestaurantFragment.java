@@ -248,7 +248,7 @@ public class RestaurantFragment extends Fragment  {
 
     private void createSpinners(View view, ViewGroup container) {
         String [] categoryArray  = new String[]{"tradamerican", "asianfusion", "brazilian",
-                "barbeque", "breakfast_brunch",  "buffets", "burgers", "cafes",
+                "barbeque", "buffets", "burgers", "cafes",
                 "cheesesteaks", "chinese", "chicken_wings", "creperies", "dimsum", "diners",
                 "hotdogs", "foodstands", "french", "german", "gluten_free", "greek", "indpak",
                 "irish", "italian", "japanese", "korean", "latin", "raw_food", "mediterranean",
