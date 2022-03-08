@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/shake_bg"
+    android:background="@drawable/sign_in_background"
     tools:context=".mainActivityFragments.TodaysFragment">
 
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="50dp"
         android:scaleType="fitXY"
         android:scaleX="2"
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/opensans_semicondensed_medium"
         android:gravity="center"
-        android:text="shake! shake!"
-        android:textColor="@color/black"
+        android:text="Shake! Shake!"
+        android:textColor="@color/white"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgHand" />
 
     <ImageView
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="50dp"
         android:scaleType="fitXY"
         android:scaleX="2"

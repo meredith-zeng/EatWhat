@@ -44,6 +44,7 @@ public class SlpashActivity extends AppCompatActivity {
         }, 2500);
 
     }
+
     Runnable runnable = new Runnable() {
         @Override
         public void run() {

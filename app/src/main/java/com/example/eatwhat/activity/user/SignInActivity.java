@@ -2,12 +2,17 @@ package com.example.eatwhat.activity.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
@@ -22,12 +27,16 @@ import android.widget.Toast;
 
 import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.R;
+import com.example.eatwhat.activity.SlpashActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -39,12 +48,22 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "SignInActivity";
     String email_str, password_str;
+    public static final int MULTIPLE_PERMISSIONS = 10;
+    String[] permissions = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_sign_in);
+        checkPermission();
+
 
         Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
         Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide);
@@ -100,10 +119,10 @@ public class SignInActivity extends AppCompatActivity {
                 email_str = email_addr.getText().toString().trim();
                 password_str = password.getText().toString().trim();
                 if(TextUtils.isEmpty(email_addr.getText())){
-                    Toast.makeText(SignInActivity.this, "Email Address Cannot be Empty!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Email Address Cannot be Empty!", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(password.getText())){
-                    Toast.makeText(SignInActivity.this, "Password Cannot be Empty!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Password Cannot be Empty!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     signIn(email_str, password_str);
@@ -111,6 +130,9 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
     private void signIn(String email, String password) {
@@ -140,4 +162,39 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    private boolean checkPermission(){
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p:permissions) {
+            result = ContextCompat.checkSelfPermission(SignInActivity.this,p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(SignInActivity.this, permissions
+                    , MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissionsList[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissionsList, grantResults);
+        switch (requestCode) {
+            case MULTIPLE_PERMISSIONS: {
+                if (grantResults.length > 0 ) {
+                    for (String per : permissionsList) {
+                        if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                            Toast.makeText(SignInActivity.this, per + " Permission Denied", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(SignInActivity.this, per + " Permission Granted", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                return;
+            }
+        }
+    }
 }
