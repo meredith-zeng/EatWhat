@@ -3,60 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.SearchActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        android:orientation="vertical"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/post_detail_cancel_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginBottom="25dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/cancel_icon_of_searchpage" />
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="25dp"
-                android:contextClickable="true"
-                android:clickable="true"
-                android:background="@drawable/searchframe"
-                />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/TrendsforYou"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trends for You"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:layout_marginStart="55dp"
-            android:textColor="@color/black"
+    <EditText
+        android:id="@+id/search_location"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/map_search"
+        android:gravity="center"
+        android:hint="   Enter City name"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            />
+    <EditText
+        android:id="@+id/search_restaurant_name"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/map_search"
+        android:gravity="center"
+        android:hint="   Enter restaurant name"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:id="@+id/ListView"
-            android:divider="@null"
-            />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
