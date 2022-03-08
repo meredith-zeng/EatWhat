@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -49,6 +50,7 @@ import java.util.List;
 
 
 public class SignUpActivity extends AppCompatActivity {
+
     private final static String TAG = "SignUp Activity";
     EditText email_addr, username, password, repassword;
     Button nextStep;
@@ -59,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
     ImageButton imageBtn;
     ShapeableImageView imageView;
     Bitmap bitmap;
+
 
 
 
@@ -142,6 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
                     email_str = email_addr.getText().toString().trim();
                     password_str = password.getText().toString().trim();
                     username_str = username.getText().toString().trim();
+
                     createAccount(email_str, password_str);
                 }
             }
