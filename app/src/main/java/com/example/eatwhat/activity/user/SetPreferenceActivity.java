@@ -17,11 +17,17 @@ import android.widget.CheckedTextView;
 import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.R;
 import com.example.eatwhat.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +41,7 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
     private Button startToExplore;
     private List<String> personalPreference;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    Map<String, User> users = new HashMap<>();
+    private FirebaseAuth mAuth;
     private Intent homeIntent;
   
     @Override
@@ -43,7 +49,7 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_preference);
         String source = getIntent().getStringExtra("source");
-
+        mAuth = FirebaseAuth.getInstance();
         Button btn = (Button)findViewById(R.id.setPreferenceButton);
         if (source.equals("home")){
             setToolBar();
@@ -99,11 +105,38 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
                     User curUser = (User) intent.getSerializableExtra("currentUser");
                     curUser.setPreference(personalPreference);
                     saveUserInfoToFireStore(curUser);
+                    FirebaseMessaging.getInstance().getToken()
+                            .addOnCompleteListener(new OnCompleteListener<String>() {
+                                @Override
+                                public void onComplete(@NonNull Task<String> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                        return;
+                                    }
+
+                                    // Get new FCM registration token
+                                    String token = task.getResult();
+                                    saveToken(token);
+                                }
+                            });
                     finish();
                 }
                 else if (source.equals("home")) {
                     finish();
                 }
+            }
+        });
+    }
+
+
+    private void saveToken(String token){
+        String curUserId = mAuth.getCurrentUser().getUid();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+        databaseReference.child(curUserId).setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, "Token is successfully uploaded to Firebase");
             }
         });
     }
