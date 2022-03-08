@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import com.example.eatwhat.R;
@@ -26,10 +27,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class NotesFragment extends Fragment {
     private RecyclerView recyclerView;
-    private ArrayList<PostCard> postCardArrayList;
+    private LinkedList<PostCard> postCardArrayList;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -43,13 +45,12 @@ public class NotesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_notes, container, false);
-        postCardArrayList = new ArrayList<>();
+        postCardArrayList = new LinkedList<>();
         // 1. get a reference to recyclerView
         recyclerView = (RecyclerView) rootView.findViewById(R.id.note_recyclerview);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("Posts");
-
         mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -63,11 +64,11 @@ public class NotesFragment extends Fragment {
                 }
             }
         });
+        pullDownRefresh(rootView);
 
         // Inflate the layout for this fragment
         return rootView;
     }
-
 
     private void initRecyclerView(DataSnapshot dataSnapshot){
 
@@ -75,6 +76,8 @@ public class NotesFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        Log.d("NotesFragment", "initRecyclerView");
 
         for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
             PostCard postCard = singleSnapshot.getValue(PostCard.class);
@@ -89,7 +92,8 @@ public class NotesFragment extends Fragment {
             }
             postCard.setPost_title(subtitle);
             postCard.setPost_content(subContent);
-            postCardArrayList.add(postCard);
+            postCardArrayList.addFirst(postCard);
+            Log.d("NotesFragment", "added post");
         }
         // 3. create an adapter
         PostAdapter postAdapter = new PostAdapter(getActivity(), postCardArrayList);
@@ -106,5 +110,35 @@ public class NotesFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
     }
 
-
+    private void pullDownRefresh(View view) {
+        SwipeRefreshLayout swipe = view.findViewById(R.id.swiperefresh_notes);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        postCardArrayList.clear();
+                        PostAdapter postAdapter = new PostAdapter(getActivity(), postCardArrayList);
+                        recyclerView.setAdapter(postAdapter);
+                        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.e("firebase", "Error getting data", task.getException());
+                                }
+                                else {
+                                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                    DataSnapshot dataSnapshot = task.getResult();
+                                    initRecyclerView(dataSnapshot);
+                                }
+                            }
+                        });
+                        Log.d("NotesFragment", "finished refresh");
+                        swipe.setRefreshing(false);
+                    }
+                });
+            }
+        });
+    }
 }

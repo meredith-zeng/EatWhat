@@ -21,17 +21,19 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Viewholder>  implements View.OnClickListener{
 
     private Context context;
-    private ArrayList<PostCard> postCardArrayList;
+    private List<PostCard> postCardArrayList;
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
     private RecyclerViewOnItemClickListener onItemClickListener;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     // Constructor
-    public PostAdapter(Context context, ArrayList<PostCard> postCardArrayList) {
+    public PostAdapter(Context context, List<PostCard> postCardArrayList) {
         this.context = context;
         this.postCardArrayList = postCardArrayList;
     }
