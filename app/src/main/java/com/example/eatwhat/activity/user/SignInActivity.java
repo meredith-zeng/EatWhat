@@ -28,15 +28,26 @@ import android.widget.Toast;
 import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.SlpashActivity;
+import com.example.eatwhat.notification.NotificationData;
+import com.example.eatwhat.notification.Response;
+import com.example.eatwhat.notification.Sender;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -47,6 +58,7 @@ public class SignInActivity extends AppCompatActivity {
 //    ImageButton rememberMe;
     private FirebaseAuth mAuth;
     private static final String TAG = "SignInActivity";
+    private String token = " ";
     String email_str, password_str;
     public static final int MULTIPLE_PERMISSIONS = 10;
     String[] permissions = new String[]{
@@ -126,6 +138,7 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else{
                     signIn(email_str, password_str);
+                    checkToken();
                 }
 
             }
@@ -197,4 +210,41 @@ public class SignInActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    public void checkToken(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        // Get new FCM registration token
+                        token = task.getResult();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        String curUserId = mAuth.getCurrentUser().getUid();
+                        databaseReference.child("Tokens").child(curUserId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                String curToken = String.valueOf(task.getResult().getValue());
+                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+                                    databaseReference.child(curUserId).setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Log.d(TAG, "Token is successfully uploaded to Firebase");
+                                        }
+                                    });
+
+                                Log.d(TAG, "Current Token: " + curToken);
+                            }
+                        });
+                    }
+                });
+
+
+    }
+
+
 }
