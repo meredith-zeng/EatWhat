@@ -16,8 +16,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -80,7 +83,14 @@ public class PostCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.post_creation);
+
+        Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
+        Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide);
+        getWindow().setExitTransition(explode);
+        getWindow().setEnterTransition(slide);
+        getWindow().setReenterTransition(explode);
 
         final String[] exist_postId = {null};
         String imageUrl = null;

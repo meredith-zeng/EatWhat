@@ -6,12 +6,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +29,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.user.ReviewHistoryActivity;
+import com.example.eatwhat.activity.user.SignInActivity;
 import com.example.eatwhat.adapter.ReviewAdapter;
 import com.example.eatwhat.adapter.ReviewHistoryAdapter;
 import com.example.eatwhat.cardview.RestaurantCard;
@@ -96,7 +100,14 @@ public class RestaurantPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_scrolling);
+
+        Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
+        Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide);
+        getWindow().setExitTransition(slide);
+        getWindow().setEnterTransition(explode);
+        getWindow().setReenterTransition(explode);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -243,7 +254,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                             Uri gmmIntentUri = Uri.parse("geo:0,0" + "?q=" + address);
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                             mapIntent.setPackage("com.google.android.apps.maps");
-                            startActivity(mapIntent);
+                            startActivity(mapIntent,ActivityOptions.makeSceneTransitionAnimation(RestaurantPageActivity.this).toBundle());
                         }
                     });
                     call_phone_liearlayout.setOnClickListener(new View.OnClickListener(){

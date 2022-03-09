@@ -160,9 +160,16 @@ public class TodaysFragment extends Fragment {
                                 @Override
                                 public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                                     if (response.code() == 200){
-                                        Business business = response.body().getBusinesses().get(0);
-                                        restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
-                                        restaurantId = business.getId();
+                                        Business business;
+                                        if (response.body().getBusinesses() == null || response.body().getBusinesses().size() == 0){
+                                            //Todo: Add exception handling
+//                                            business = new RestaurantCard();
+                                        }else {
+                                            business = response.body().getBusinesses().get(0);
+                                            restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
+                                            restaurantId = business.getId();
+                                        }
+
                                         Log.e("Shake res" , restaurantCard.getRestaurantImageUrl());
                                     }
                                 }
