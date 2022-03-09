@@ -27,7 +27,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="75dp"
             android:text="@string/set_preference"
-            android:textSize="28sp" />
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <GridLayout
