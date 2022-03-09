@@ -25,6 +25,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.eatwhat.R;
+import com.example.eatwhat.mainActivityFragments.RestaurantFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -220,7 +221,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
 
     @Override
     public void onBackPressed() {
-        Intent backMain = new Intent();
+        Intent backMain = new Intent(this, RestaurantFragment.class);
         backMain.putExtra("Longitude", myLong);
         backMain.putExtra("Latitude", myLat);
         setResult(Activity.RESULT_OK, backMain);

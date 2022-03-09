@@ -214,8 +214,8 @@ public class PostCreationActivity extends AppCompatActivity {
                     Log.d(TAG, "Size: " + listofImages.size());
 
                 }
-                Intent intent = new Intent(PostCreationActivity.this, MyNotesActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(PostCreationActivity.this, MyNotesActivity.class);
+                //startActivity(intent);
                 finish();
             }
 

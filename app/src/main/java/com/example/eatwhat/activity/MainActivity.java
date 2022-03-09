@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 super.onActivityResult(requestCode, resultCode, data);
                 lng = data.getDoubleExtra("Longitude", 0);
                 lat = data.getDoubleExtra("Latitude", 0);
-                System.out.println("regertgertgerger");
                 Bundle args = new Bundle();
                 args.putDouble("Longitude", lng);
                 args.putDouble("Latitude", lat);
@@ -207,10 +206,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case android.R.id.home:
                 myDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.action_search:
-                Intent searchIntent = new Intent(this, SearchActivity.class);
-                startActivity(searchIntent);
-                return true;
             case R.id.action_map:
                 Intent mapIntent = new Intent(this, MyMapActivity.class);
                 mapIntent.putExtra("Longitude", lng);
@@ -225,8 +220,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
-//            case R.id.drawer_home:
-//                return true;
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
@@ -234,10 +227,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_postes:
                 Intent toMyNotes = new Intent(this, MyNotesActivity.class);
                 startActivity(toMyNotes);
-                return true;
-            case R.id.drawer_history:
-                Intent toReviewHistory = new Intent(this, ReviewHistoryActivity.class);
-                startActivity(toReviewHistory);
                 return true;
             case R.id.drawer_logout:
                 FirebaseAuth.getInstance().signOut();

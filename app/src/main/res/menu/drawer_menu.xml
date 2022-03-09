@@ -27,12 +27,6 @@
 <!--            android:icon="@drawable/drawer_mypreference_24"-->
 <!--            />-->
 
-        <item android:id="@+id/drawer_history"
-            android:checkable="true"
-            android:title="Review History"
-            android:icon="@drawable/drawer_reviewhistory_24"
-            />
-
         <item android:id="@+id/drawer_collected_restaurant"
             android:checkable="true"
             android:title="Collected Restaurant"
