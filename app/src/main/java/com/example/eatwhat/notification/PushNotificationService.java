@@ -129,7 +129,7 @@ public class PushNotificationService extends FirebaseMessagingService {
 
         // Pass the intent to switch to the MainActivity
         Intent intent
-                = new Intent(PushNotificationService.this, NotesFragment.class);
+                = new Intent(PushNotificationService.this, MainActivity.class);
         // Assign channel ID
         String channel_id = "notification_channel";
 
