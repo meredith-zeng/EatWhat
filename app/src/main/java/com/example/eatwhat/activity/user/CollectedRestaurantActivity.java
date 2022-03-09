@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,8 +72,7 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         getCollectedIdFromFirebase();
-
-
+        pullDownRefresh();
 
     }
 
@@ -149,6 +149,19 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(restaurantAdapter);
+    }
+
+
+    private void pullDownRefresh() {
+        SwipeRefreshLayout swipe = findViewById(R.id.swiperefresh_collect_restaurant);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                restaurantCardsList.clear();
+                getCollectedIdFromFirebase();
+                swipe.setRefreshing(false);
+            }
+        });
     }
 
 

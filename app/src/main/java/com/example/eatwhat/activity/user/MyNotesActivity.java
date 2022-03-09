@@ -114,7 +114,7 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
                 swipe.setRefreshing(false);
             }
         });
-}
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
