@@ -146,7 +146,10 @@ public class TodaysFragment extends Fragment {
                         if (document.exists()) {
 
                             User curUser = document.toObject(User.class);
-                            int index = RandomUtil.getRandomNumber(0, curUser.getPreference().size() - 1);
+                            int index = RandomUtil.getRandomNumber(curUser.getPreference().size() - 1, 0);
+                            if (index < 0 || index > curUser.getPreference().size()){
+                                index = 0;
+                            }
                             String category = curUser.getPreference().get(index);
                             int offset = RandomUtil.getRandomNumber(0, 30);
                             Call<Restaurant> call = methods.queryRestaurantByCategory(null, location, category, null, 1, offset);

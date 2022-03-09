@@ -71,6 +71,8 @@ public class SignInActivity extends AppCompatActivity {
     };
     boolean isRemember = false;
     boolean firstTimeSignIn = true;
+    boolean saveLogin;
+    private SharedPreferences.Editor myEdit;
 
     SharedPreferences sharedPreferences;
     @Override
@@ -96,6 +98,7 @@ public class SignInActivity extends AppCompatActivity {
         rememberMe = findViewById(R.id.rememberMe_In_signIn);
         signIn = findViewById(R.id.btn_signIn);
         mAuth = FirebaseAuth.getInstance();
+         myEdit = sharedPreferences.edit();
 
         rememberMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,12 +109,16 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else{
                     isRemember = false;
+//                    myEdit.clear();
+//                    myEdit.commit();
                     rememberMe.setBackgroundResource(0);
                 }
             }
         });
-        if(!firstTimeSignIn){
+        boolean saveLogin = sh2.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
             String email_address_sh = sh2.getString("email_address", "-1");
+
             String password_sh = sh2.getString("password", "-1");
 
             if(!email_address_sh.equals("-1") && !password_sh.equals("-1")){
@@ -119,6 +126,16 @@ public class SignInActivity extends AppCompatActivity {
                 password.setText(password_sh);
             }
         }
+//        if(!firstTimeSignIn){
+//            String email_address_sh = sh2.getString("email_address", "-1");
+//
+//            String password_sh = sh2.getString("password", "-1");
+//
+//            if(!email_address_sh.equals("-1") && !password_sh.equals("-1")){
+//                email_addr.setText(email_address_sh);
+//                password.setText(password_sh);
+//            }
+//        }
 //        rememberMe.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -183,15 +200,19 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            if(firstTimeSignIn){
+
+//                            if(firstTimeSignIn){
                                 if(isRemember){
-                                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
                                     myEdit.putString("email_address", email_str);
                                     myEdit.putString("password", password_str);
                                     myEdit.putBoolean("firstTimeSignIn", false);
+                                    myEdit.putBoolean("saveLogin", true);
+                                    myEdit.commit();
+                                } else {
+                                    myEdit.clear();
                                     myEdit.commit();
                                 }
-                            }
+//                            }
                             checkToken();
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
