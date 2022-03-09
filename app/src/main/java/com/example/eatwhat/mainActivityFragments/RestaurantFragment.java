@@ -95,7 +95,6 @@ public class RestaurantFragment extends Fragment  {
         createSpinners(view, container);
         initData();
         pullUpToRefresh(view);
-        initSearchRestaurantEditText(view);
         confirmInputRestaurant(view);
         return view;
     }
@@ -193,7 +192,7 @@ public class RestaurantFragment extends Fragment  {
                     sortBy = null;
                 }
                 else {
-                    sortBy = "rating";
+                    sortBy = "review_count";
                 }
                 reset();
             }
@@ -402,9 +401,11 @@ public class RestaurantFragment extends Fragment  {
 
     private void confirmInputRestaurant(View view) {
         Button search = (Button) view.findViewById(R.id.search);
+        EditText inputName = (EditText) view.findViewById(R.id.search_restaurant_name);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                inputRestaurantName = inputName.getText().toString();
                 System.out.println(inputRestaurantName);
                 reset();
                 initData();
