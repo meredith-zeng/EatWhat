@@ -302,10 +302,17 @@ public class PostDetailActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                        Log.d(TAG, "Here: " + response.code());
                                         if(response.code() == 200){
                                             if(response.body().getSuccess() != 1){
                                                 Log.d(TAG, "Failed ");
                                             }
+                                            else{
+                                                Log.d(TAG, "Successfully!");
+                                            }
+                                        }
+                                        else{
+                                            Log.d(TAG, "Response Code: " + response.code() + " ");
                                         }
                                     }
 
