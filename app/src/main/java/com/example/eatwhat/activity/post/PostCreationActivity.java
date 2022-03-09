@@ -89,7 +89,7 @@ public class PostCreationActivity extends AppCompatActivity {
         Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
         Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide);
         getWindow().setExitTransition(explode);
-        getWindow().setEnterTransition(slide);
+        getWindow().setEnterTransition(explode);
         getWindow().setReenterTransition(explode);
 
         final String[] exist_postId = {null};

@@ -125,7 +125,7 @@ public class TodaysFragment extends Fragment {
             float y = Math.abs(values[1]);
             float z = Math.abs(values[2]);
 
-            if (x > 60 || y > 60 || z > 60) {
+            if (x > 70 || y > 70 || z > 100) {
                 isShake = true;
                 playSound(getContext());
                 vibrate( 500);
