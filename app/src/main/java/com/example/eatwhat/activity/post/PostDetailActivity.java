@@ -278,7 +278,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     //Id is post owner id;
-    public void sendNotification(String userId){
+    public void sendNotification(String userId2){
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("user").document(uid);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -290,13 +290,26 @@ public class PostDetailActivity extends AppCompatActivity {
                         User user = document.toObject(User.class);
                         String user_name = user.getUsername();
                         //Log.d(TAG, user_name + " + " + userId);
+
+
+                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                    return;
+                                }
+
+                                String token = task.getResult();
+                            }
+                        });
+
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        databaseReference.child("Tokens").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        databaseReference.child("Tokens").child(userId2).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                 String postOwnerToken = String.valueOf(task.getResult().getValue());
-                                Log.d(TAG, "Token: " + postOwnerToken);
-                                Sender sender = new Sender(postOwnerToken, new NotificationData(userId, user_name + " likes your post!"));
+                                Sender sender = new Sender(postOwnerToken, new NotificationData(userId2, user_name + " likes your post!"));
                                 apiservice.sendNotification(sender).enqueue(new Callback<Response>() {
 
 

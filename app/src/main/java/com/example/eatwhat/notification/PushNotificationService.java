@@ -36,9 +36,38 @@ public class PushNotificationService extends FirebaseMessagingService {
     private static final String TAG = "PushNotificationService";
 
     @Override
-    public void onNewToken(@NonNull String token) {
+    public void onNewToken(@NonNull String s) {
         Log.d(TAG, "new token");
-        sendRegistrationToServer(token);
+        //sendRegistrationToServer(token);
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d(TAG, msg);
+                        FirebaseUser curUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                        if(curUser != null){
+                            String uid = curUser.getUid();
+                            DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+                            databaseRef.child("Tokens").child(uid).setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d(TAG, "Token been updated");
+                                }
+                            });
+
+                        }
+                    }
+                });
 
     }
 
