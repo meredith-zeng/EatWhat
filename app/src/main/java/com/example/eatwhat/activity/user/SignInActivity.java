@@ -171,9 +171,6 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void signIn(String email, String password) {
