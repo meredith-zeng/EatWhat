@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_my_notes);
         setToolBar();
         initData();
+        pullDownRefresh();
     }
 
 
@@ -99,6 +101,20 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
             }
         });
     }
+
+
+    private void pullDownRefresh() {
+        SwipeRefreshLayout swipe = findViewById(R.id.swiperefresh_my_notes);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                postCardArrayList.clear();
+                initRecyclerView();
+                initData();
+                swipe.setRefreshing(false);
+            }
+        });
+}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {

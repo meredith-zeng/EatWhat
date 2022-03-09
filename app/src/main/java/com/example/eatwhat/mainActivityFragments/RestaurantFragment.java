@@ -247,7 +247,7 @@ public class RestaurantFragment extends Fragment  {
     }
 
     private void createSpinners(View view, ViewGroup container) {
-        String [] categoryArray  = new String[]{"tradamerican", "asianfusion", "brazilian",
+        String [] categoryArray  = new String[]{"No Category", "tradamerican", "asianfusion", "brazilian",
                 "barbeque", "buffets", "burgers", "cafes",
                 "cheesesteaks", "chinese", "chicken_wings", "creperies", "dimsum", "diners",
                 "hotdogs", "foodstands", "french", "german", "gluten_free", "greek", "indpak",
@@ -308,7 +308,12 @@ public class RestaurantFragment extends Fragment  {
                         switch (type) {
                             case "category":
                                 selectedCategory = adapter.getItem(position);
-                                Log.e(TAG+ "choose category", selectedCategory);
+                                if (selectedCategory.equals("No Category")) {
+                                    selectedCategory = null;
+                                    reset();
+                                    initData();
+                                }
+                                //Log.e(TAG+ "choose category", selectedCategory);
 
                                 if (selectedCategory != null) {
                                     reset();
