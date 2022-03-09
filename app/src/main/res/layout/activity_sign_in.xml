@@ -136,6 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="#F98426"
         android:text="Sign In"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
