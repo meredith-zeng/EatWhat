@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -85,6 +88,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
 
     private ArrayList<ReviewCard> ReviewCardArrayList = new ArrayList<>();
     private String businessID = null;
+
+    private LinearLayout address_direction;
+    private LinearLayout call_phone_liearlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,7 +176,19 @@ public class RestaurantPageActivity extends AppCompatActivity {
         phoneText = (TextView) findViewById(R.id.restaurant_phone);
         address_icon = (ImageView)findViewById(R.id.address_icon);
         call_icon = (ImageView)findViewById(R.id.call_icon);
+        address_direction = (LinearLayout)findViewById(R.id.address_direction_layout);
+        call_phone_liearlayout = (LinearLayout)findViewById(R.id.call_phone_layout);
 
+
+        restaurant_address.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ClipboardManager cm = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                cm.setText(restaurant_address.getText().toString());
+                Toast.makeText(getApplicationContext(), "Address is been copied!", Toast.LENGTH_SHORT).show();
+                return true;
+            };
+        });
 
         Intent intent = getIntent();
         String imageUrl = intent.getStringExtra("imageUrl");
@@ -216,7 +234,9 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     ratingText.setText(rating);
                     phoneText.setText(phone);
 
-                    address_icon.setOnClickListener(new View.OnClickListener(){
+
+
+                    address_direction.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view){
                             // Create a Uri from an intent string. Use the result to create an Intent.
@@ -226,7 +246,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                             startActivity(mapIntent);
                         }
                     });
-                    call_icon.setOnClickListener(new View.OnClickListener(){
+                    call_phone_liearlayout.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view) {
                             callPhone(phone);
