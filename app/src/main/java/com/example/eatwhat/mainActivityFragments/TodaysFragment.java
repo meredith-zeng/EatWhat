@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -33,11 +34,19 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
 import com.example.eatwhat.cardview.RestaurantCard;
+import com.example.eatwhat.model.User;
 import com.example.eatwhat.service.RestaurantService;
 import com.example.eatwhat.service.RetrofitClient;
 import com.example.eatwhat.service.RestaurantPojo.Business;
 import com.example.eatwhat.service.RestaurantPojo.Restaurant;
 import com.example.eatwhat.util.RandomUtil;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +70,7 @@ public class TodaysFragment extends Fragment {
     private Button bt_today;
     private static final String TOKEN = "RO1Oxxrhr0ZE2nvxEvJ0ViejBTWKcLLhPQ7wg6GGPlGiHvjwaLPU2eWlt4myH3BC1CP4RSzIQ7UCFjZ-FBaF_4ToUYHfs6FF6FwipyMuz47xVvlpEr6gDv-2YRQUYnYx";
 
+    private FusedLocationProviderClient fusedLocationClient;
     public TodaysFragment() {
         // Required empty public constructor
     }
@@ -86,7 +96,6 @@ public class TodaysFragment extends Fragment {
 
     @Override
     public void onResume() {
-        //注册监听加速度传感器
         Log.e(TAG, "register shakeListener");
         sensorManager.registerListener(shakeListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_FASTEST);
@@ -115,7 +124,7 @@ public class TodaysFragment extends Fragment {
             float y = Math.abs(values[1]);
             float z = Math.abs(values[2]);
 
-            if (x > 45 || y > 45 || z > 100000) {
+            if (x > 60 || y > 60) {
                 isShake = true;
                 playSound(getContext());
                 vibrate( 500);
@@ -124,33 +133,54 @@ public class TodaysFragment extends Fragment {
                 RestaurantService methods = retrofitClient.getRetrofit().create(RestaurantService.class);
 
                 String location = "Santa Clara";
-                int offset = RandomUtil.getRandomNumber(0, 30);
-                Call<Restaurant> call = methods.queryRestaurantByCategory(null, location, null, null, 1, offset);
-                Log.d(TAG, "run: " + call.toString());
-                call.enqueue(new Callback<Restaurant>() {
-                    @Override
-                    public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                        if (response.code() == 200){
-                            Business business = response.body().getBusinesses().get(0);
-                            restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
-                            restaurantId = business.getId();
-                            Log.e("Shake res" , restaurantCard.getRestaurantImageUrl());
-                        }
-                    }
 
+                DocumentReference docRef = FirebaseFirestore
+                        .getInstance()
+                        .collection("user")
+                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onFailure(Call<Restaurant> call, Throwable t) {
-                        Log.e("Shake res" ,t.toString());
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+
+                            User curUser = document.toObject(User.class);
+                            int index = RandomUtil.getRandomNumber(0, curUser.getPreference().size() - 1);
+                            String category = curUser.getPreference().get(index);
+                            int offset = RandomUtil.getRandomNumber(0, 30);
+                            Call<Restaurant> call = methods.queryRestaurantByCategory(null, location, category, null, 1, offset);
+
+
+                            Log.d(TAG, "run: " + call.toString());
+                            call.enqueue(new Callback<Restaurant>() {
+                                @Override
+                                public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                                    if (response.code() == 200){
+                                        Business business = response.body().getBusinesses().get(0);
+                                        restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
+                                        restaurantId = business.getId();
+                                        Log.e("Shake res" , restaurantCard.getRestaurantImageUrl());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Restaurant> call, Throwable t) {
+                                    Log.e("Shake res" ,t.toString());
+                                }
+                            });
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showDialog();
+                                    anim.cancel();
+                                }
+                            },1000);
+                        }
                     }
                 });
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showDialog();
-                        anim.cancel();
-                    }
-                },1000);
             }
         }
 

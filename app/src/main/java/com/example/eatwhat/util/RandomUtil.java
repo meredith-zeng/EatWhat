@@ -1,5 +1,8 @@
 package com.example.eatwhat.util;
 
+import androidx.annotation.NonNull;
+
+
 public class RandomUtil {
 
     // define the range
@@ -9,5 +12,6 @@ public class RandomUtil {
         int rand = (int)(Math.random() * range) + min;
         return rand;
     }
+
 
 }
