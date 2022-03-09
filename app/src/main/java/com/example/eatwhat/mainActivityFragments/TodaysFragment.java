@@ -2,6 +2,7 @@ package com.example.eatwhat.mainActivityFragments;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -161,9 +162,10 @@ public class TodaysFragment extends Fragment {
                                 public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                                     if (response.code() == 200){
                                         Business business;
-                                        if (response.body().getBusinesses() == null || response.body().getBusinesses().size() == 0){
+                                        if (response.body().getBusinesses() == null || response.body().getBusinesses().size() == 0) {
                                             //Todo: Add exception handling
-//                                            business = new RestaurantCard();
+                                            RestaurantCard newCard = new RestaurantCard("https://s3-media2.fl.yelpcdn.com/bphoto/lya4BuaaKfI6zN1LrmCA8g/o.jpg"
+                                                    ,"Colosseum New York Pizza", "Pizza", 4, "5hoAAdJ2XUVwFnmX49nyqw");
                                         }else {
                                             business = response.body().getBusinesses().get(0);
                                             restaurantCard = new RestaurantCard(business.getImageUrl(), business.getName(), business.getCategories().get(0).getTitle(), business.getRating(), business.getId());
@@ -204,6 +206,7 @@ public class TodaysFragment extends Fragment {
         player.start();
     }
 
+    @SuppressLint("MissingPermission")
     private void vibrate(long milliseconds) {
         Vibrator vibrator = (Vibrator)getContext().getSystemService(Service.VIBRATOR_SERVICE);
         vibrator.vibrate(milliseconds);
