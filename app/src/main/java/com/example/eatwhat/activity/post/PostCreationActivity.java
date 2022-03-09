@@ -45,6 +45,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -171,20 +172,45 @@ public class PostCreationActivity extends AppCompatActivity {
                     String comment_str = res_comment.getText().toString();
                     String uid = user.getUid();
                     String postId = UUID.randomUUID().toString();
+                    String new_image_id = UUID.randomUUID().toString();
                     if(exist_postId[0] != null) {
                         postId = exist_postId[0];
                     }
                     StorageReference reference = FirebaseStorage.getInstance().getReference()
-                            .child("postImages").child(postId).child(postId + ".jpeg");
+                            .child("postImages").child(postId).child(new_image_id + ".jpeg");
 
                     Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] data = baos.toByteArray();
-                    UploadTask uploadTask = reference.putBytes(data);
 
-                    image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + postId + ".jpeg";
+                    image_url = "gs://project-43404.appspot.com/postImages/" + postId + "/" + new_image_id + ".jpeg";
                     if(exist_postId[0] != null) {
+                        StorageReference reference1 = FirebaseStorage.getInstance().getReference()
+                                .child("postImages").child(postId);
+                        reference1.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                            @Override
+                            public void onSuccess(ListResult listResult) {
+                                for (StorageReference item : listResult.getItems()) {
+                                    item.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+//                                            Log.e("Error while updating image!", String.valueOf(exception));
+                                        }
+                                    });
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+//                                        Log.e("Error while updating image!", String.valueOf(e));
+                            }
+                        });
+                        UploadTask uploadTask = reference.putBytes(data);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Posts").child(exist_pid[0]);
                         Map<String, Object> updates = new HashMap<String,Object>();
                         updates.put("post_content", comment_str);
@@ -195,6 +221,7 @@ public class PostCreationActivity extends AppCompatActivity {
                         Log.d("Update database", exist_postId[0]);
                         ref.updateChildren(updates);
                     }else {
+                        UploadTask uploadTask = reference.putBytes(data);
                         List<String> likedList = new ArrayList<>();
                         likedList.add("0");
                         PostCard postCard = new PostCard(uid, postId, title_str, comment_str, 0, image_url, name_str, ratings, likedList);
