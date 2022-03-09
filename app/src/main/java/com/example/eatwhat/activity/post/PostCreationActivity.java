@@ -176,8 +176,6 @@ public class PostCreationActivity extends AppCompatActivity {
                     if(exist_postId[0] != null) {
                         postId = exist_postId[0];
                     }
-                    StorageReference reference = FirebaseStorage.getInstance().getReference()
-                            .child("postImages").child(postId).child(new_image_id + ".jpeg");
 
                     Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -210,6 +208,8 @@ public class PostCreationActivity extends AppCompatActivity {
 //                                        Log.e("Error while updating image!", String.valueOf(e));
                             }
                         });
+                        StorageReference reference = FirebaseStorage.getInstance().getReference()
+                                .child("postImages").child(postId).child(new_image_id + ".jpeg");
                         UploadTask uploadTask = reference.putBytes(data);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Posts").child(exist_pid[0]);
                         Map<String, Object> updates = new HashMap<String,Object>();
@@ -221,6 +221,8 @@ public class PostCreationActivity extends AppCompatActivity {
                         Log.d("Update database", exist_postId[0]);
                         ref.updateChildren(updates);
                     }else {
+                        StorageReference reference = FirebaseStorage.getInstance().getReference()
+                                .child("postImages").child(postId).child(new_image_id + ".jpeg");
                         UploadTask uploadTask = reference.putBytes(data);
                         List<String> likedList = new ArrayList<>();
                         likedList.add("0");
@@ -239,16 +241,9 @@ public class PostCreationActivity extends AppCompatActivity {
                         });
                     }
                     Log.d(TAG, "Size: " + listofImages.size());
-
+                    finish();
                 }
-                //Intent intent = new Intent(PostCreationActivity.this, MyNotesActivity.class);
-                //startActivity(intent);
-                finish();
             }
-
-
-
-
         });
 
 
