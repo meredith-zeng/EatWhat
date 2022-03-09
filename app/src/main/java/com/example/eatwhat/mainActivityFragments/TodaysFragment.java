@@ -172,7 +172,6 @@ public class TodaysFragment extends Fragment {
                                             restaurantId = business.getId();
                                         }
 
-                                        Log.e("Shake res" , restaurantCard.getRestaurantImageUrl());
                                     }
                                 }
 
@@ -231,13 +230,17 @@ public class TodaysFragment extends Fragment {
 
 
         tvTitle.setText(restaurantCard.getTitle());
-
-        GlideUrl glideUrl = new GlideUrl(restaurantCard.getRestaurantImageUrl(), new LazyHeaders.Builder()
-                .addHeader("Authorization", " Bearer " + TOKEN)
-                .build());
-        Glide.with(getContext())
-                .load(glideUrl)
-                .into(iv_image);
+        if (restaurantCard.getRestaurantImageUrl().toString().length() != 0) {
+            GlideUrl glideUrl = new GlideUrl(restaurantCard.getRestaurantImageUrl(), new LazyHeaders.Builder()
+                    .addHeader("Authorization", " Bearer " + TOKEN)
+                    .build());
+            Glide.with(getContext())
+                    .load(glideUrl)
+                    .into(iv_image);
+        }
+        else {
+            Log.d("From TodaysFragment", "getRestaurantImageUrl() is empty");
+        }
 
         bt_today.setOnClickListener(new View.OnClickListener(){
             @Override
