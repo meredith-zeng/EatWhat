@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -66,8 +67,7 @@ import retrofit2.Response;
 
 public class RestaurantPageActivity extends AppCompatActivity {
     private TextView nameTv, restaurant_address, price_level, ratingText, phoneText;
-    private ImageView resImage;
-
+    private ImageView resImage, address_icon, call_icon;
     private FloatingActionButton floatingActionButton;
 
     private DetailedBusiness business;
@@ -168,7 +168,8 @@ public class RestaurantPageActivity extends AppCompatActivity {
         restaurant_address = (TextView) findViewById(R.id.restaurant_address);
         ratingText = (TextView) findViewById(R.id.rating);
         phoneText = (TextView) findViewById(R.id.restaurant_phone);
-
+        address_icon = (ImageView)findViewById(R.id.address_icon);
+        call_icon = (ImageView)findViewById(R.id.call_icon);
 
 
         Intent intent = getIntent();
@@ -215,7 +216,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                     ratingText.setText(rating);
                     phoneText.setText(phone);
 
-                    restaurant_address.setOnClickListener(new View.OnClickListener(){
+                    address_icon.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view){
                             // Create a Uri from an intent string. Use the result to create an Intent.
@@ -225,7 +226,7 @@ public class RestaurantPageActivity extends AppCompatActivity {
                             startActivity(mapIntent);
                         }
                     });
-                    phoneText.setOnClickListener(new View.OnClickListener(){
+                    call_icon.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view) {
                             callPhone(phone);
