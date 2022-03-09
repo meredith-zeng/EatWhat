@@ -40,11 +40,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
     Bitmap bitmap;
 
 
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private final static int CAMERA_PERMISSION_CODE = 1;
     private final static int STORAGE_PERMISSION_CODE = 2;
@@ -162,6 +166,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    // Todo: Transaction needs
     private void createAccount(String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -188,6 +193,7 @@ public class SignUpActivity extends AppCompatActivity {
                     });
                     List<String> list = new LinkedList<>();
                     currentUser = new User(uid, username_str, email_str, "", list, list, list);
+                    saveUserInfoToFireStore(currentUser);
                     Intent intent = new Intent(SignUpActivity.this, SetPreferenceActivity.class);
                     intent.putExtra("currentUser", currentUser);
                     intent.putExtra("source", "signup");
@@ -202,6 +208,7 @@ public class SignUpActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -367,6 +374,33 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(SignUpActivity.this, "Profile Image failed...", Toast.LENGTH_SHORT);
+            }
+        });
+    }
+
+//    private void saveToken(String token){
+//        String curUserId = mAuth.getCurrentUser().getUid();
+//        HashMap<String, Object> hashMap = new HashMap<>();
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+//        databaseReference.child(curUserId).setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                Log.d(TAG, "Token is successfully uploaded to Firebase");
+//            }
+//        });
+//    }
+
+    public void saveUserInfoToFireStore(User curUser){
+        String uid = curUser.getUid();
+        db.collection("user").document(uid).set(curUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "User upload successfully!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error adding document", e);
             }
         });
     }
