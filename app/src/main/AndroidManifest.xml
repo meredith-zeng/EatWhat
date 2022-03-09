@@ -51,6 +51,10 @@
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />
         <activity
+            android:name=".activity.user.LikedNotesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.EatWhat.NoActionBar" />
+        <activity
             android:name=".activity.SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.EatWhat.NoActionBar" />

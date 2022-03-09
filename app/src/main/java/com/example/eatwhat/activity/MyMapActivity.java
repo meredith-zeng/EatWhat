@@ -1,6 +1,7 @@
 package com.example.eatwhat.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -50,7 +51,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
     private double myLong = 0;
     private double myLat = 0;
     GoogleMap myGoogleMap = null;
-
+    private Button submit_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
     }
 
     private void initSearchLocation() {
@@ -80,7 +82,20 @@ public class MyMapActivity extends AppCompatActivity implements OnMapReadyCallba
                 return false;
             }
         });
+        submit_location = (Button) findViewById(R.id.submit_location);
+        submit_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backMain = new Intent();
+                backMain.putExtra("Longitude", myLong);
+                backMain.putExtra("Latitude", myLat);
+                setResult(Activity.RESULT_OK, backMain);
+                finish();
+            }
+        });
     }
+
+
 
     private void goToInputLocation(EditText input) {
         String inputLocation = input.getText().toString();

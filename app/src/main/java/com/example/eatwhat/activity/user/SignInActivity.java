@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,15 +29,26 @@ import android.widget.Toast;
 import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.SlpashActivity;
+import com.example.eatwhat.notification.NotificationData;
+import com.example.eatwhat.notification.Response;
+import com.example.eatwhat.notification.Sender;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -44,9 +56,10 @@ public class SignInActivity extends AppCompatActivity {
     TextView noAccount, forgotPassword;
     Button signIn;
     boolean accepted = false;
-//    ImageButton rememberMe;
+    private ImageButton rememberMe;
     private FirebaseAuth mAuth;
     private static final String TAG = "SignInActivity";
+    private String token = " ";
     String email_str, password_str;
     public static final int MULTIPLE_PERMISSIONS = 10;
     String[] permissions = new String[]{
@@ -56,7 +69,10 @@ public class SignInActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
+    boolean isRemember = false;
+    boolean firstTimeSignIn = true;
 
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,14 +86,39 @@ public class SignInActivity extends AppCompatActivity {
         getWindow().setExitTransition(explode);
         getWindow().setEnterTransition(slide);
         getWindow().setReenterTransition(explode);
-        
+        sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences sh2 = getApplicationContext().getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        firstTimeSignIn = sh2.getBoolean("firstTimeSignIn", true);
         password = findViewById(R.id.password_in_signIn);
         email_addr = findViewById(R.id.email_addr_in_signIn);
         noAccount = findViewById(R.id.dont_have_account);
 //        forgotPassword = findViewById(R.id.forgotPassword);
-//        rememberMe = findViewById(R.id.rememberMe_In_signIn);
+        rememberMe = findViewById(R.id.rememberMe_In_signIn);
         signIn = findViewById(R.id.btn_signIn);
         mAuth = FirebaseAuth.getInstance();
+
+        rememberMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isRemember){
+                    rememberMe.setBackgroundResource(R.drawable.ic_baseline_check_24);
+                    isRemember = true;
+                }
+                else{
+                    isRemember = false;
+                    rememberMe.setBackgroundResource(0);
+                }
+            }
+        });
+        if(!firstTimeSignIn){
+            String email_address_sh = sh2.getString("email_address", "-1");
+            String password_sh = sh2.getString("password", "-1");
+
+            if(!email_address_sh.equals("-1") && !password_sh.equals("-1")){
+                email_addr.setText(email_address_sh);
+                password.setText(password_sh);
+            }
+        }
 //        rememberMe.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -126,6 +167,7 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else{
                     signIn(email_str, password_str);
+                    checkToken();
                 }
 
             }
@@ -142,6 +184,15 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            if(firstTimeSignIn){
+                                if(isRemember){
+                                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                    myEdit.putString("email_address", email_str);
+                                    myEdit.putString("password", password_str);
+                                    myEdit.putBoolean("firstTimeSignIn", false);
+                                    myEdit.commit();
+                                }
+                            }
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
@@ -197,4 +248,41 @@ public class SignInActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    public void checkToken(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+                        // Get new FCM registration token
+                        token = task.getResult();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        String curUserId = mAuth.getCurrentUser().getUid();
+                        databaseReference.child("Tokens").child(curUserId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                String curToken = String.valueOf(task.getResult().getValue());
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+                                databaseReference.child(curUserId).setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Log.d(TAG, "Token is successfully uploaded to Firebase");
+                                    }
+                                });
+
+                                Log.d(TAG, "Current Token: " + curToken);
+                            }
+                        });
+                    }
+                });
+
+
+    }
+
+
 }

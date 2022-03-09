@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private Intent homeIntent;
     ShapeableImageView imageView;
     TextView email_addr;
-    EditText username;
+    private EditText username;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     public static final String TAG = "ProfileActivity";
@@ -65,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         db = FirebaseFirestore.getInstance();
         String uid = user.getUid();
         DocumentReference docRef = db.collection("user").document(uid);
-
 
         String email = user.getEmail();
         Uri imageUri = user.getPhotoUrl();
@@ -142,6 +141,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = (Toolbar)findViewById(R.id.profileToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public String getUserName(){
+        return username.getText().toString();
     }
 
     @Override

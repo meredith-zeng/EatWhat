@@ -34,16 +34,33 @@
         android:id="@+id/my_location"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="652dp"
+        android:layout_marginTop="550dp"
         android:background="@drawable/profile_button"
         android:clickable="true"
         android:text="Current Location"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map" />
+
+    <Button
+        android:id="@+id/submit_location"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="167dp"
+        android:background="@drawable/profile_button"
+        android:clickable="true"
+        android:text="submit location"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_location" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
