@@ -90,6 +90,16 @@ public class LikedNotesActivity extends AppCompatActivity implements NavigationV
                     for(DataSnapshot singleSnapshot : task.getResult().getChildren()) {
                         PostCard postCard = singleSnapshot.getValue(PostCard.class);
                         if(postCard.getLikedUidList().contains(uid)){
+                            String subContent = postCard.getPost_content();
+                            if (subContent.length() >= 70){
+                                subContent = subContent.substring(0, 70)  + "...";
+                            }
+                            String subtitle = postCard.getPost_title();
+                            if (subtitle.length() >= 40){
+                                subtitle = subtitle.substring(0, 40) + "...";
+                            }
+                            postCard.setPost_title(subtitle);
+                            postCard.setPost_content(subContent);
                             postCardArrayList.add(postCard);
                         }
                     }
