@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.eatwhat.R;
+import com.example.eatwhat.activity.restaurant.RestaurantPageActivity;
 import com.example.eatwhat.cardview.PostCard;
 import com.example.eatwhat.model.User;
 import com.example.eatwhat.notification.APISERVICE;
@@ -32,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,8 +76,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
 
-
-
     public static final String TAG = "PostDetailActivity";
 
     @Override
@@ -86,6 +86,16 @@ public class PostDetailActivity extends AppCompatActivity {
 
         title = findViewById(R.id.post_detail_title);
         restaurant_name = findViewById(R.id.post_detail_restaurant);
+        restaurant_name.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                // Create a Uri from an intent string. Use the result to create an Intent.
+                Uri gmmIntentUri = Uri.parse("geo:0,0" + "?q=" + Uri.encode(restaurant_name.getText().toString()));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent, ActivityOptions.makeSceneTransitionAnimation(PostDetailActivity.this).toBundle());
+            }
+        });
         star = findViewById(R.id.ratingBar1);
         comment = findViewById(R.id.post_detail_body);
         postDetailImage = (ImageView) findViewById(R.id.post_detail_thumbnail);
