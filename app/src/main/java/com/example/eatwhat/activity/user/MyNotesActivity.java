@@ -60,7 +60,7 @@ public class MyNotesActivity extends AppCompatActivity implements NavigationView
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
-            actionBar.setTitle("My Notes");
+            actionBar.setTitle("My Posts");
         }
     }
 

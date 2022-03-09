@@ -307,7 +307,6 @@ public class PostCreationActivity extends AppCompatActivity {
                         Matrix mMatrix = new Matrix();
                         Matrix mat = imageView.getImageMatrix();
                         mMatrix.set(mat);
-                        mMatrix.setRotate(90);
                         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
                                 bitmap.getHeight(), mMatrix, false);
                         imageView.setImageBitmap(bitmap);

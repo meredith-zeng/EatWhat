@@ -23,7 +23,8 @@
         android:theme="@style/Theme.EatWhat">
         <activity
             android:name=".activity.user.CollectedRestaurantActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EatWhat.NoActionBar"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -14,6 +14,7 @@
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/afterclickbox.xml" value="0.26979166666666665" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/border.xml" value="0.1405" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/collected_36.xml" value="0.1405" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/drawer_reviewhistory_24.xml" value="0.166" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/empty_avatar.xml" value="0.26979166666666665" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1405" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.26979166666666665" />
@@ -31,10 +32,14 @@
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/rounded_rectangular.xml" value="0.26979166666666665" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/topborder.xml" value="0.166" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/drawable/transparent_rectangular.xml" value="0.1405" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_collected_restaurant.xml" value="0.13020833333333334" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_my_map.xml" value="0.12335359675785208" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_my_notes.xml" value="0.25364583333333335" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_post_detail.xml" value="0.12335359675785208" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_restaurant_page.xml" value="0.12335359675785208" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_review_history.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_set_preference.xml" value="0.176" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/activity_sign_up.xml" value="0.25364583333333335" />
@@ -47,6 +52,8 @@
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_account_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_account_list_view.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_posts.xml" value="0.25364583333333335" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/review_card_itm.xml" value="0.25364583333333335" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/review_history_card_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/set_preference.xml" value="0.2" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/using_post_card.xml" value="0.1296875" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/welcomepage.xml" value="0.16530797101449277" />

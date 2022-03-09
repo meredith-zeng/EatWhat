@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.eatwhat.R;
@@ -28,6 +29,7 @@ import com.example.eatwhat.service.ReviewsPojo.Reviews;
 import com.example.eatwhat.service.ReviewsPojo.SingleReview;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -73,7 +75,7 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
 
         getCollectedIdFromFirebase();
         pullDownRefresh();
-
+        setToolBar();
     }
 
     private void getCollectedIdFromFirebase(){
@@ -164,5 +166,23 @@ public class CollectedRestaurantActivity extends AppCompatActivity {
         });
     }
 
+    private void setToolBar() {
+        Toolbar toolbar = (Toolbar)findViewById(R.id.my_collection_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle("My Collection");
+        }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(menuItem);
+    }
 }

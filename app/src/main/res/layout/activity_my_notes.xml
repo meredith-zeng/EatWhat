@@ -6,6 +6,7 @@
     android:gravity="center">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/my_post_actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.EatWhat.AppBarOverlay"
