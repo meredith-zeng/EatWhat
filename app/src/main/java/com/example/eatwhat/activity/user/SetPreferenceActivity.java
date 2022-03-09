@@ -15,7 +15,6 @@ import android.widget.CheckedTextView;
 import android.widget.Toast;
 
 
-import com.example.eatwhat.activity.MainActivity;
 import com.example.eatwhat.R;
 import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,16 +24,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class SetPreferenceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -186,7 +182,6 @@ public class SetPreferenceActivity extends AppCompatActivity implements Navigati
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(menuItem);
     }
 
