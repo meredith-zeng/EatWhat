@@ -3,6 +3,8 @@ package com.example.eatwhat.activity.user;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.eatwhat.R;
 import com.example.eatwhat.activity.MainActivity;
+import com.example.eatwhat.mainActivityFragments.RestaurantFragment;
 import com.example.eatwhat.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     ShapeableImageView imageView;
     TextView email_addr;
     private EditText username;
+    private String userNameString;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     public static final String TAG = "ProfileActivity";
@@ -59,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         imageView = findViewById(R.id.img_launcher_icon);
         email_addr = findViewById(R.id.email_address_in_profile);
         username = findViewById(R.id.username_in_profile);
+        username.setEnabled(false);
         edit_btn = findViewById(R.id.editBtn_in_profile);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -92,6 +97,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         username.setEnabled(false);
+                                        userNameString = username.getText().toString();
                                         Toast.makeText(ProfileActivity.this, "Successfully updated username to " + username.getText().toString(), Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -117,7 +123,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 if (document.exists()) {
 
                     User curUser = document.toObject(User.class);
-                    username.setText(curUser.getUsername());
+                    userNameString = curUser.getUsername();
+                    username.setText(userNameString);
                 }
             }
         });
@@ -150,6 +157,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
+            Intent backMain = new Intent();
+            backMain.putExtra("username", userNameString);
+            setResult(Activity.RESULT_OK, backMain);
             finish();
         }
 
@@ -159,5 +169,14 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent backMain = new Intent(this, RestaurantFragment.class);
+        backMain.putExtra("username", userNameString);
+        setResult(Activity.RESULT_OK, backMain);
+        super.onBackPressed();
     }
 }

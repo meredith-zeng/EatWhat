@@ -35,6 +35,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout myDrawerLayout;
     private NavigationView myNavigationView;
     private static int MAP_LOCATION_CODE = 1;
+    private static int USER_NAME_CODE = 2;
     private double lng = 0;
     private double lat = 0;
 
@@ -67,14 +69,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         createDrawer();
         createFloatingButton();
         createTabsFragment();
-
-
     }
 
     private void createFloatingButton() {
@@ -186,6 +183,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Write your code if there's no result
             }
         }
+        else if (requestCode == USER_NAME_CODE && data != null) {
+            if (resultCode == Activity.RESULT_OK) {
+                Log.d("From Main Activity", "request code user name");
+                super.onActivityResult(requestCode, resultCode, data);
+                String tempUserName = data.getStringExtra("username");
+                System.out.println("Usernmas:" + tempUserName);
+                username.setText(tempUserName);
+            }
+
+            if (resultCode == Activity.RESULT_CANCELED) {
+
+            }
+        }
+        else {
+            Log.d("From Main Activity", "unknown");
+        }
     }
 
 
@@ -225,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
-                startActivity(toProfile);
+                startActivityForResult(toProfile, USER_NAME_CODE);
                 return true;
             case R.id.drawer_postes:
                 Intent toMyNotes = new Intent(this, MyNotesActivity.class);
