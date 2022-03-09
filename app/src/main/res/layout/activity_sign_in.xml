@@ -77,14 +77,16 @@
                 android:id="@+id/btn_linearlayout"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 >
 
                 <ImageButton
                     android:id="@+id/rememberMe_In_signIn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@android:color/transparent"
+
                     >
                 </ImageButton>
 
@@ -93,10 +95,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@id/btn_linearlayout"
                 android:text="Remember me"
-                android:textSize="15dp"/>
+                android:textSize="20dp" />
             <!--
                         <TextView
                             android:id="@+id/forgotPassword"
