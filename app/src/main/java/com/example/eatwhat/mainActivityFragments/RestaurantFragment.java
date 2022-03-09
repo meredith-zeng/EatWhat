@@ -247,7 +247,7 @@ public class RestaurantFragment extends Fragment  {
 
     private void createSpinners(View view, ViewGroup container) {
         String [] categoryArray  = new String[]{"No Category", "tradamerican", "asianfusion", "brazilian",
-                "barbeque", "buffets", "burgers", "cafes",
+                "bbq", "buffets", "burgers", "cafes",
                 "cheesesteaks", "chinese", "chicken_wings", "creperies", "dimsum", "diners",
                 "hotdogs", "foodstands", "french", "german", "gluten_free", "greek", "indpak",
                 "irish", "italian", "japanese", "korean", "latin", "raw_food", "mediterranean",
@@ -309,10 +309,12 @@ public class RestaurantFragment extends Fragment  {
                                 selectedCategory = adapter.getItem(position);
                                 if (selectedCategory.equals("No Category")) {
                                     selectedCategory = null;
+                                    inputRestaurantName = null;
                                     reset();
                                 }
 
                                 if (selectedCategory != null) {
+                                    inputRestaurantName = null;
                                     reset();
                                 }
                                 break;
@@ -412,4 +414,5 @@ public class RestaurantFragment extends Fragment  {
             }
         });
     }
+
 }
