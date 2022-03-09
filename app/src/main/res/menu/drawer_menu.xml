@@ -4,11 +4,11 @@
         android:id="@+id/drawer_menu_top"
         android:checkableBehavior="none">
 
-<!--        <item android:id="@+id/drawer_home"-->
-<!--            android:checkable="true"-->
-<!--            android:title="Home"-->
-<!--            android:icon="@drawable/drawer_home_24"-->
-<!--            />-->
+        <item android:id="@+id/drawer_home"
+            android:checkable="true"
+            android:title="Home"
+            android:icon="@drawable/drawer_home_24"/>
+
         <item android:id="@+id/drawer_profile"
             android:checkable="true"
             android:title="My Profile"
@@ -18,24 +18,18 @@
         <item android:id="@+id/drawer_postes"
             android:checkable="true"
             android:title="My Posts"
-            android:icon="@drawable/drawer_myposts_24"
+            android:icon="@drawable/drawer_reviewhistory_24"
             />
-
-<!--        <item android:id="@+id/drawer_preference"-->
-<!--            android:checkable="true"-->
-<!--            android:title="My Preference"-->
-<!--            android:icon="@drawable/drawer_mypreference_24"-->
-<!--            />-->
 
         <item android:id="@+id/drawer_collected_restaurant"
             android:checkable="true"
             android:title="Collected Restaurant"
-            android:icon="@drawable/drawer_reviewhistory_24"
+            android:icon="@drawable/drawer_myposts_24"
             />
         <item android:id="@+id/drawer_liked_Post"
             android:checkable="true"
             android:title="Liked Post"
-            android:icon="@drawable/drawer_reviewhistory_24"
+            android:icon="@drawable/ic_baseline_thumb_up_24"
             />
     </group>
 

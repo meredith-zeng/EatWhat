@@ -71,8 +71,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements Navigat
                                                 if (task.isSuccessful()) {
                                                     Toast.makeText(ChangePasswordActivity.this, "Password updated!!", Toast.LENGTH_SHORT).show();
                                                     Log.d(TAG, "Password updated");
-                                                    Intent intent = new Intent(ChangePasswordActivity.this, ProfileActivity.class);
-                                                    startActivity(intent);
+                                                    //Intent intent = new Intent(ChangePasswordActivity.this, ProfileActivity.class);
+                                                    //startActivity(intent);
                                                     finish();
 
                                                 } else {

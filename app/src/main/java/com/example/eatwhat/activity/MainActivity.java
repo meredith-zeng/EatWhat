@@ -220,6 +220,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
+            case R.id.drawer_home:
+                myDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             case R.id.drawer_profile:
                 Intent toProfile = new Intent(this, ProfileActivity.class);
                 startActivity(toProfile);
