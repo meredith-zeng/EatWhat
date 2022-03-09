@@ -51,7 +51,10 @@
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/fragment_todays.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_account_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_account_list_view.xml" value="0.25364583333333335" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_notes_card_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/my_posts.xml" value="0.25364583333333335" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/notification.xml" value="0.25364583333333335" />
+        <entry key="..\:/Github/EatWhat/app/src/main/res/layout/post_creation.xml" value="0.12335359675785208" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/review_card_itm.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/review_history_card_item.xml" value="0.25364583333333335" />
         <entry key="..\:/Github/EatWhat/app/src/main/res/layout/set_preference.xml" value="0.2" />
@@ -133,7 +136,7 @@
         <entry key="app/src/main/res/layout/fragment_todays.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/layout_dialog.xml" value="0.34427083333333336" />
         <entry key="app/src/main/res/layout/my_notes_card_item.xml" value="0.20643363728470113" />
-        <entry key="app/src/main/res/layout/notification.xml" value="0.17864583333333334" />
+        <entry key="app/src/main/res/layout/notification.xml" value="0.335" />
         <entry key="app/src/main/res/layout/post_creation.xml" value="0.46829636839138916" />
         <entry key="app/src/main/res/layout/restaurant_cardview_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/restaurant_spinner_search.xml" value="0.20643363728470113" />

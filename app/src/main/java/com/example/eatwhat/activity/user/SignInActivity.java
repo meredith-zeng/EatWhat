@@ -220,6 +220,7 @@ public class SignInActivity extends AppCompatActivity {
 
                         } else {
 
+
                             Log.d(TAG, "" + task.getException());
                         }
                     }
