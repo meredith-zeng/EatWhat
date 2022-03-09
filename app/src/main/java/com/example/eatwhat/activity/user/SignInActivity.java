@@ -167,7 +167,6 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else{
                     signIn(email_str, password_str);
-                    checkToken();
                 }
 
             }
@@ -193,6 +192,7 @@ public class SignInActivity extends AppCompatActivity {
                                     myEdit.commit();
                                 }
                             }
+                            checkToken();
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);

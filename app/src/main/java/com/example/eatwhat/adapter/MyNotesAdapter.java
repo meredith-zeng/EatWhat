@@ -86,7 +86,7 @@ public class MyNotesAdapter extends RecyclerView.Adapter<MyNotesAdapter.Viewhold
         holder.myNotesContent.setText(subContent);
 //        holder.myNotesTitle.setText(model.getPost_title());
 //        holder.myNotesContent.setText(model.getPost_content());
-        holder.myNotesNumberOfLike.setText(" " + model.getLikedUidList().size() +  "  People liked");
+        holder.myNotesNumberOfLike.setText(" " + model.getLikedUidList().size() +  " likes");
 
         String imageUrl = model.getPost_image_url();
         FirebaseStorage storage = FirebaseStorage.getInstance();

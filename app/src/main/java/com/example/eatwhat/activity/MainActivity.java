@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //add tab names
         tabLayout.addTab(tabLayout.newTab().setText("Restaurants"));
-        tabLayout.addTab(tabLayout.newTab().setText("Notes"));
+        tabLayout.addTab(tabLayout.newTab().setText("Posts"));
         tabLayout.addTab(tabLayout.newTab().setText("Today's"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

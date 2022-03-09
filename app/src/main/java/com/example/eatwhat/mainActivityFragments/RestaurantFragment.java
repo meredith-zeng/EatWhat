@@ -311,13 +311,10 @@ public class RestaurantFragment extends Fragment  {
                                 if (selectedCategory.equals("No Category")) {
                                     selectedCategory = null;
                                     reset();
-                                    initData();
                                 }
-                                //Log.e(TAG+ "choose category", selectedCategory);
 
                                 if (selectedCategory != null) {
                                     reset();
-                                    initData();
                                 }
                                 break;
                         }
