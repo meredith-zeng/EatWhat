@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class LikedNotesActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_liked_notes);
         setToolBar();
         initData();
+        pullDownToRefresh();
     }
 
 
@@ -93,6 +95,18 @@ public class LikedNotesActivity extends AppCompatActivity implements NavigationV
                     }
                     initRecyclerView();
                 }
+            }
+        });
+    }
+
+    private void pullDownToRefresh() {
+        SwipeRefreshLayout swipe = findViewById(R.id.swiperefresh_liked_notes);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                postCardArrayList.clear();
+                initData();
+                swipe.setRefreshing(false);
             }
         });
     }
