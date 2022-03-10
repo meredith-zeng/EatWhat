@@ -60,8 +60,9 @@ public class PostDetailActivity extends AppCompatActivity {
     private TextView title;
     private TextView restaurant_name;
     private RatingBar star;
-    private TextView mUserLocation;
+
     private TextView comment;
+    ImageButton imageBtn_in_details;
     private ConstraintLayout piclayout;
     private ImageView postDetailImage;
     private FirebaseAuth mAuth;
@@ -70,10 +71,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private boolean isLiked;
     private String uid;
     DocumentReference docRef;
-
-
     APISERVICE apiservice;
-
 
 
     public static final String TAG = "PostDetailActivity";
@@ -86,7 +84,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
         title = findViewById(R.id.post_detail_title);
         restaurant_name = findViewById(R.id.post_detail_restaurant);
-        restaurant_name.setOnClickListener(new View.OnClickListener(){
+        imageBtn_in_details = findViewById(R.id.imageBtn_in_details);
+        imageBtn_in_details.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 // Create a Uri from an intent string. Use the result to create an Intent.
