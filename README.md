@@ -76,3 +76,13 @@ The search funtion is based on location (city）
 ![image](https://user-images.githubusercontent.com/29085565/158921196-aceeeae1-28ef-4e08-9674-427ff5aabd85.png)
 ![image](https://user-images.githubusercontent.com/29085565/158921226-c0ebe2dd-a204-44cf-aaa4-959a7ef3fd8c.png)
 
+## Database design
+Non-relational database structure for post
+
+![image](https://user-images.githubusercontent.com/29085565/158922161-dabe669d-b92a-44fc-80ea-01692e24d1b4.png)
+
+
+Non-relational database structure for a user
+
+![image](https://user-images.githubusercontent.com/29085565/158922197-577ec415-2a51-4105-9325-f82bf55d61b0.png)
+
