@@ -1,5 +1,5 @@
-# COEN268 Final Project  ---- Final Project
-Ce Pang, Honglin Chen, Xinwei Lu, Yulin Zeng, Zhihao Lin
+# COEN268 Final Project (Group 4) ---- EatWhat
+Contributors:  Ce Pang, Honglin Chen, Xinwei Lu, Yulin Zeng, Zhihao Lin
 
 ## Overview
 EatWhat is a restaurant recommendation application based on Android platform. 
@@ -90,3 +90,7 @@ Non-relational database structure for a user
 ## External API used
 For Restaurant search functionality, we used Yelp Fusion API
 https://www.yelp.com/developers/documentation/v3/get_started
+
+## Future Improvaments:
+1. use session to achieve persistent login
+2. Implememt delete function for user posts
