@@ -1,4 +1,4 @@
-# COEN268 Group 4’s Final Project
+# COEN268 Final Project  ---- Final Project
 Ce Pang, Honglin Chen, Xinwei Lu, Yulin Zeng, Zhihao Lin
 
 ## Overview
@@ -86,3 +86,7 @@ Non-relational database structure for a user
 
 ![image](https://user-images.githubusercontent.com/29085565/158922197-577ec415-2a51-4105-9325-f82bf55d61b0.png)
 
+
+## External API used
+For Restaurant search functionality, we used Yelp Fusion API
+https://www.yelp.com/developers/documentation/v3/get_started
